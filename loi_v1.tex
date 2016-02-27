@@ -1,0 +1,38 @@
+
+
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage[margin=1.0in]{geometry}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{LoI}
+\lhead{COMP SCI 6401 SP2016}
+%\rfoot{Page \thepage}
+
+\renewcommand{\thesection}{\Alph{section}}
+ 
+\begin{document}
+ 
+\section{Name and degree program}
+ 
+Edward Norris, PhD in Nuclear Engineering
+
+\section{Project Title}
+
+An Evolutionary Algorithm for Online Spatial Discretization Optimization
+
+\section{Project Concept}
+
+Ionizing radiation is used extensively in many fields such as medicine, power production, and industrial non-invasive interrogation, however, utilization of such radiation poses a health concern to the surrounding populace. Engineering simulations are critical in determining the exposure to individuals in order to mitigate risks and ensure that proper protective measures are in place. However, these simulations are very time consuming, therefore, a two phase scheme is used. First, the model is simulated with a deterministic method utilizing a coarse spatial refinement mesh. This results in biasing parameters for the second phase, a high fidelity Monte Carlo calculation of exposure.
+
+The success of the deterministic simulation in producing biasing parameters to accelerate the Monte Carlo code is highly dependent on the spatial discretization parameters selected. Unfortunately, selection of optimal parameters is very difficult and are typically tuned via experts. Therefore, an evolutionary algorithm is proposed to perform the spatial discretization refinement. Evolutionary algorithms have shown promising results in similar engineering simulations for parameter tuning including other spatial discretization tuning.
+
+The primary drawback of utilization of an evolutionary algorithm in practical application is that each fitness evaluation necessitates a fresh start of the Monte Carlo simulation, increasing runtime untenably. However, a unique property of the two phase simulation scheme presented is that the accelerating simulation does not impact the value of the final solution, only the convergence rate. Therefore, this work proposes to evolve discretization parameters \textit{online} with respect to the Monte Carlo simulation. A single Monte Carlo simulation will continuously run and spatial discretizations will be swapped out at run-time. The statistical contribution from the current deterministic simulation can be calculated for the fitness function. Further, within the online framework, each discretization in the population can be evaluated until its fitness is known only to within some statistical threshold of other members of the population. This allows pruning of poor solutions through early termination.
+
+The current state of the art in spatial discretization selection (specifically adaptive mesh refinement) utilizes octrees in 3D space. However, an octree mesh refinement is not applicable to the type of deterministic simulation used to accelerate the Monte Carlo code of interest. This necessitates development of a new representation of the spatial domain. Instead of a single octree population, three segment tree populatioins will be co-evolved using cooperative co-evolution. Novel mutation and recombination operators will have to be constructed to operate on segment trees instead of octrees.
+ 
+\end{document}
+
