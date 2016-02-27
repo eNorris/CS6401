@@ -64,3 +64,6 @@ target/
 *.dvi
 *.synctex.gz
 *.pdf
+*.bib~
+*.bbl
+*.blg
