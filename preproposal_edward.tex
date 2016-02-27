@@ -9,6 +9,8 @@
 \usepackage[margin=1.0in]{geometry}
 \usepackage{fancyhdr}
 
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}{\section*}{\section}{}{}
 
 %\numberwithin{equation}{subsection}
 
@@ -57,8 +59,6 @@
 \title{Title}
 \author{Edward Norris}
 
-
-
 %\maketitle
 %\thispagestyle{fancy}
 
@@ -69,522 +69,123 @@
 %\tableofcontents
 
 \section{Project Summary}\label{sec:A}
-
-\subsection{Name and degree program}\label{sec:a1}
-
+\subsection{Name and Degree Program}\label{sec:a1}
 Edward Norris, PhD in Nuclear Engineering
 
-\subsection{Project title}\label{sec:a2}
+\subsection{Project Title}\label{sec:a2}
 An Evolutionary Algorithm for Online Spatial Discretization Optimization
 
-\subsection{Project description}\label{sec:a3}
+\subsection{Project Description}\label{sec:a3}
+Ionizing radiation is used extensively in many fields such as medicine, power production, and industrial non-invasive interrogation, however, utilization of such radiation poses a health concern to the surrounding populace. Engineering simulations are critical in determining the exposure to individuals in order to mitigate risks and ensure that proper protective measures are in place. However, these simulations are very time consuming, therefore, a two-phase scheme is used. First, the model is simulated with a relatively fast deterministic method utilizing a coarse spatial refinement mesh. This produces biasing parameters for the second phase, a high fidelity Monte Carlo calculation of exposure.
 
-Ionizing radiation is used extensively in many fields such as medicine, power production, and industrial non-invasive interrogation, however, utilization of such radiation poses a health concern to the surrounding populace. Engineering simulations are critical in determining the exposure to individuals in order to mitigate risks and ensure that proper protective measures are in place. However, these simulations are very time consuming, therefore, a two phase scheme is used. First, the model is simulated with a deterministic method utilizing a coarse spatial refinement mesh. This results in biasing parameters for the second phase, a high fidelity Monte Carlo calculation of exposure.
+The success of the deterministic simulation in producing biasing parameters to accelerate the Monte Carlo code is highly dependent on the spatial discretization parameters selected. Unfortunately, selection of optimal parameters is very difficult and is typically tuned by experts. Experts well-versed in the nuances of developing good spatial discretizations are greatly outnumbered by those desiring such expertise; therefore, an evolutionary algorithm is proposed to perform the spatial discretization refinement. Evolutionary algorithms have shown promising results in similar engineering simulations for parameter tuning including other spatial discretization tuning.
 
-The success of the deterministic simulation in producing biasing parameters to accelerate the Monte Carlo code is highly dependent on the spatial discretization parameters selected. Unfortunately, selection of optimal parameters is very difficult and are typically tuned via experts. Therefore, an evolutionary algorithm is proposed to perform the spatial discretization refinement. Evolutionary algorithms have shown promising results in similar engineering simulations for parameter tuning including other spatial discretization tuning.
-
-The primary drawback of utilization of an evolutionary algorithm in practical application is that each fitness evaluation necessitates a fresh start of the Monte Carlo simulation, increasing runtime untenably. However, a unique property of the two phase simulation scheme presented is that the accelerating simulation does not impact the value of the final solution, only the convergence rate. Therefore, this work proposes to evolve discretization parameters online with respect to the Monte Carlo simulation. A single Monte Carlo simulation will continuously run and spatial discretizations will be swapped out at run-time. The statistical contribution from the current deterministic simulation can be calculated for the fitness function. Further, within the online framework, each discretization in the population can be evaluated until its fitness is known only to within some statistical threshold of other members of the population. This allows pruning of poor solutions through early termination.
+The primary drawback of utilization of an evolutionary algorithm in practical application is that each fitness evaluation necessitates a fresh start of the Monte Carlo simulation, increasing runtime untenably. However, a unique property of the two-phase simulation scheme  is that the accelerating simulation does not impact the value of the final solution, only the convergence rate. Therefore, this work proposes to evolve discretization parameters online with respect to the Monte Carlo simulation. A single Monte Carlo simulation will continuously run and spatial discretizations will be swapped out during run-time. The statistical contribution from the current deterministic simulation can be calculated for the fitness function. Within the online framework, each discretization in the population can be evaluated until only its fitness is known to within some statistical threshold of other individuals. This allows pruning of poor solutions through early termination.
 
 
-\subsection{Intellectual merit}\label{sec:a4}
+\subsection{Intellectual Merit}\label{sec:a4}
+The current state-of-the-art in spatial discretization selection (specifically adaptive mesh refinement) utilizes octrees in 3D space. However, an octree mesh refinement is not applicable to the type of deterministic simulation used to accelerate the Monte Carlo code of interest. This necessitates development of a new representation of the spatial domain. Instead of a single octree population, three segment tree populations will be cooperatively co-evolved. Novel mutation and recombination operators will have to be constructed to operate on segment trees instead of octrees.
 
-The current state of the art in spatial discretization selection (specifically adaptive mesh refinement) utilizes octrees in 3D space. However, an octree mesh refinement is not applicable to the type of deterministic simulation used to accelerate the Monte Carlo code of interest. This necessitates development of a new representation of the spatial domain. Instead of a single octree population, three segment tree populatioins will be co-evolved using cooperative co-evolution. Novel mutation and recombination operators will have to be constructed to operate on segment trees instead of octrees.
+\subsection{Societal Benefit}\label{sec:a5}
+Implementation of an evolutionary algorithm to automate generation of biasing parameters produced by a deterministic code for Monte Carlo acceleration will greatly enhance engineers' abilities to rapidly verify the safety of nuclear systems. Accurate simulations enable the dose to individual members of the public to be estimated so that systems can be optimized in order to reduce the health impact radiation imposes.
 
-\subsection{Societal benefit}\label{sec:a5}
-
-Implementation of an evolutionary algorithm to accelerate generation of biasing parameters in a deterministic code for Monte Carlo codes will greatly enhance engineers ability to rapidly verify the safety of nuclear systems. Accurate simulations enable the dose to individual members of the public to be estimated so that systems can be optimized in order to reduce the levels of ionizing radiation reaching individuals, hence reducing the health impact such radiation imposes.
-
-Further, benefits can be extended to any field that couple a non-stoichastic simulation technique to generate biasing parameters for a Monte Carlo code. Such simulation systems are very prevalent in fluid dynamics, physics, heat transfer, and many other engineering fields.
-
-Application outside NE?
+Further, benefits can be extended to any field that couples a non-stochastic simulation technique to generate biasing parameters for a Monte Carlo code. Such simulation systems are very prevalent in fluid dynamics, physics, heat transfer, and many other engineering fields.
 
 \section{Project Narrative}\label{sec:b}
-
 \subsection{Introduction}\label{sec:b1}
+Monte Carlo simulations require detailed knowledge of the geometry of a system as well as type and location of radiation. With this information, a Monte Carlo simulation can calculate the dose to a person at a particular location due to the radioactive source(s). Radiation penetration through a shield is described as a Poisson process, meaning that the accuracy of a Monte Carlo simulation within some volume is inversely proportional to the square root of the number of particles in that volume. Therefore, in deep shielding problems, in which a strong source is attenuated (reduced in strength) greatly, the statistical uncertainty increases dramatically. 
 
-Monte Carlo simulations require detailed knowledge of the geometry of a system as well as what type of radiation is emitted and from where. With this information, a Monte Carlo simulation can calculate the dose to a person at a particular location due to the radioactive sources. However, in deep shielding problems, in which a strong source is attenuated (reduced in strength) greatly, the statistical uncertainty 
+In order to alleviate the high uncertainty in the analog Monte Carlo (so called due to it being directly analogous the physical transport process), biasing parameters are added to Monte Carlo simulations. Biasing parameters split important particles and kill unimportant ones to maximize the number of particles that reach the area of interest and reduce the computational overhead of tracking those that do not.
 
-The analog Monte Carlo (so called due to it being directly analogous the the physical transport process) is very slow. 
+However, the production of accurate biasing parameters remains difficult. To remedy this, an adjoint transport calculation is made using a deterministic code. Rather than tracking particles forward through time as they traverse space and building a mesh of dose values, the adjoint solution tracks particles backward from an object of interest and builds a mesh of \textit{importance} to the region of interest.
 
-The figure of merit (FOM) is a metric used to compare the overall performance of two simulations. The FOM gives a directly comparable measure of performance for any two simulations as long as the physical problem being solved does not change and the computation hardware the two simulations were run on are identical. The FOM is defined in Eq. \ref{eq:fom} where $T$ is the wall clock runtime of the simulation and $R$ is the estimated relative uncertainty of the output.
-
+Quantification of the effectiveness of a set of biasing parameters is done by calculating the figure of merit (FOM). The FOM is a metric used to compare the overall performance of two simulations and gives a directly comparable measure of performance for any two simulations as long as the physical problem being solved does not change and the computation hardware the two simulations were run on are identical. The FOM is defined in Eq.~\ref{eq:fom} where $T$ is the wall clock runtime of the simulation and $R$ is the estimated relative uncertainty of the output.
 \begin{equation} \label{eq:fom}
 FOM = \frac{1}{T R^2}
 \end{equation}
+Systems that use a deterministic solver to calculate the adjoint solution in order to produce biasing parameters for the primary Monte Carlo simulation are known as hybrid systems. One such system is AutomateD VAriaNce reducTion Generator (ADVANTG)~\cite{ref:Mosher2015} which is a framework developed at Oak Ridge National Laboratory specifically to produce biasing parameters for Monte Carlo N-Particle version~5 (MCNP)~\cite{ref:X5}, a Monte Carlo code developed by Los Alamos National Laboratory for radiation transport. 
 
-In important regions many samples of low weight
-are tracked, while in unimportant regions few samples of high weight are tracked. A weight adjustment is made to ensure that the problem solution remains unbiased.
+However, currently available general-purpose radiation transport hybrid systems require a user defined spatial discretization in the form of a Cartesian grid~\cite{ref:Wagner2014, ref:Mosher2015}. This work will develop an evolutionary algorithm to optimize the spatial discretization grid for ADVANTG which will accelerate MCNP, these two codes have been coupled together very successfully~\cite{ref:Blakeman2007, ref:Risner2013, ref:Ibrahim2011, ref:Wagner2011}.
 
-The weight windows are used for particle rouletting and splitting. When a particle of weight $w_p$ moves into a region of weight $w_R$ that is higher than the particles weight, it may be split into multiple particles, each of the higher weight. Conversely, if the particle moves into a region of lower weight than itself, there is a chance it will be killed; surviving particles have their weight updated to the lower weight. Between these two biasing techniques, particles that have low probability of reaching a area of interest can be killed, reducing simulation time, and other particles can artificially be propogated through a highly attenuating medium.
+%The weight windows are used for particle rouletting and splitting. When a particle of weight $w_p$ moves into a region of weight $w_R$ that is higher than the particles weight, it may be split into multiple particles, each of the higher weight. Conversely, if the particle moves into a region of lower weight than itself, there is a chance it will be killed; surviving particles have their weight updated to the lower weight. Between these two biasing techniques, particles that have low probability of reaching a area of interest can be killed, reducing simulation time, and other particles can artificially be propogated through a highly attenuating medium.
 
-However, the production of accurate weight window meshes remains difficult. To remedy this, the adjoint transport calculation is made. Rather than tracking particles forward through time as they traverse space and building a mesh of dose values, the adjoint solution tracks particles backward from an object of interest and builds a mesh of influence on the region of interest. This mesh is then used directly as the weight window map.
 
-One such solver is AutomateD VAriance NT Generator (ADVANTG) which is a code packaged developed at Oak Ridge National Lab specifically to produce weight window meshes for MCNP. However, it is up to the user to provide a spatial discretization for the weight window mesh on which the adjoint solution will be solved.
+\subsection{Related Work}\label{sec:b2}
+In modern deterministic algorithms, spatial refinement is performed with a quadtree in 2D or an octree in 3D. However, quadtree/octree geometries cannot be utilized in the ADVANTG framework, instead, a structured Cartesian grid is required. A comparison of a 2D quadtree geometry and a 2D structured grid is shown in Fig.~\ref{fig:treecomp}. 
 
-Justify use of an EA
+%Solutions have been shown to increase as the refinement increases, however, it has also been shown that, in increasing the discretization may only decrease the relative error by a marginal amount while increasing the computational time immensely [cite?]. Adaptive discretizations, for example, in the angular domain have little performance gain over their standard counterparts, except when large discontinuities are present in the problem~\cite{ref:jarrell2010}.
+\begin{figure}
+    \centering
+    \includegraphics[width=3.0in]{treecomp}
+    \caption{(Left) A 2D quadtree spatial representation. (Right) A structured Cartesian grid spatial representation.}
+    \label{fig:treecomp}
+\end{figure}
 
-\subsection{Related work}\label{sec:b2}
+Octrees have been in use since 1980~\cite{ref:jackins1980249} to represent 3D space and have since been extended to K-trees to represent higher dimensional problems~\cite{ref:jackins1983533}. Octrees have been shown to be highly successful representing Cartesian geometry for computational engineering problems, particularly for adaptive mesh refinement~\cite{ref:Linden201558}. Oct-trees have also been used successfully to decompose image space, including 2D images~\cite{ref:Lange2004592} and 3D images~\cite{ref:udomchaiporn2013229, ref:Lee2010359}. Octrees have even been used directly in Monte Carlo simulations for radiative transfer of dust~\cite{ref:Saftly2013} that track voxels rather than individual particles.
 
-It's all good!
+Octree structures remain inefficient in particle tracking Monte Carlo simulations due to the additional computational overhead. At every step in the path of every particle, its intersection with all bounding surfaces of the voxel containing it must be calculated. Such calculations are extremely fast in structured Cartesian grids, but much slower in unstructured meshes. Therefore, MCNP only supports structured Cartesian grids as input for biasing parameters.
 
-\subsection{Proposed research}\label{sec:b3}
+Though the physical representation of space is different between octree methodology and the proposed segment-tree methodology, both share a similar tree-like structure that represents a physical space. Therefore, a survey of evolutionary algorithms that evolve octrees and similarly structured trees could prove beneficial in the development of evolutionary operators.
 
-Optimization of the spatial discretization for the ADVANTG code is proposed to be evolved by an evolutionary algorithm. The spatial discretization will be optimized online with respect to the Monte Carlo simulation. 
+Many evolutionary algorithms have been used in the past that involve octrees but do not directly evolve them. They are often used as a medium to partition some space into a structure more suited for evolutionary computing ~\cite{ref:Zhu2015301, ref:Schwertfeger200853}. While these applications do not directly evolve the spatial discretization itself, some insight into applicable operators can still be gleaned from them. For example, Laszlo and Mukherjee developed an algorithm to assist in $k$-means clustering by building a quadtree and using selected nodes as an initial guess for the $k$-means clustering algorithm~\cite{ref:Laszlo2006}. Though the octree itself was not evolved, Laszlo and Mukherjee highlighted that the refinement density in space can be leveraged to produce more effective crossover operators.
 
-As reiterated, the current state of the art in mesh optimization uses 
+Majeed and Ryan proposed special version of the one point crossover operator for GP that takes advantage of the structure of the parent trees to produce more optimized offspring~\cite{ref:Majeed2007}. Seo and Goodman extended this work by adding a similar mutation operator that maintains a structural metric in order to explore the search space in a more complete fashion~\cite{ref:seo2009}.
 
-\subsection{Qualifications and resources}\label{sec:b4}
+\subsection{Proposed Research}\label{sec:b3}
+Each of the $x$, $y$, and $z$ axes will be represented as a segment tree. In a segment tree, a single dimension of space is recursively divided into sub-segment trees until the leaf nodes are reached. The leaf nodes consist of discrete points along that dimension. An example segment tree along an axis from 0 to 1 is shown in Fig.~\ref{fig:segtree}.
 
-The PI is a PhD student in nuclear engineering with over five years of experience with MCNP and whose research work involves usage of both MCNP and ADVANTG on a daily basis.
+% Crossover
+Since neighbors in the segment tree are also neighbors in physical space, it is expected that unique evolutionary operators can be devised to leverage these aspects. In the proposed segment tree, there is a unique constraint in that every leaf node must be strictly greater than the node to its left and strictly less than the node to its right. Standard crossover operators cannot be applied since they will almost similarly violate this monotonicity constraint. There are a number of ways to alleviate this, first, the standard crossover could be applied and then a repair algorithm is applied which rearranges the tree into a valid structure. Alternatively, branches from one tree could be selectively chosen to replace specific other branches, though some kind of repair function would again be necessary. Both of these options will be implemented and compared.
 
-The PI has access to a desktop computer representative of the target platform. While running the optimization algorithm on a cluster or similiar high performance system would be preferable, there are strigent export control issues that prevent running MCNP on general computing clusters.
+% Mutation
+Two kinds of mutation are considered in this work, the first operates on all segments on the tree, the second only on a subset of leaf nodes. The first mutation operator will shift all points either to the left or right by some amount, this will allow regions of high point density to travel and explore the search space. The second mutation operator will \textit{only} be applied to nodes in the segment tree that are direct parents of leaf nodes. They will either have more leaf nodes added, increasing point density, or have them pruned, reducing their density. The combination of these two mutation operators is expected to allow regions of high density to travel while simultaneously allowing new exploration.
 
-\subsection{Tentative work plan}\label{sec:b5}
-
-Yeah, about that too...
-
-\section{References}\label{sec:c}
-
-They exist.
-
-\begin{equation} \label{eq_boltz_t_dep}
-\begin{split}
-	&\left[ \frac{1}{v(E)} \frac{\partial}{\partial t} + \hat{\Omega} \cdot \nabla + \Sigma_t(\boldsymbol{r}, E, t) \right]
-	\psi(\boldsymbol{r}, E, \hat{\Omega}, t) = \\
-	&\int_{4 \pi} \int_0^\infty \Sigma_s(\boldsymbol{r}, E' \rightarrow E, \hat{\Omega}' \rightarrow \hat{\Omega}, t) \psi(\boldsymbol{r}, E', \hat{\Omega}', t) dE' d\hat{\Omega}' + S(\boldsymbol{r}, E, \hat{\Omega}, t)
-\end{split}
+% Fitness eval
+While swapping out the biasing parameters of MCNP during runtime would be advantageous in some respects, it would complicate the comparison of the fitness of individuals. Therefore, an artificial online algorithm is proposed. Two separate runs of $N_1$ and $N_2$ particles produce dose values $D_1$ and $D_2$ with uncertainty $R_1$ and $R_2$ respectively. The combined dose, $D$, and uncertainty, $R$, can be computed with Eq.~\ref{eq:mean_combine} and ~\ref{eq:stddev_combine} respectively~\cite{ref:knoll2000}. Utilizing Eq.~\ref{eq:mean_combine} and~\ref{eq:stddev_combine}, results of any number of MCNP runs can be combined to produce a result statistically indistinguishable from a true online solution.
+\begin{equation}\label{eq:mean_combine}
+D = \frac{N_1}{N_1 + N_2} D_1 + \frac{N_2}{N_1 + N_2} D_2 \\
+\end{equation}
+\begin{equation}\label{eq:stddev_combine}
+R = \sqrt{\left( \frac{N_1}{N_1 + N_2}\right)^2 R_1 + \left( \frac{N_2}{N_1 + N_2}\right)^2 R_2}
 \end{equation}
 
-However, we are typically not concerned with the transient case in medical diagnostic imaging. We are more interested in the steady state case. The time independent form of Eq. \ref{eq_boltz_t_dep} is written as
-
-\begin{equation} \label{eq_boltz}
-\begin{split}
-	&\left[ \hat{\Omega} \cdot \nabla + \Sigma_t(\boldsymbol{r}, E) \right]
-	\psi(\boldsymbol{r}, E, \hat{\Omega}) = \\
-	&\int_{4 \pi} \int_0^\infty \Sigma_s(\boldsymbol{r}, E' \rightarrow E, \hat{\Omega}' \rightarrow \hat{\Omega}) \psi(\boldsymbol{r}, E', \hat{\Omega}') dE' d\hat{\Omega}' + S(\boldsymbol{r}, E, \hat{\Omega})
-\end{split}
-\end{equation}
-
-\subsection{Harmonic Approximation}
-Equation \ref{eq_boltz} has a number of terms that cannot be solved directly. Instead, some numerical approximation must be used. The macroscopic scattering cross section, $\Sigma_s$ is typically expanded with a Legendre polynomial (for more information of Legendre polynomials, refer to Section \ref{sec_legendre}). The expansion is as follows:
-
-\begin{equation} \label{eq_sigma_expansion}
-\Sigma_s(\boldsymbol{r}, E' \rightarrow E, \hat{\Omega}' \rightarrow \hat{\Omega}) \approx \sum_{l=0}^L \frac{2l+1}{4 \pi} \Sigma_{s,l}(\boldsymbol{r}, E' \rightarrow E) P_l(\hat{\Omega}' \rightarrow \hat{\Omega})
-\end{equation}
-
-where $\Sigma_{s,l}$ is the expansion coefficients termed the "scattering moments." The Legendre polynomials $P_l(\hat{\Omega}' \rightarrow \hat{\Omega}$ are defined as
-
-\begin{equation} \label{eq_harmonic}
-P_l(\hat{\Omega}' \rightarrow \hat{\Omega}) = \frac{1}{2l+1}\sum_{m=-l}^l Y_{l,m}^*(\hat{\Omega}')Y_{l,m}(\hat{\Omega})
-\end{equation}
-
-The angular fluence ($\phi$) is also expanded as
-
-\begin{equation}
-\phi(\boldsymbol{r}, E', \hat{\Omega}') \approx \sum_{l=0}^L \sum_{m=-l}^l
-\phi_{lm}(\boldsymbol{r}, E')Y_{lm}(\hat{\Omega}')
-\end{equation}
-
-\noindent
-A source term suitable for numeric integration is then
-
-\begin{equation}\label{eq_harmonic_simp1}
-\begin{split}
-\int_0^\infty dE' \int_{4 \pi} d\hat{\Omega}' \Sigma_s(\boldsymbol{r}, E' \rightarrow E, \hat{\Omega}' \rightarrow \hat{\Omega}) \phi(\boldsymbol{r}, E', \hat{\Omega}')
-\approx \\
- \sum_{l=0}^L \frac{2l+1}{4 \pi} \sum_{m=-l}^l \Sigma_{s,l}^{gg'}\phi_{i,j,k,lm}^{g'}Y_{l,m}(\hat{\Omega}_n)
-\end{split}
-\end{equation}
-
-Finally, substituting Eqs. \ref{eq_harmonic_simp1} and <> into <>, we arrive at
-
-\begin{equation}\label{eq_discretized}
-\begin{split}
-\hat{\Omega}_n \cdot \nabla\psi_{i,j,k,n}^g + \sigma_{i,j,k}^g \psi_{i,j,k,n}^g = \\
-\sum_{g' = 0}^G \sum_{l=0}^L \frac{2l+1}{4 \pi} \sum_{m=-l}^l \sigma_{s,l}^{g,g'}\psi_{i,j,k,l,m}^{g'}Y_{l,m}(\hat{\Omega}_n) + \frac{1}{4 \pi}q_{i,j,k}^g
-\end{split}
-\end{equation}
-
-We can calculate the scalar flux as
-
-\begin{equation}
-\phi_{i,j,k}^g = \sum_{n=1}^{|\Omega|} w_n \psi_{i,j,k,n}^g
-\end{equation}
-
-\subsection{Discretization}
-The continuous Boltzmann Equation Approximation has to be discretized in all dimensions to run on a computer.
-
-The gradient of $\psi$ is calculated as
-
-\begin{equation}
-\nabla \psi_{i,j,k,n}^g \approx
-\left\langle  
-\frac{\psi_{i+1,j,k}^g - \psi_{i-1,j,k}^g}{\Delta x},
-\frac{\psi_{i,j+1,k}^g - \psi_{i,j-1,k}^g}{\Delta y},
-\frac{\psi_{i,j,k+1}^g - \psi_{i,j,k-1}^g}{\Delta z}
-\right\rangle
-\end{equation}
-
-There are six faces on each parallelpiped with normals $<\pm 1, 0, 0>$, $<0, \pm 1, 0>$, and $<0, 0, \pm 1>$. Taking the dot product of these normals and the evaluated gradient gives
-
-\begin{equation}
-\hat{\Omega} \cdot \nabla \psi_{i,j,k}^g \approx
-2 \left(
-\frac{\psi_{i+1,j,k}^g - \psi_{i-1,j,k}^g}{\Delta x} +
-\frac{\psi_{i,j+1,k}^g - \psi_{i,j-1,k}^g}{\Delta y} +
-\frac{\psi_{i,j,k+1}^g - \psi_{i,j,k-1}^g}{\Delta z}
-\right)
-\end{equation}
+The evolutionary algorithm will be run on a series of toy problems created only to demonstrate its effectiveness as well as benchmark problems given in~\cite{ref:Mosher2015}. The benchmark results will be compared to results obtained from expert generated biasing parameters.
 
 \begin{figure}
     \centering
-    \includegraphics[width=3.0in]{test}
-    \caption{Simulation Results}
-    \label{simulationfigure}
+    \includegraphics[width=3.0in]{treeex}
+    \caption{Segment tree example for a single axis.}
+    \label{fig:segtree}
 \end{figure}
 
-\section{Implementation}
-At this point, we have successfully developed an algorithm that can be implemented on a computer. However, there are many challenges in actually implementing this algorithm.
+\subsection{Qualifications and Resources}\label{sec:b4}
+The PI is a PhD student in nuclear engineering with over five years of experience with MCNP and whose research work involves usage of both MCNP and ADVANTG on a daily basis. The PI is concurrently pursuing a MS in computer science and has working knowledge of EAs from previous coursework.
 
-\subsection{Design}
-Yeah, it was designed.
+The PI has access to a desktop computer representative of the target platform for this algorithm. While running the optimization algorithm on a cluster or similar high performance system would be preferable, there are stringent export control issues that prevent running MCNP on general computing clusters. 
 
-\subsection{Language Selection}
-Yeah, it was selected.
+\subsection{Tentative Work Plan}\label{sec:b5}
+During the remaining ten weeks before the final deadline, the tentative work plan is as follows:
 
-\subsection{Salome}
-We chose to use the Salome framework for numerical pre/post-processing. Salome includes a built in geometry system and meshing capabilities.
+\begin{description}
+\item[Week 1] Develop and implement a simple hill climber that will conclusively show that the solution space is not convex and that the three dimensions cannot be evolved independently, to justify the co-evolutionary component of the proposal.
 
-\subsection{Framework Integration}
-Yeah, it was integrated
+\item[Week 2-3] Write the full proposal and develop the framework that will evolve the spatial discretization including the post-processing necessary to read the MCNP output format.
 
-\subsection{C++ Implementation}
-Yeah, it was implemented.
+\item [Week 4-6] Develop and test evolutionary operators.
 
-\begin{lstlisting}
-#include <stdio.h>
-#define N 10
-/* Block
- * comment */
+\item [Week 7] Tune evolutionary parameters (population size, mutation rate, etc.).
 
-int main()
-{
-    int i;
+\item [Week 8] Run evolutionary algorithm on simple benchmark cases.
 
-    // Line comment.
-    puts("Hello world!");
-    
-    for (i = 0; i < N; i++)
-    {
-        puts("LaTeX is also great for programmers!");
-    }
+\item [Week 9] Write final report.
 
-    return 0;
-}
-\end{lstlisting}
+\item [Week 10] Contingency week.
+\end{description}
 
-\section{MPI Implementation}
-MPI stands for Message Passing Interface and is the \textit{de Facto} standard for implementing parallel algorithms across multiple physical machines.
+The greatest risk in this endeavor is that the EA will fail to converge within an acceptable timeframe. In this event, the evolutionary operators will have to be modified to incorporate more problem specific information, though this would be detrimental to the overall generality of the proposed solution. Further, a user supplied initial population to assist in early evolution, when many individuals are of sufficiently low quality that comparing them is difficult due to statistical noise, may be necessary.
 
-\section{GPU Implementation}
-GPU stands for Graphical Processing Unit and is a collection of SIMD (single instruction multiple data) processors. Each processor operates on its own piece of data but performs the same operation each other processor in its warp is executing.
+\bibliography{preprop}{}
+\bibliographystyle{acm}
 
-\section{Conclusion}
-Hooray! It works!
-
-\section{Appendix}
-
-\subsection{Laplace's Equation} \label{sec_laplace}
-Many physical phenomena can be described by Poisson's Equation given below.
-
-\begin{equation} \label{eq_poisson}
-\nabla^2 f = \psi
-\end{equation}
-
-Laplace's Equation is a special form of Poisson's Equation and is given by Eq. \ref{eq_laplace}.
-
-
-\begin{equation} \label{eq_laplace}
-\nabla^2 f = 0
-\end{equation}
-
-Laplace's equation in cartesian coordinates expands to
-
-\begin{equation} \label{eq_laplace_cartesian}
-\nabla^2 f(x, y, z) = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2} = 0
-\end{equation}
-
-In cylindrical coordinates
-\begin{equation} \label{eq_laplace_cylindrical}
-\nabla^2 f(r, \phi, z) = \frac{1}{r} \frac{\partial}{\partial r}\left( r \frac{\partial f}{\partial r}\right) + \frac{1}{r^2}\frac{\partial^2 f}{\partial \phi^2} + \frac{\partial^2 f}{\partial z^2}
-\end{equation}
-
-In spherical coordinates
-\begin{equation} \label{eq_laplace_spherical}
-\nabla^2 f(\rho, \theta, \phi) = \frac{1}{\rho^2}\frac{\partial}{\partial \rho} \left( \rho^2 \frac{\partial f}{\partial \rho}\right) + \frac{1}{\rho^2 \sin \theta}\frac{\partial}{\partial \theta}\left( \sin \theta \frac{\partial f}{\partial \theta}\right) + \frac{1}{\rho^2 \sin^2 \theta} \frac{\partial^2 f}{\partial \phi^2}
-\end{equation}
-
-Any solution to Laplace's equation is known as a harmonic function. Further, if any two functions are a solution to Laplace's equation, then by the superposition principle, the summation of the two functions is also a solution to Laplace's equation.
-
-Common solutions to Laplace's equation include
-
-\begin{table}
-\begin{center}
-\label{tbl_laplace_solutions}
-\caption{A list of solutions to Laplace's equation in different geometrical systems}
-\begin{tabular}{|l|c|}
-\hline
-Cartesian & Exponential, Circular (a class of trig function), hyperbolic \\ \hline
-Cylindrical & Bessel, Exponential, Circular \\ \hline
-Spherical & Legendre polynomial, Power, Circular \\ \hline
-\end{tabular}
-\end{center}
-\end{table}
-
-\subsection{Legendre Polynomials} \label{sec_legendre}
-
-Legendre polynomials are solutions to
-\begin{equation}
-P_n(x) = \frac{1}{2 \pi i} \oint (1-2\xi x + \xi^2)^{-1/2} \xi^{-n-1} d\xi
-\end{equation}
-
-\begin{equation}
-P_n(x) = \frac{1}{2^n n!}\frac{d^n}{dx^n}(x^2-1)^n
-\end{equation}
-
-The first few such solutions are \\
-$P_0(x) = 1$ \\
-$P_1(x) = x$ \\
-$P_2(x) = \frac{1}{2}(3x^2-1)$ \\
-$P_3(x) = \frac{1}{2}(5x^3 - 3x)$ \\
-$P_4(x) = \frac{1}{8}(35x^4 - 30x^2 + 3)$ \\
-$P_5(x) = \frac{1}{8}(63x^5 - 70x^3 + 15x)$ \\
-$P_6(x) = \frac{1}{16}(231x^6 - 315x^4 + 105x^2 - 5)$ \\
-
-Associated Legendre polynomials are a generalization of the Legendre polynomial and solve 
-
-\begin{equation}
-P_l^m(x) = (-1)^m(1-x^2)^{m/2}\frac{d^m P_l(x)}{dx^m}
-\end{equation}
-
-Both Legendre polynomials and Associated Legendre Polynomials can be calculated using the Boost C++ library.
-
-\subsection{Spherical Harmonic Function}
-
-First, we assume that Laplace's equation is of the seperable form $f(\rho, \theta, \phi) = R(\rho)Y(\theta, \phi)$. Equation \ref{eq_laplace_spherical} can then be rewritten as
-
-\begin{equation} \label{eq_spherical1}
-\begin{split}
-\nabla^2 f(\rho, \theta, \phi) = 
-\frac{1}{\rho^2}
-\frac{\partial}{\partial \rho} 
-\left( \rho^2 \frac{\partial (R(\rho)Y(\theta, \phi))}{\partial \rho}\right) 
-+ \\
-\frac{1}{\rho^2 \sin \theta}
-\frac{\partial}{\partial \theta}
-\left( \sin \theta \frac{\partial (R(\rho)Y(\theta, \phi))}{\partial \theta}\right) 
-+ 
-\frac{1}{\rho^2 \sin^2 \theta} 
-\frac{\partial^2 (R(\rho)Y(\theta, \phi))}{\partial \phi^2} = 0
-\end{split}
-\end{equation}
-
-\noindent
-which simplifies to
-\begin{equation} \label{eq_spherical2}
-\begin{split}
-\frac{Y(\theta, \phi)}{\rho^2}
-\frac{\partial}{\partial \rho} 
-\left( \rho^2 \frac{\partial R(\rho)}{\partial \rho}\right) 
-+ 
-\frac{R(\rho)}{\rho^2 \sin \theta}
-\frac{\partial}{\partial \theta}
-\left( \sin \theta \frac{\partial Y(\theta, \phi)}{\partial \theta}\right) 
-+ \\
-\frac{R(\rho)}{\rho^2 \sin^2 \theta} 
-\frac{\partial^2 Y(\theta, \phi)}{\partial \phi^2}
-\end{split} = 0
-\end{equation}
-
-\noindent
-Multiplying Eq. \ref{eq_spherical2} by $\rho^2 / (R(\rho)Y(\theta, \phi))$ yields
-
-\begin{equation}\label{eq_spherical3}
-\begin{split}
-\frac{1}{R(\rho)}
-\frac{\partial}{\partial \rho} 
-\left( \rho^2 \frac{\partial R(\rho)}{\partial \rho}\right) 
-+ 
-\frac{1}{Y(\theta, \phi) \sin \theta}
-\frac{\partial}{\partial \theta}
-\left( \sin \theta \frac{\partial Y(\theta, \phi)}{\partial \theta}\right) 
-+ \\
-\frac{1}{Y(\theta, \phi) \sin^2 \theta} 
-\frac{\partial^2 Y(\theta, \phi)}{\partial \phi^2} = 0
-\end{split}
-\end{equation}
-
-Equation \ref{eq_spherical3} can be split into two parts, a function of $\rho$ alone and a component that is a function of $\theta$ and $\phi$ alone. The component that is a function of $\theta$ and $\phi$ can be moved to the other side of the equation. Since two functions of different variables are equal, they must each be equal to some constant, $\lambda$. Therefore, Eq. \ref{eq_spherical3} can be rewritten as two equations:
-
-\begin{equation}\label{eq_spherical_r}
-\frac{1}{R(\rho)}
-\frac{\partial}{\partial \rho} 
-\left( \rho^2 \frac{\partial R(\rho)}{\partial \rho}\right) = \lambda
-\end{equation}
-
-\begin{equation}\label{eq_spherical_tp}
-\frac{1}{Y(\theta, \phi) \sin \theta}
-\frac{\partial}{\partial \theta}
-\left( \sin \theta \frac{\partial Y(\theta, \phi)}{\partial \theta}\right) 
-+ \\
-\frac{1}{Y(\theta, \phi) \sin^2 \theta} 
-\frac{\partial^2 Y(\theta, \phi)}{\partial \phi^2} = -\lambda
-\end{equation}
-
-$Y(\theta, \phi)$ can be further seperated into $Y(\theta, \phi) = \Theta(\theta)\Phi(\phi)$ which produces
-
-\begin{equation}\label{eq_spherical_y}
-\begin{split}
-\frac{1}{\Theta(\theta)\Phi(\phi) \sin \theta}
-\frac{\partial}{\partial \theta}
-\left( \sin \theta \frac{\partial (\Theta(\theta)\Phi(\phi))}{\partial \theta}\right) 
-+ \\
-\frac{1}{\Theta(\theta)\Phi(\phi) \sin^2 \theta} 
-\frac{\partial^2 (\Theta(\theta)\Phi(\phi))}{\partial \phi^2} = -\lambda
-\end{split}
-\end{equation}
-
-\noindent
-which simplifies to
-
-\begin{equation}\label{eq_spherical_y2}
-\begin{split}
-\frac{1}{\Theta(\theta) \sin \theta}
-\frac{\partial}{\partial \theta}
-\left( \sin \theta \frac{\partial \Theta(\theta)}{\partial \theta}\right) 
-+ 
-\frac{1}{\Phi(\phi) \sin^2 \theta} 
-\frac{\partial^2 \Phi(\phi)}{\partial \phi^2} = -\lambda
-\end{split}
-\end{equation}
-
-Multiplying Eq. \ref{eq_spherical_y2} by $\sin^2(\theta)$ and rearranging yields
-
-\begin{equation}\label{eq_spherical_y3}
-\begin{split}
-\frac{\sin \theta}{\Theta(\theta)}
-\frac{\partial}{\partial \theta}
-\left( \sin \theta \frac{\partial \Theta(\theta)}{\partial \theta}\right) 
-+ \lambda \sin \theta
- = \frac{-1}{\Phi(\phi)} 
-\frac{\partial^2 \Phi(\phi)}{\partial \phi^2}
-\end{split}
-\end{equation}
-
-As before, each side of Eq. \ref{eq_spherical_y3} is a function of a single variable, therefore, both sides are equal to some constant. In this case, we select $m^2$ to be  the constant variable. The produces
-
-\begin{equation}\label{eq_spherical_t}
-\begin{split}
-\frac{\sin \theta}{\Theta(\theta)}
-\frac{\partial}{\partial \theta}
-\left( \sin \theta \frac{\partial \Theta(\theta)}{\partial \theta}\right) 
-+ \lambda \sin \theta
- = m^2
-\end{split}
-\end{equation}
-
-\begin{equation}\label{eq_spherical_p}
-\begin{split}
-\frac{1}{\Phi(\phi)} 
-\frac{\partial^2 \Phi(\phi)}{\partial \phi^2} = -m^2
-\end{split}
-\end{equation}
-
-Combining Eq. \ref{eq_spherical_r}, \ref{eq_spherical_t}, and \ref{eq_spherical_p} Laplace's equation in sperical coordinates can be expressed in a fully seperated form as
-
-\begin{equation}\label{eq_spherical_sep}
-\begin{split}
-\frac{1}{R(\rho)}
-\frac{\partial}{\partial \rho} 
-\left( \rho^2 \frac{\partial R(\rho)}{\partial \rho}\right) 
-&= \lambda \\
-\frac{\sin \theta}{\Theta(\theta)}
-\frac{\partial}{\partial \theta}
-\left( \sin \theta \frac{\partial \Theta(\theta)}{\partial \theta}\right) 
-+ \lambda \sin \theta
-&= m^2 \\
-\frac{1}{\Phi(\phi)} 
-\frac{\partial^2 \Phi(\phi)}{\partial \phi^2}
-&= -m^2
-\end{split}
-\end{equation}
-
-It can be shown through a detailed anlysis that is outside the scope of this paper that $m$ and $\lambda$ must both be integers. $\lambda$ is further constrained in that the relation $\lambda = l(l+1)$ where $l \leq |m|$ and $l \in \mathbb{Z}$. Therefore, Eq. \ref{eq_spherical_sep} can be written as
-
-\begin{equation}\label{eq_spherical_sep2}
-\begin{split}
-\frac{1}{R(\rho)}
-\frac{\partial}{\partial \rho} 
-\left( \rho^2 \frac{\partial R(\rho)}{\partial \rho}\right) 
-&= l(l+1) \\
-\frac{\sin \theta}{\Theta(\theta)}
-\frac{\partial}{\partial \theta}
-\left( \sin \theta \frac{\partial \Theta(\theta)}{\partial \theta}\right) 
-+ l(l+1) \sin \theta
-&= m^2 \\
-\frac{1}{\Phi(\phi)} 
-\frac{\partial^2 \Phi(\phi)}{\partial \phi^2}
-&= -m^2 \\
-& l, m \in \mathbb{Z} \\
-& l \leq |m|
-\end{split}
-\end{equation}
-
-% TODO
-TODO - Discontinuous
-
-It can be shown that the solution is stated
-
-\begin{equation}
-Y_l^m(\theta, \phi) = \sqrt{\frac{2l+1}{4 \pi}
-\frac{(l-m)!}{(l+m)!}} P_l^m(\cos \theta) e^{im\phi}
-\end{equation}
-
-whose real part can be expanded to
-
-\begin{equation}
-Y_l^0 = \sqrt{\frac{2l+1}{4 \pi}}P_l^0(1)
-\end{equation}
-
-\begin{equation}
-Y_l^{m, even} = (-1)^m\sqrt{\frac{2l+1}{2 \pi} \frac{(l-m)!}{(l+m)!}}P_l^m(\cos(m \phi))
-\end{equation}
-
-\begin{equation}
-Y_l^{m,odd} = (-1)^m \sqrt{\frac{2l+1}{2 \pi} \frac{(l-m)!}{(l+m)!}}P_l^m(\sin(m \phi))
-\end{equation}
-
-\subsection{Klein-Nishina Formula}
-
-The Klein-Nishina formula gives the differential scattering cross section of photon incident on a single free electron.
-
-\begin{equation}\label{klein_nishina}
-\frac{\partial \sigma}{\partial \Omega} = \frac{1}{2}\alpha^2 r_c^2 P(E_\gamma, \theta)^2
-\left( P(E_\gamma, \theta) + P(E_\gamma, \theta)^{-1} - 1 + \cos^2(\theta) \right)
-\end{equation}
-
-\begin{equation}\label{klein_nishina2}
-P(E_\gamma, \theta) = \frac{1}{1 + (\frac{E_\gamma}{m_e c^2})(1-\cos(\theta))}
-\end{equation}
-
-
-\noindent
-where $\alpha$ is the fine structure constant ($\alpha \approx 7.2971E-3$), $r_c$ is the reduced Compton wavelength ($r_c = \hbar$)
-
-\subsection{Numeric Integration}
-
-\begin{equation}
-\tilde{H}
-\end{equation}
 
 \end{document}
