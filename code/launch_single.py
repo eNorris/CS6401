@@ -1,4 +1,4 @@
-import PhaseTree
+import phasetree
 import pyadvantg
 
 INIT_POP_SIZE = 5
@@ -13,7 +13,23 @@ def initialize(pop_size):
     init_fits = []
     
     for i in range(pop_size):
-        indiv = PhaseTree.PhaseTree()
+        indiv = phasetree.SingletonPhaseSpace()
+        indiv.randomize_uniform(10, 10, 10)
+        fit = pyadvantg.eval_fitness(indiv)
+        
+        init_indivs.append(indiv)
+        init_fits.append(fit)
+        
+    return init_fits, init_indivs
+    
+
+def initialize_co(pop_size):
+    
+    init_indivs = []
+    init_fits = []
+    
+    for i in range(pop_size):
+        indiv = phasetree.PhaseTree()
         indiv.randomize_uniform(10)
         fit = pyadvantg.eval_fitness(indiv)
         
