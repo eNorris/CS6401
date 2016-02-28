@@ -68,11 +68,30 @@ class PhaseTree(object):
         
         for pt in segment_pts:
             self.nodes.append(pt)
+            
+    def node_count(self):
+        c = 0
+        for n in self.nodes:
+            if type(n) is PhaseTree:
+                c += c.node_count()
+            else:
+                c += 1
         
         
     #def randomize(self):
         
         
+class SingletonPhaseSpace(object):
+    def __init__(self):
+        self.x = PhaseTree()
+        self.y = PhaseTree()
+        self.z = PhaseTree()
+        
+    def randomize_unifor(self, xmax, ymax, zmax):
+        self.x.randomize_uniform(xmax)
+        self.y.randomize_uniform(ymax)
+        self.z.randomize_uniform(zmax)
+        return
         
         
         
