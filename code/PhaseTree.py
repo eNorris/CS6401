@@ -1,3 +1,5 @@
+import random
+import numpy
 
 class PhaseTreeException(Exception):
     pass
@@ -53,6 +55,23 @@ class PhaseTree(object):
             
     def uniform_expand(self, expval):
         return None
+        
+        
+    def randomize_uniform(self, n_max):
+        self.nodes = []
+        
+        if n_max < 1:
+            raise PhaseTreeException("PhaseTreeException::randomize_uniform(self): n_max < 1")
+        segments = random.randint(1, n_max+1)
+        
+        segment_pts = numpy.linspace(0, 1.0, segments+1)
+        
+        for pt in segment_pts:
+            self.nodes.append(pt)
+        
+        
+    #def randomize(self):
+        
         
         
         
