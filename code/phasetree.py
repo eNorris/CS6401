@@ -17,6 +17,15 @@ class PhaseTree(object):
             return 1
         raise PhaseTreeException('PhaseTreeException::__cmp__(self, rhs): failed')
         
+    def __repr__(self):
+        s = "["
+        for node in self.nodes:
+            if type(node) is PhaseTree:
+                s += repr(node)  #node.__repr__()
+            s += str(node)
+        s += "]"
+        return s
+        
     def to_list(self):
         sol = []
         
