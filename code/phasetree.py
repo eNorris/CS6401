@@ -9,6 +9,8 @@ class PhaseTree(object):
     def __init__(self):
         self.nodes = []
         self.type = None
+        self.dim_min = None
+        self.dim_max = None
         
     def __cmp__(self, rhs):
         if self.right_bound () < rhs.left_bound():
@@ -18,13 +20,16 @@ class PhaseTree(object):
         raise PhaseTreeException('PhaseTreeException::__cmp__(self, rhs): failed')
         
     def __repr__(self):
-        s = "["
-        for node in self.nodes:
-            if type(node) is PhaseTree:
-                s += repr(node)  #node.__repr__()
-            s += str(node)
-        s += "]"
-        return s
+        return "[" + ", ".join([repr(node) for node in self.nodes]) + "]"
+        #s = "["
+        #
+        #s += ", ".join([repr(node) for node in self.nodes])
+        #for node in self.nodes:
+        #    if type(node) is PhaseTree:
+        #        s += repr(node)  #node.__repr__()
+        #    s += str(node)
+        #s += "]"
+        #return s
         
     def to_list(self):
         sol = []
@@ -63,15 +68,15 @@ class PhaseTree(object):
             
             
     def uniform_expand(self, expval):
-        return None
+        raise NotImplementedError('uniform_expand is not written yet')
         
         
     def randomize_uniform(self, n_max):
         self.nodes = []
         
-        if n_max < 1:
+        if n_max < 5:
             raise PhaseTreeException("PhaseTreeException::randomize_uniform(self): n_max < 1")
-        segments = random.randint(1, n_max+1)
+        segments = random.randint(5, n_max+1)
         
         segment_pts = numpy.linspace(0, 1.0, segments+1)
         
@@ -85,6 +90,24 @@ class PhaseTree(object):
                 c += c.node_count()
             else:
                 c += 1
+        return c
+                
+    def get_mesh(self):
+        return str(" ".join([str(self.automap_to(x)) for x in self.to_list()]))
+        
+        
+    def get_mesh_ints(self):
+        return str(" ".join([str(x) for x in [1]*(self.node_count()-1)]))
+        
+        
+    def map_to(self, x, xmin, xmax):
+        return x * (xmax - xmin) + xmin
+        
+        
+    def automap_to(self, x):
+        if self.dim_min is None or self.dim_max is None:
+            raise PhaseTreeException('PhaseTree::automap_to(self, x): min/max dim was not set')
+        return self.map_to(x, self.dim_min, self.dim_max)
         
         
     #def randomize(self):
@@ -96,7 +119,16 @@ class SingletonPhaseSpace(object):
         self.y = PhaseTree()
         self.z = PhaseTree()
         
-    def randomize_unifor(self, xmax, ymax, zmax):
+        self.x.dim_min = -208.3575
+        self.x.dim_max = 213.12
+        
+        self.y.dim_min = -204.865
+        self.y.dim_max = 378.5375
+        
+        self.z.dim_min = -84.215
+        self.z.dim_max = 224.55
+        
+    def randomize_uniform(self, xmax, ymax, zmax):
         self.x.randomize_uniform(xmax)
         self.y.randomize_uniform(ymax)
         self.z.randomize_uniform(zmax)
