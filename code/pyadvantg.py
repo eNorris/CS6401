@@ -2,6 +2,7 @@ import phasetree
 import datetime
 import os
 import subprocess
+import time
 
 
 
@@ -39,14 +40,24 @@ def eval_fitness(indiv):
     # Create file
     rewrite_advtg(ADV_SRC, advfilename, indiv.x, indiv.y, indiv.z)
     
-    
+    # Run ADVANTG
     cmd = "../advrun.sh ex1_tmp_adv.adv"
     subprocess.call(cmd.split())
+    
+    # Move to the output folder, run MCNP, and move back to current folder
+    os.chdir("output")
+    cmd = "../../mcnprun.sh inp"
+    subprocess.call(cmd.split())
+    
+    fit_funct = parse_mcnp_out(FOLDER_ROOT + "/output/mcnpoutput.txt")
+    
+    os.chdir("..")
     
     # Copy MCNP
     
     # cd into the folder
     return 1.0
+    
     
 def eval_co_fitness(indiv_x, indiv_y, indiv_z):
     #p# Create folder
@@ -93,8 +104,6 @@ def rewrite_advtg(adv_in_filename, adv_out_filename, x, y, z):
     fin.close()
     fout.close()
     
-
-    
     
 def run_advtg(filename):
     print("Running ADVANTG file: " + filename)
@@ -106,3 +115,8 @@ def run_mcnp(filename):
     
 def parse_mcnp(filename):
     print("Parsing MCNP file: " + filename)
+    
+    
+def parse_mcnp_out(mcnp_out_filename):
+    print("Parsing MCNP results: " + mcnp_out_filename)
+    time.sleep(2.0)
