@@ -131,16 +131,24 @@ Many evolutionary algorithms have been used in the past that involve octrees but
 
 Majeed and Ryan proposed special version of the one point crossover operator for GP that takes advantage of the structure of the parent trees to produce more optimized offspring~\cite{ref:Majeed2007}. Seo and Goodman extended this work by adding a similar mutation operator that maintains a structural metric in order to explore the search space in a more complete fashion~\cite{ref:seo2009}.
 
+\textbf{Add segment trees and co-evolution}
+
 \subsection{Proposed Research}\label{sec:b3}
+Some words should go here maybe?
+
+\subsubsection{Representation}
 Each of the $x$, $y$, and $z$ axes will be represented as a segment tree. In a segment tree, a single dimension of space is recursively divided into sub-segment trees until the leaf nodes are reached. The leaf nodes consist of discrete points along that dimension. An example segment tree along an axis from 0 to 1 is shown in Fig.~\ref{fig:segtree}.
 
 % Crossover
+\subsubsection{Crossover}
 Since neighbors in the segment tree are also neighbors in physical space, it is expected that unique evolutionary operators can be devised to leverage these aspects. In the proposed segment tree, there is a unique constraint in that every leaf node must be strictly greater than the node to its left and strictly less than the node to its right. Standard crossover operators cannot be applied since they will almost similarly violate this monotonicity constraint. There are a number of ways to alleviate this, first, the standard crossover could be applied and then a repair algorithm is applied which rearranges the tree into a valid structure. Alternatively, branches from one tree could be selectively chosen to replace specific other branches, though some kind of repair function would again be necessary. Both of these options will be implemented and compared.
 
 % Mutation
+\subsubsection{Mutation}
 Two kinds of mutation are considered in this work, the first operates on all segments on the tree, the second only on a subset of leaf nodes. The first mutation operator will shift all points either to the left or right by some amount, this will allow regions of high point density to travel and explore the search space. The second mutation operator will \textit{only} be applied to nodes in the segment tree that are direct parents of leaf nodes. They will either have more leaf nodes added, increasing point density, or have them pruned, reducing their density. The combination of these two mutation operators is expected to allow regions of high density to travel while simultaneously allowing new exploration.
 
 % Fitness eval
+\subsubsection{Fitness Evaluation}
 While swapping out the biasing parameters of MCNP during runtime would be advantageous in some respects, it would complicate the comparison of the fitness of individuals. Therefore, an artificial online algorithm is proposed. Two separate runs of $N_1$ and $N_2$ particles produce dose values $D_1$ and $D_2$ with uncertainty $R_1$ and $R_2$ respectively. The combined dose, $D$, and uncertainty, $R$, can be computed with Eq.~\ref{eq:mean_combine} and ~\ref{eq:stddev_combine} respectively~\cite{ref:knoll2000}. Utilizing Eq.~\ref{eq:mean_combine} and~\ref{eq:stddev_combine}, results of any number of MCNP runs can be combined to produce a result statistically indistinguishable from a true online solution.
 \begin{equation}\label{eq:mean_combine}
 D = \frac{N_1}{N_1 + N_2} D_1 + \frac{N_2}{N_1 + N_2} D_2 \\
@@ -158,10 +166,30 @@ The evolutionary algorithm will be run on a series of toy problems created only 
     \label{fig:segtree}
 \end{figure}
 
+%Co-Evolution
+\subsubsection{Co-Evolution}
+Three populations of segment trees will be cooperatively co-evolved. What necessiates this? 
+
+One of the key challenges will be pairing individuals in a meaningful manner. Since there are three populations, random 20 way selection is difficult. However, the selections could be made at random for each pool.
+
+% Termination
+\subsubsection{Termination}
+The evolution is guaranteed to be stopped prematurely. The global figure of merit is defined by
+
+\begin{equation}
+FOM_{global} = \frac{1}{\sum \left( T_{ADV} + T_{MC} \right) R^2}
+\end{equation}
+
+\begin{equation}\label{eq:stddev_combine}
+R = \sqrt{\sum_i \left( \frac{N_i}{N_{TOTAL}} \right)^2 R_i}
+\end{equation}
+
+The evolution stops when the expected probability that further improvment in the population will no longer more than pay for the time cost of executing the EA drops below 50\%. Of course, this probability can only be estimated based on historical data the previous generations.
+
 \subsection{Qualifications and Resources}\label{sec:b4}
 The PI is a PhD student in nuclear engineering with over five years of experience with MCNP and whose research work involves usage of both MCNP and ADVANTG on a daily basis. The PI is concurrently pursuing a MS in computer science and has working knowledge of EAs from previous coursework.
 
-The PI has access to a desktop computer representative of the target platform for this algorithm. While running the optimization algorithm on a cluster or similar high performance system would be preferable, there are stringent export control issues that prevent running MCNP on general computing clusters. 
+The PI has access to an i7-5960x desktop computer representative of the target platform for this algorithm. While running the optimization algorithm on a cluster or similar high performance system would be preferable, there are stringent export control issues that prevent running MCNP on general computing clusters. 
 
 \subsection{Tentative Work Plan}\label{sec:b5}
 During the remaining ten weeks before the final deadline, the tentative work plan is as follows:
@@ -206,7 +234,7 @@ $10^9$ & 30.07 & 31247 & 167 & 4.40395E-9 & .0924 & 3.89 \\ \hline
 
 \begin{table}
 \begin{center}
-\label{tbl_decay}
+\label{tbl_decay2}
 \caption{The hillclimber $x \rightarrow y \rightarrow z$ using 10 threads}
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
@@ -232,10 +260,7 @@ $N_x$ & $N_y$ & $N_z$ & $T_{ADV}$ & $T_{MC}$ & \textbf{Flux} & $R$ & $FOM$ \\ \h
 30 &  5 & 25 & .062 & 2.586 & 4.54842E-09  & 0.0030 & 42000 \\ \hline
 30 &  5 & 30 & .073 & 3.359 & 4.55361E-09  & 0.0024 & 50600 \\ \hline
 30 &  5 & 35 & .071 & 3.553 & 4.55024E-09  & 0.0022 & 57000 \\ \hline
-30 &  5 & 40 & .073 & 4.033 & 4.54731E-09  & 0.0023 & 46000 \\ \hline
-
-30 &  5 & 25 & 0 & 0 & 0  & 0 & 0 \\ \hline
-30 &  5 & 25 & 0 & 0 & 0  & 0 & 0 \\ \hline
+30 &  5 & 40 & .073 & 4.033 & 4.54731E-09  & 0.0023 & 46000 \\ \hline \hline
 
 10 & 10 & 10 & .083 & .801 & 4.54734E-9  & 0.0114 & 9610 \\ \hline
 20 & 20 & 30 & .087 & 3.180 & 4.56038E-09  & 0.0024 & 53100 \\ \hline
@@ -249,7 +274,7 @@ $N_x$ & $N_y$ & $N_z$ & $T_{ADV}$ & $T_{MC}$ & \textbf{Flux} & $R$ & $FOM$ \\ \h
 
 
 
-\bibliography{preprop}{}
+\bibliography{prop}{}
 \bibliographystyle{acm}
 
 
