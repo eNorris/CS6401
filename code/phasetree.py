@@ -119,14 +119,14 @@ class SingletonPhaseSpace(object):
         self.y = PhaseTree()
         self.z = PhaseTree()
         
-        self.x.dim_min = -208.3575
-        self.x.dim_max = 213.12
+        self.x.dim_min = 0  #-208.3575
+        self.x.dim_max = 100  #213.12
         
-        self.y.dim_min = -204.865
-        self.y.dim_max = 378.5375
+        self.y.dim_min = 0  #-204.865
+        self.y.dim_max = 100  #378.5375
         
-        self.z.dim_min = -84.215
-        self.z.dim_max = 224.55
+        self.z.dim_min = 0  #-84.215
+        self.z.dim_max = 100  #224.55
         
     def randomize_uniform(self, xmax, ymax, zmax):
         self.x.randomize_uniform(xmax)
