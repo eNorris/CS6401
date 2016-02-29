@@ -5,11 +5,15 @@ import subprocess
 import time
 import meshtaldata
 import numpy
+import shutil
 
 
-FOLDER_ROOT = '/media/Storage/school/CS6401/code/ex1.gitdnt'
-ADV_SRC = FOLDER_ROOT + '/ex1_adv.adv'
-MCNP_SRC = FOLDER_ROOT + '/ex1_mcnp.inp'
+FOLDER_ROOT = '/media/Storage/school/CS6401/code'
+FOLDER_WORKING = FOLDER_ROOT + "/ex2.gitdnt"
+ADV_SRC = FOLDER_ROOT + '/ex2_adv.adv'
+TMP_ADV = FOLDER_WORKING + "/ex2_tmp_adv.adv"
+MCNP_SRC = FOLDER_ROOT + '/ex2_mcnp.inp'
+TMP_MCNP = FOLDER_WORKING + '/ex2_mcnp.inp'
 
 def eval_fitness(indiv):
     if not type(indiv) == phasetree.SingletonPhaseSpace:
@@ -29,19 +33,21 @@ def eval_fitness(indiv):
     nowstring += str(rightnow.second)
     
     # Move to the working folder
-    if not os.path.exists(FOLDER_ROOT):
-        os.makedirs(FOLDER_ROOT)
-    os.chdir(FOLDER_ROOT)
+    if not os.path.exists(FOLDER_WORKING):
+        os.makedirs(FOLDER_WORKING)
+    os.chdir(FOLDER_WORKING)
+    
+    shutil.copyfile(MCNP_SRC, TMP_MCNP)
     
     #p# Create folder
     #folder_base = FOLDER_ROOT + "/adv_" + nowstring
-    advfilename = FOLDER_ROOT + "/ex1_tmp_adv.adv"
+    advfilename = TMP_ADV
     
     # Create file
     rewrite_advtg(ADV_SRC, advfilename, indiv.x, indiv.y, indiv.z)
     
     # Run ADVANTG
-    cmd = "../advrun.sh ex1_tmp_adv.adv"
+    cmd = "../advrun.sh " + TMP_ADV  # ex1_tmp_adv.adv"
     subprocess.call(cmd.split())
     
     # Move to the output folder, run MCNP, and move back to current folder
@@ -49,7 +55,7 @@ def eval_fitness(indiv):
     cmd = "../../mcnprun.sh inp"
     subprocess.call(cmd.split())
     
-    fit_funct = parse_mcnp_out(FOLDER_ROOT + "/output/mcnpoutput.txt")
+    fit_funct = parse_mcnp_out(FOLDER_WORKING + "/output/mcnpoutput.txt")
     
     os.chdir("..")
     
@@ -61,7 +67,7 @@ def eval_fitness(indiv):
     
 def eval_co_fitness(indiv_x, indiv_y, indiv_z):
     #p# Create folder
-    folder_base = FOLDER_ROOT #+ "xyz_" + str(x) + "_" + str(y) + "_" + str(z) + "/"
+    folder_base = FOLDER_WORKING #+ "xyz_" + str(x) + "_" + str(y) + "_" + str(z) + "/"
     filename = folder_base + "adv_ea.adv"
     
     # Create file
