@@ -3,21 +3,21 @@ import datetime
 import os
 import subprocess
 import time
-
+import meshtaldata
+import numpy
 
 
 FOLDER_ROOT = '/media/data/school/CS6401/code/ex1.gitdnt'
 ADV_SRC = FOLDER_ROOT + '/ex1_adv.adv'
 MCNP_SRC = FOLDER_ROOT + '/ex1_mcnp.inp'
-#FILEEXT = '.dne'
 
 def eval_fitness(indiv):
     if not type(indiv) == phasetree.SingletonPhaseSpace:
         raise Exception('eval_fitness requires a singleton population, did you mean to use the _co version?')
     
-    xlen = indiv.x.node_count()
-    ylen = indiv.y.node_count()
-    zlen = indiv.z.node_count()
+    #xlen = indiv.x.node_count()
+    #ylen = indiv.y.node_count()
+    #zlen = indiv.z.node_count()
     
     rightnow = datetime.datetime.now()
     nowstring = ""
@@ -119,4 +119,94 @@ def parse_mcnp(filename):
     
 def parse_mcnp_out(mcnp_out_filename):
     print("Parsing MCNP results: " + mcnp_out_filename)
+    
+    if not os.path.isfile(mcnp_out_filename):
+        raise Exception('The file "' + str(mcnp_out_filename) + '" does not exist!')
+    with open(mcnp_out_filename) as f:
+        lines = f.readlines()
+        #cline = 2
+        
+        f.next()
+        f.next()
+        nps = int(f.next()[-1])
+        if nps == 0:
+            raise Exception('The file "' + str(mcnp_out_filename) + '" does not track any particles!')
+        
+        datas = []
+        nextdata = meshtaldata.MeshtalData()
+        while parseNextTally(nextdata, f):
+            datas.append(nextdata)
+            nextdata = meshtaldata.MeshtalData()
+            
+    
     time.sleep(2.0)
+
+
+def parseNextTally(data, file):
+    
+    # Check to see if EOF is reached
+
+    data.tally_num = float(file.next().split()[-1])
+    if data.tally_num == 0:
+        return False
+        
+    line = file.next()
+    if line.startswith("    "):  # Then a comment
+        data.particle_type = file.next().split()[0]
+    else:
+        data.particle_type = line.split()[0]
+        
+    if data.particle_type != "neutron" and data.particle_type != "photon" and data.particle_type != "electron":
+        raise Exception('Illegal particle type: ' + str(data.particle_type))
+        
+    line = file.next()
+    if line.trim().empty():
+        file.next()
+    file.next()
+
+    xtokens = file.next().split()
+    data.x = [float(x) for x in xtokens[2:]]
+    
+    ytokens = file.next().split()
+    data.y = [float(y) for y in ytokens[2:]]
+    
+    ztokens = file.next().split()
+    data.z = [float(z) for z in ztokens[2:]]
+    
+    etokens = file.next().split()
+    data.e = [float(e) for e in etokens[3:]]
+
+    tallysize = (len(data.x)-1) * (len(data.y)-1) * (len(data.z)-1) * (len(data.e)-1)
+    data.v = numpy.zeros((tallysize, 1))
+    data.u = numpy.zeros((tallysize, 1))
+    
+    file.next()
+    file.next()
+    
+    if data.particle_type == "photon" or len(data.e) > 2:
+        for i in range(tallysize):
+            tokens = file.next().split()
+            if len(tokens) < 4:
+                raise Exception('Tally line ' + str(i) + ' was too short!')
+                
+            data.v[i] = float(tokens[4])
+            data.u[i] = float(tokens[5])
+    else:
+        for i in range(tallysize):
+            tokens = file.next().split()
+            if len(tokens) < 5:
+                raise Exception('Tally line ' + str(i) + ' was too short!')
+                
+            data.v[i] = float(tokens[3])
+            data.u[i] = float(tokens[4])
+
+    file.next()
+    
+    return True
+
+
+
+
+
+
+
