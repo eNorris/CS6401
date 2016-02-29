@@ -1,7 +1,7 @@
 method                       fwcadis
 fwcadis_spatial_treatment    global
 
-mcnp_input                   ngen_mcnp.inp
+mcnp_input                   ex1_mcnp.inp
 mcnp_tallies                 4 94
 mcnp_material_names          1   concrete
                              2   aluminum
