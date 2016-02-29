@@ -14,5 +14,5 @@ if [[ "$#" -gt 1 ]]; then
   MCTHREADS=$2
 fi
 
-{ time mcnp6 inp="$1" out=oua.out run=runtpa.rtpe mesh=mesa.msh mctal=mctaa.mctal tasks "$MCTHREADS" ; }  2>&1 | tee ngen_mcnp.log
+{ time mcnp5 inp="$1" out=oua.out run=runtpa.rtpe mesh=mesa.msh mctal=mctaa.mctal tasks "$MCTHREADS" ; }  2>&1 | tee ngen_mcnp.log
 

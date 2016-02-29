@@ -7,7 +7,7 @@ import meshtaldata
 import numpy
 
 
-FOLDER_ROOT = '/media/data/school/CS6401/code/ex1.gitdnt'
+FOLDER_ROOT = '/media/Storage/school/CS6401/code/ex1.gitdnt'
 ADV_SRC = FOLDER_ROOT + '/ex1_adv.adv'
 MCNP_SRC = FOLDER_ROOT + '/ex1_mcnp.inp'
 
