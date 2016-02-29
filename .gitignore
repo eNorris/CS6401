@@ -67,3 +67,6 @@ target/
 *.bib~
 *.bbl
 *.blg
+
+*.gitdnt/
+*~
