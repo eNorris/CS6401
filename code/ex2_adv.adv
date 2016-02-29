@@ -1,0 +1,91 @@
+method                       fwcadis
+fwcadis_spatial_treatment    global
+
+mcnp_input                   ex2_mcnp.inp
+mcnp_tallies                 4
+mcnp_material_names          1   air
+                             2   BPE
+                             3   NaI
+
+anisn_library                27n19g
+
+silo_ww True
+
+# ld sc tld twd wdd wdd_ff
+denovo_discretization sc
+
+# glproduct ldfe levelsym qr userdefined
+denovo_quadrature qr
+
+denovo_quad_num_azi 4
+denovo_quad_num_polar 4
+
+denovo_pn_order              1
+
+denovo_x_blocks              4
+denovo_y_blocks              4
+# denovo_z_blocks              3
+
+#                             bound   bound
+mesh_x                       0    100
+mesh_x_ints                    10
+
+#                             bound  bound
+mesh_y                       0    100
+mesh_y_ints                    10
+
+#                              bound   bound
+mesh_z                       0     100
+mesh_z_ints                     35
+
+# Neutron groups
+# 1  2e+07
+# 2  6.3763e+06
+# 3  3.0119e+06
+# 4  1.8268e+06
+# 5  1.4227e+06
+# 6  907180
+# 7  407620
+# 8  111090
+# 9  15034
+# 10 3035.4
+# 11 582.95
+# 12  101.3
+# 13 29.023
+# 14 10.677
+# 15 3.059
+# 16 1.8554
+# 17 1.3
+# 18 1.1253
+# 19 1
+# 20 0.8
+# 21 0.41399
+# 22 0.325
+# 23 0.225
+# 24 0.1
+# 25 0.05
+# 26 0.03
+# 27 0.01
+# 28 1e-05
+# 
+# Gamma groups
+# 1  2e+07
+# 2  1e+07
+# 3  8e+06
+# 4  6.5e+06
+# 5  5e+06
+# 6  4e+06
+# 7  3e+06
+# 8  2.5e+06
+# 9  2e+06
+# 10 1.66e+06
+# 11 1.33e+06
+# 12 1e+06
+# 13 800000
+# 14 600000
+# 15 400000
+# 16 300000
+# 17 200000
+# 18 100000
+# 19 45000
+# 20 10000

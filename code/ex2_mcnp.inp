@@ -1,0 +1,58 @@
+EX1 Simple example to illustrate performance of the EA
+c 
+c ===== Cells =====
+13   1 -.001205  -3 -6   imp:n=1  $ Lower air
+15   2 -1.0      -3 6 -7 imp:n=1  $ BPE shield
+17   1 -.001205  -3 7 9  imp:n=1  $ Upper air
+19   3  -3.0     -9      imp:n=1  $ Detector
+999  0            3      imp:n=0  $ Problem boundary
+
+c ===== Surfaces =====
+3    RPP 0 100   0 100   0 100
+6    pz 25
+7    pz 75
+9    RPP 47.5 52.5   47.5 52.5  87.5 92.5 
+
+c ===== Data =====
+c 
+c Source specification
+NPS 1E4
+c 
+SDEF POS=0 0 0  X=d1 Y=d2 Z=0  PAR=n  ERG=2.45  VEC=0 0 1  DIR=1
+SI1  0 100  $ sampling range Xmin to Xmax
+SP1  0 1    $ weighting for x sampling: here constant
+SI2  0 100  $ sampling range Ymin to Ymax
+SP2  0 1    $ weighting for y sampling: here constant
+c 
+c Materials
+c 
+c Dry air near sea level (0.001205 g/cc) -  PNNL
+m1    6000.80c     -0.000124 &
+      7014.80c     -0.755268 &
+      8016.80c     -0.231781 &
+      18000.59c    -0.012827 
+c 
+c BPE (10% wt in B4C, 1.000 g/cc) - PNNL
+c B10 = 19.9%, B11 = 80.1% in mole percent
+c atom frac of B = 0.046690
+m2   1001.80c    .627759 &
+     5010.80c    .009291 &
+     5011.80c    .037398 &
+     6000.80c    .325552
+c MT2 POLY.20T  $ S(a,b) treatment for 1H in polyethylene
+c 
+c NaI (3.667 g/cc) - PNNL
+m3   11023.80c  .499999 &
+     53127.80c  .500001
+c 
+c Tallies
+c 
+F4:n 19
+
+
+
+
+
+
+
+
