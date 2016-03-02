@@ -127,7 +127,7 @@ class SingletonPhaseSpace(object):
         self.z = PhaseTree()
         
         self.x.dim_min = 0  #-208.3575
-        self.x.dim_max = 100  #213.12
+        self.x.dim_max = 150  #213.12
         
         self.y.dim_min = 0  #-204.865
         self.y.dim_max = 100  #378.5375
@@ -171,7 +171,11 @@ class PhaseFitness(object):
     def calc_fom(self):
         if self.adv_t <= 0 or self.mcnp_t <= 0 or len(self.u) == 0:
             raise Exception('Either an illegal time or u length was encountered')
-        self.fom = 1.0/((self.adv_t + self.mcnp_t) * self.u**2)
+            
+        
+        t = numpy.copy(self.u)
+        t[t==0.0] = numpy.inf
+        self.fom = 1.0/((self.adv_t + self.mcnp_t) * t**2)
         
         
         
