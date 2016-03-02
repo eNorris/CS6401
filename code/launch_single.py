@@ -63,6 +63,10 @@ while not do_terminate():
     #children = [(e, c) for (e, c) in zip(children, child_fit)]
 
     fitness, pop = tournament(fitness, pop, child_fit, children)
+    
+for f,p in zip(fitness, pop):
+    print("fitness: " + str(f))
+    print("Pop: " + str(p) + '\n')
 
 
 

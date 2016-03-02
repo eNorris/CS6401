@@ -83,6 +83,13 @@ class PhaseTree(object):
         for pt in segment_pts:
             self.nodes.append(pt)
             
+    def set_uniform(self, segments):
+        self.nodes = []
+        segment_pts = numpy.linspace(0.0, 1.0, segments+1)
+        
+        for pt in segment_pts:
+            self.nodes.append(pt)
+            
     def node_count(self):
         c = 0
         for n in self.nodes:
@@ -128,11 +135,43 @@ class SingletonPhaseSpace(object):
         self.z.dim_min = 0  #-84.215
         self.z.dim_max = 100  #224.55
         
+    def __repr__(self):
+        return str(self.x) + str(self.y) + str(self.z)
+        
     def randomize_uniform(self, xmax, ymax, zmax):
         self.x.randomize_uniform(xmax)
         self.y.randomize_uniform(ymax)
         self.z.randomize_uniform(zmax)
         return
+        
+        
+    def set_uniform_x(self, xbins):
+        self.x.set_uniform(xbins)
+        
+        
+    def set_uniform_y(self, ybins):
+        self.y.set_uniform(ybins)
+        
+        
+    def set_uniform_z(self, zbins):
+        self.z.set_uniform(zbins)
+        
+        
+class PhaseFitness(object):
+    def __init__(self):
+        self.v = []
+        self.u = []
+        self.fom = []
+        self.adv_t = -1
+        self.mcnp_t = -1
+        
+    def __repr__(self):
+        return str(self.v) + str(self.u) + str(self.fom)
+        
+    def calc_fom(self):
+        if self.adv_t <= 0 or self.mcnp_t <= 0 or len(self.u) == 0:
+            raise Exception('Either an illegal time or u length was encountered')
+        self.fom = 1.0/((self.adv_t + self.mcnp_t) * self.u**2)
         
         
         

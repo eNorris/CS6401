@@ -8,7 +8,7 @@ import numpy
 import shutil
 
 
-FOLDER_ROOT = '/media/Storage/school/CS6401/code'
+FOLDER_ROOT = '/media/data/school/CS6401/code'
 FOLDER_WORKING = FOLDER_ROOT + "/ex2.gitdnt"
 ADV_SRC = FOLDER_ROOT + '/ex2_adv.adv'
 TMP_ADV = FOLDER_WORKING + "/ex2_tmp_adv.adv"
@@ -48,21 +48,42 @@ def eval_fitness(indiv):
     
     # Run ADVANTG
     cmd = "../advrun.sh " + TMP_ADV  # ex1_tmp_adv.adv"
+    adv_start = time.time() 
     subprocess.call(cmd.split())
+    adv_stop = time.time()
+    adv_elapsed = (adv_stop - adv_start)/60.0
+    print("ADVANTG time elapsed: " + str(adv_elapsed))
     
     # Move to the output folder, run MCNP, and move back to current folder
     os.chdir("output")
+    mcnp_start = time.time() 
     cmd = "../../mcnprun.sh inp"
     subprocess.call(cmd.split())
+    mcnp_stop = time.time()
+    mcnp_elapsed = (mcnp_stop - mcnp_start)/60.0
+    print("MCNP time elapsed: " + str(mcnp_elapsed))
     
-    fit_funct = parse_mcnp_out(FOLDER_WORKING + "/output/mcnpoutput.txt")
+    fit_funct = parse_mcnp_out(FOLDER_WORKING + "/output/oua.out")
+    v = numpy.array([f[0] for f in fit_funct])
+    u = numpy.array([f[1] for f in fit_funct])
+    
+    #fom = 1.0/((adv_elapsed + mcnp_elapsed) * u**2)
+    #print("FOM array [min^-1]: " + str(fom))
+    
+    fitness = phasetree.PhaseFitness()
+    fitness.v = v
+    fitness.u = u
+    #fitness.fom = fom
+    fitness.mcnp_t = mcnp_elapsed
+    fitness.adv_t = adv_elapsed
+    fitness.calc_fom()
     
     os.chdir("..")
     
     # Copy MCNP
     
     # cd into the folder
-    return 1.0
+    return fitness
     
     
 def eval_co_fitness(indiv_x, indiv_y, indiv_z):
@@ -124,6 +145,28 @@ def parse_mcnp(filename):
     
     
 def parse_mcnp_out(mcnp_out_filename):
+    print("Parsing MCNP results in: " + mcnp_out_filename)
+    
+    tallydata = []
+    
+    if not os.path.isfile(mcnp_out_filename):
+        raise Exception('The file "' + str(mcnp_out_filename) + '" does not exist!')
+        
+    with open(mcnp_out_filename) as f:
+        lines = f.readlines()
+        
+        for i in range(len(lines)):
+            if lines[i].startswith("1tally  "):
+                tokens = lines[i+9].split()
+                print("tokens = " + str(tokens))
+                v = float(tokens[0])
+                u = float(tokens[1])
+                tallydata.append((v,u))
+                
+    return tallydata
+    
+    
+def parse_mcnp_mesh(mcnp_out_filename):
     print("Parsing MCNP results: " + mcnp_out_filename)
     
     if not os.path.isfile(mcnp_out_filename):
