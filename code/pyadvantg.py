@@ -12,6 +12,7 @@ FOLDER_ROOT = '/media/data/school/CS6401/code'
 FOLDER_WORKING = FOLDER_ROOT + "/ex2.gitdnt"
 ADV_SRC = FOLDER_ROOT + '/ex2_adv.adv'
 TMP_ADV = FOLDER_WORKING + "/ex2_tmp_adv.adv"
+#MCNP_ADV_SRC = FOLDER_ROOT + '/ex2_mcnp_adv.inp'
 MCNP_SRC = FOLDER_ROOT + '/ex2_mcnp.inp'
 TMP_MCNP = FOLDER_WORKING + '/ex2_mcnp.inp'
 
@@ -56,8 +57,13 @@ def eval_fitness(indiv):
     
     # Move to the output folder, run MCNP, and move back to current folder
     os.chdir("output")
+    
+    # Remove Tally 4
+    remove_tally4("inp", "inp_purged")
+    
+    
     mcnp_start = time.time() 
-    cmd = "../../mcnprun.sh inp"
+    cmd = "../../mcnprun.sh inp_purged"
     subprocess.call(cmd.split())
     mcnp_stop = time.time()
     mcnp_elapsed = (mcnp_stop - mcnp_start)/60.0
@@ -128,6 +134,23 @@ def rewrite_advtg(adv_in_filename, adv_out_filename, x, y, z):
         else:
             fout.write(line)
             
+    fin.close()
+    fout.close()
+    
+def remove_tally4(input_file, output_file):
+    fin = open(input_file, 'r')
+    fout = open(output_file, 'w')
+    
+    lines = fin.readlines()
+    
+    flagged = 0
+    for i in range(len(lines)):
+        if lines[i].startswith('FMESH4') or 0<flagged<=6:
+            fout.write('c ' + lines[i])
+            flagged += 1
+        else:
+            fout.write(lines[i])
+    
     fin.close()
     fout.close()
     
