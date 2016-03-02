@@ -3,15 +3,19 @@ c
 c ===== Cells =====
 13   1 -.001205  -3 -6   imp:n=1  $ Lower air
 15   2 -1.0      -3 6 -7 imp:n=1  $ BPE shield
-17   1 -.001205  -3 7 9  imp:n=1  $ Upper air
-19   3  -3.0     -9      imp:n=1  $ Detector
-999  0            3      imp:n=0  $ Problem boundary
+17   1 -.001205  -3 7 10  imp:n=1  $ Upper air
+18   1 -.001205   -4 11 imp:n=1  $ Air for detector 2
+20   3  -3.0     -10      imp:n=1  $ Detector 1
+21   3  -3.0     -11      imp:n=1  $ Detector 2
+999  0            3 4     imp:n=0  $ Problem boundary
 
 c ===== Surfaces =====
-3    RPP 0 100   0 100   0 100
+3    RPP 0 100   0 100   0 100  $ Shielding block
+4    RPP 100 150   0 100   0 100  $ Air on X+ side of shielding
 6    pz 25
 7    pz 75
-9    RPP 47.5 52.5   47.5 52.5  87.5 92.5 
+10    RPP 30 35   30 35   87.5 92.5 
+11    RPP 145 150   47.5 52.5   47.5 52.5 
 
 c ===== Data =====
 c 
@@ -47,7 +51,17 @@ m3   11023.80c  .499999 &
 c 
 c Tallies
 c 
-F4:n 19
+F14:n 20
+F24:n 21
+c 
+c Global optimization tally
+FMESH4:n GEOM=REC ORIGIN=0 0 0
+         IMESH 150
+         IINTS 150
+         JMESH 100
+         JINTS 100
+         KMESH 100
+         KINTS 100
 
 
 
