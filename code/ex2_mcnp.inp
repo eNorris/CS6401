@@ -16,7 +16,7 @@ c ===== Surfaces =====
 c ===== Data =====
 c 
 c Source specification
-NPS 1E4
+NPS 1E5
 c 
 SDEF POS=0 0 0  X=d1 Y=d2 Z=0  PAR=n  ERG=2.45  VEC=0 0 1  DIR=1
 SI1  0 100  $ sampling range Xmin to Xmax
