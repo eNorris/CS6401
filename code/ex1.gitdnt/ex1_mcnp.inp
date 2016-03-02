@@ -242,8 +242,8 @@ c Dose phantom outer surfaces
 99000 pz -84.215
 
 c the Data Cards  
-nps 1E7
-mode  n p
+nps 1E4
+mode  n
 imp:n   1 32r 0  $ All cells have 1 importance for both neutrons and photons  
 imp:p   1 32r 0  $   except for the last cell which is void
 c 

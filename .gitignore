@@ -70,3 +70,5 @@ target/
 
 *.gitdnt/
 *~
+*.dne
+*.dnt
