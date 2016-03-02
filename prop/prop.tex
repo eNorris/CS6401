@@ -131,6 +131,18 @@ Many evolutionary algorithms have been used in the past that involve octrees but
 
 Majeed and Ryan proposed special version of the one point crossover operator for GP that takes advantage of the structure of the parent trees to produce more optimized offspring~\cite{ref:Majeed2007}. Seo and Goodman extended this work by adding a similar mutation operator that maintains a structural metric in order to explore the search space in a more complete fashion~\cite{ref:seo2009}.
 
+In evolutionary algorithms, the fitness function can be noisy~\cite{ref:Jin2005}.
+
+In \cite{ref:Liapis2015} a constrained novelty search is performed.
+
+In \cite{ref:smith2015} it is shown that novelty alone is often insufficient.
+
+Often they evolve Pareto fronts~\cite{ref:Bucci2005}. However, in long eval time fitness functions of more than two populations this becomes infeasible.
+
+must avoid relative overgeneralization which finds \textit{robust} solutions over optimal solutions.
+
+Therefore, novelty selection is proposed. This is similar to~\cite{ref:Lehman2011}.
+
 \textbf{Add segment trees and co-evolution}
 
 \subsection{Proposed Research}\label{sec:b3}
