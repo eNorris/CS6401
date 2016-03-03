@@ -30,48 +30,11 @@ zindivs = []
 
 start = time.time()
 
-for x in xsteps:
-    indiv = phasetree.SingletonPhaseSpace()
-    indiv.x.set_uniform(x)
-    indiv.y.set_uniform(5)
-    indiv.z.set_uniform(5)
-    
-    fit = pyadvantg.eval_fitness(indiv)
-    
-    xfits.append(fit)
-    xindivs.append(indiv)
-    
-    if sum(fit.v) > bestfit:
-        bestfit = sum(fit.v)
-        bestind = indiv
-        
-bestx = bestind.x.node_count()-1
-print("Best x: " + str(bestx))
-    
-bestfit = -numpy.inf
-for y in ysteps:
-    indiv = phasetree.SingletonPhaseSpace()
-    indiv.x.set_uniform(bestx)
-    indiv.y.set_uniform(y)
-    indiv.z.set_uniform(5)
-    
-    fit = pyadvantg.eval_fitness(indiv)
-    
-    yfits.append(fit)
-    yindivs.append(indiv)
-    
-    if sum(fit.v) > bestfit:
-        bestfit = sum(fit.v)
-        bestind = indiv
-        
-besty = bestind.y.node_count()-1
-print("Best y: " + str(besty))
-
 bestfit = -numpy.inf
 for z in zsteps:
     indiv = phasetree.SingletonPhaseSpace()
-    indiv.x.set_uniform(bestx)
-    indiv.y.set_uniform(besty)
+    indiv.x.set_uniform(5)
+    indiv.y.set_uniform(5)
     indiv.z.set_uniform(z)
     
     fit = pyadvantg.eval_fitness(indiv)
@@ -79,11 +42,53 @@ for z in zsteps:
     zfits.append(fit)
     zindivs.append(indiv)
     
-    if sum(fit.v) > bestfit:
-        bestfit = sum(fit.v)
+    if sum(fit.fom) > bestfit:
+        bestfit = sum(fit.fom)
         bestind = indiv
         
 bestz = bestind.z.node_count()-1
+print("Best z: " + str(bestz))
+
+    
+bestfit = -numpy.inf
+for y in ysteps:
+    indiv = phasetree.SingletonPhaseSpace()
+    indiv.x.set_uniform(5)
+    indiv.y.set_uniform(y)
+    indiv.z.set_uniform(bestz)
+    
+    fit = pyadvantg.eval_fitness(indiv)
+    
+    yfits.append(fit)
+    yindivs.append(indiv)
+    
+    if sum(fit.fom) > bestfit:
+        bestfit = sum(fit.fom)
+        bestind = indiv
+        
+besty = bestind.y.node_count()-1
+print("Best y: " + str(besty))
+
+for x in xsteps:
+    indiv = phasetree.SingletonPhaseSpace()
+    indiv.x.set_uniform(x)
+    indiv.y.set_uniform(besty)
+    indiv.z.set_uniform(bestz)
+    
+    fit = pyadvantg.eval_fitness(indiv)
+    
+    xfits.append(fit)
+    xindivs.append(indiv)
+    
+    #print("fits: " + str(fit))
+    #raise Exception("FUCK PYTHON!")
+    
+    if sum(fit.fom) > bestfit:
+        bestfit = sum(fit.fom)
+        bestind = indiv
+        
+bestx = bestind.x.node_count()-1
+
 print("Best x: " + str(bestx))
 print("Best y: " + str(besty))
 print("Best z: " + str(bestz))
@@ -93,8 +98,10 @@ stop = time.time()
 elapsed = stop - start
 print("Total time: " + str(elapsed) + " [sec]")
 
-pyplot.plot(numpy.linspace(1,len(xsteps), len(xsteps)), [sum(fit.v) for fit in xfits], 'b',
-            numpy.linspace(1+len(xsteps), 1+len(xsteps)+len(ysteps), len(ysteps)), [sum(fit.v) for fit in yfits], 'r', 
-            numpy.linspace(2+len(xsteps)+len(ysteps), 2+len(xsteps)+len(ysteps)+len(zsteps), len(zsteps)), [sum(fit.v) for fit in zfits], 'g')
-
+pyplot.plot(numpy.linspace(1,len(xsteps), len(xsteps)), [sum(fit.fom) for fit in xfits], 'b',
+            numpy.linspace(1+len(xsteps), 1+len(xsteps)+len(ysteps), len(ysteps)), [sum(fit.fom) for fit in yfits], 'r', 
+            numpy.linspace(2+len(xsteps)+len(ysteps), 2+len(xsteps)+len(ysteps)+len(zsteps), len(zsteps)), [sum(fit.fom) for fit in zfits], 'g')
+pyplot.title('Fitness')
+pyplot.xlabel('Evaluation')
+pyplot.ylabel('FOM [min^{-1}]')
 pyplot.show()

@@ -7,18 +7,20 @@ import meshtaldata
 import numpy
 import shutil
 
-
-FOLDER_ROOT = '/media/Storage/school/CS6401/code'
+LOC = 'data/'
+FOLDER_ROOT = '/media/' + LOC + 'school/CS6401/code'
 FOLDER_WORKING = FOLDER_ROOT + "/ex2.gitdnt"
 ADV_SRC = FOLDER_ROOT + '/ex2_adv.adv'
 TMP_ADV = FOLDER_WORKING + "/ex2_tmp_adv.adv"
 #MCNP_ADV_SRC = FOLDER_ROOT + '/ex2_mcnp_adv.inp'
 MCNP_SRC = FOLDER_ROOT + '/ex2_mcnp.inp'
 TMP_MCNP = FOLDER_WORKING + '/ex2_mcnp.inp'
-MCNP5 = '/media/Storage/mcnp/MCNP_CODE/bin/mcnp5 '
-ADVANTG = '/media/Storage/advantage/bin/advantg '
+MCNP5 = '/media/' + LOC + 'mcnp/MCNP_CODE/bin/mcnp5 '
 
-os.environ["DATAPATH"] = "/media/Storage/mcnp/MCNP_DATA"
+# Changes on different systems
+ADVANTG = '/media/' + LOC + 'advantge/advantge/bin/advantg '
+
+os.environ["DATAPATH"] = "/media/" + LOC + "mcnp/MCNP_DATA"
 
 def eval_fitness(indiv):
     if not type(indiv) == phasetree.SingletonPhaseSpace:
