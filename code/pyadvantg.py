@@ -8,7 +8,7 @@ import numpy
 import shutil
 
 
-FOLDER_ROOT = '/media/data/school/CS6401/code'
+FOLDER_ROOT = '/media/Storage/school/CS6401/code'
 FOLDER_WORKING = FOLDER_ROOT + "/ex2.gitdnt"
 ADV_SRC = FOLDER_ROOT + '/ex2_adv.adv'
 TMP_ADV = FOLDER_WORKING + "/ex2_tmp_adv.adv"
@@ -79,7 +79,6 @@ def eval_fitness(indiv):
     fitness = phasetree.PhaseFitness()
     fitness.v = v
     fitness.u = u
-    #fitness.fom = fom
     fitness.mcnp_t = mcnp_elapsed
     fitness.adv_t = adv_elapsed
     fitness.calc_fom()

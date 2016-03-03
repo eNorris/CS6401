@@ -116,8 +116,7 @@ class PhaseTree(object):
             raise PhaseTreeException('PhaseTree::automap_to(self, x): min/max dim was not set')
         return self.map_to(x, self.dim_min, self.dim_max)
         
-        
-    #def randomize(self):
+
         
         
 class SingletonPhaseSpace(object):
