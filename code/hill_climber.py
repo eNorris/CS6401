@@ -95,6 +95,6 @@ print("Total time: " + str(elapsed) + " [sec]")
 
 pyplot.plot(numpy.linspace(1,len(xsteps), len(xsteps)), [sum(fit.v) for fit in xfits], 'b',
             numpy.linspace(1+len(xsteps), 1+len(xsteps)+len(ysteps), len(ysteps)), [sum(fit.v) for fit in yfits], 'r', 
-            numpy.linspace(2+len(xsteps)+len(ysteps), 2+len(xsteps)+len(ysteps)+len(zsteps), len(zsteps)), [sum(fit.v) for fit in xfits], 'g')
+            numpy.linspace(2+len(xsteps)+len(ysteps), 2+len(xsteps)+len(ysteps)+len(zsteps), len(zsteps)), [sum(fit.v) for fit in zfits], 'g')
 
 pyplot.show()

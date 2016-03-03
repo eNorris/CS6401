@@ -15,6 +15,10 @@ TMP_ADV = FOLDER_WORKING + "/ex2_tmp_adv.adv"
 #MCNP_ADV_SRC = FOLDER_ROOT + '/ex2_mcnp_adv.inp'
 MCNP_SRC = FOLDER_ROOT + '/ex2_mcnp.inp'
 TMP_MCNP = FOLDER_WORKING + '/ex2_mcnp.inp'
+MCNP5 = '/media/Storage/mcnp/MCNP_CODE/bin/mcnp5 '
+ADVANTG = '/media/Storage/advantage/bin/advantg '
+
+os.environ["DATAPATH"] = "/media/Storage/mcnp/MCNP_DATA"
 
 def eval_fitness(indiv):
     if not type(indiv) == phasetree.SingletonPhaseSpace:
@@ -48,7 +52,8 @@ def eval_fitness(indiv):
     rewrite_advtg(ADV_SRC, advfilename, indiv.x, indiv.y, indiv.z)
     
     # Run ADVANTG
-    cmd = "../advrun.sh " + TMP_ADV  # ex1_tmp_adv.adv"
+    #cmd = "../advrun.sh " + TMP_ADV  # ex1_tmp_adv.adv"
+    cmd = ADVANTG + TMP_ADV 
     adv_start = time.time() 
     subprocess.call(cmd.split())
     adv_stop = time.time()
@@ -63,7 +68,8 @@ def eval_fitness(indiv):
     
     
     mcnp_start = time.time() 
-    cmd = "../../mcnprun.sh inp_purged"
+    #cmd = "../../mcnprun.sh inp_purged"
+    cmd = MCNP5 + "inp=inp_purged out=oua.out run=runtpa.rtpe mesh=mesa.msh mctal=mctaa.mctal tasks 14"
     subprocess.call(cmd.split())
     mcnp_stop = time.time()
     mcnp_elapsed = (mcnp_stop - mcnp_start)/60.0
