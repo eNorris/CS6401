@@ -98,10 +98,25 @@ stop = time.time()
 elapsed = stop - start
 print("Total time: " + str(elapsed) + " [sec]")
 
-pyplot.plot(numpy.linspace(1,len(xsteps), len(xsteps)), [sum(fit.fom) for fit in xfits], 'b',
-            numpy.linspace(1+len(xsteps), 1+len(xsteps)+len(ysteps), len(ysteps)), [sum(fit.fom) for fit in yfits], 'r', 
-            numpy.linspace(2+len(xsteps)+len(ysteps), 2+len(xsteps)+len(ysteps)+len(zsteps), len(zsteps)), [sum(fit.fom) for fit in zfits], 'g')
+#pyplot.plot(numpy.linspace(1,len(xsteps), len(xsteps)), [sum(fit.fom) for fit in xfits], 'b',
+#            numpy.linspace(1+len(xsteps), 1+len(xsteps)+len(ysteps), len(ysteps)), [sum(fit.fom) for fit in yfits], 'r', 
+#            numpy.linspace(2+len(xsteps)+len(ysteps), 2+len(xsteps)+len(ysteps)+len(zsteps), len(zsteps)), [sum(fit.fom) for fit in zfits], 'g')
+#pyplot.title('Fitness')
+#pyplot.xlabel('Evaluation')
+#pyplot.ylabel('FOM [min^{-1}]')
+#pyplot.legend(('x', 'y', 'z'))
+#pyplot.show()
+
+
+pyplot.plot(numpy.linspace(1,len(zsteps), len(zsteps)), [sum(fit.fom) for fit in zfits], 'g',
+            numpy.linspace(1+len(zsteps), 1+len(zsteps)+len(ysteps), len(ysteps)), [sum(fit.fom) for fit in yfits], 'r', 
+            numpy.linspace(2+len(zsteps)+len(ysteps), 2+len(zsteps)+len(ysteps)+len(xsteps), len(xsteps)), [sum(fit.fom) for fit in xfits], 'b')
 pyplot.title('Fitness')
 pyplot.xlabel('Evaluation')
 pyplot.ylabel('FOM [min^{-1}]')
+pyplot.legend(('z', 'y', 'x'))
 pyplot.show()
+
+
+
+
