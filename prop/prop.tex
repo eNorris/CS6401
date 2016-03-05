@@ -9,6 +9,7 @@
 \usepackage[margin=1.0in]{geometry}
 \usepackage{fancyhdr}
 \usepackage{comment}
+%\usepackage[utf8]{inputenc}
 
 \usepackage{etoolbox}
 \patchcmd{\thebibliography}{\section*}{\section}{}{}
@@ -51,9 +52,11 @@
 \fancyhf{}
 \rhead{Full Proposal}
 \lhead{COMP SCI 6401 SP2016}
+\cfoot{\thepage}
 %\rfoot{Page \thepage}
 
 \renewcommand{\thesection}{\Alph{section}}
+%\pagenumbering{arabic}
 
 \begin{document}
 
