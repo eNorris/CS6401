@@ -31,49 +31,12 @@ zindivs = []
 start = time.time()
 
 bestfit = -numpy.inf
-for z in zsteps:
-    indiv = phasetree.SingletonPhaseSpace()
-    indiv.x.set_uniform(5)
-    indiv.y.set_uniform(5)
-    indiv.z.set_uniform(z)
-    
-    fit = pyadvantg.eval_fitness(indiv)
-    
-    zfits.append(fit)
-    zindivs.append(indiv)
-    
-    if sum(fit.fom) > bestfit:
-        bestfit = sum(fit.fom)
-        bestind = indiv
-        
-bestz = bestind.z.node_count()-1
-print("Best z: " + str(bestz))
-
-    
-bestfit = -numpy.inf
-for y in ysteps:
-    indiv = phasetree.SingletonPhaseSpace()
-    indiv.x.set_uniform(5)
-    indiv.y.set_uniform(y)
-    indiv.z.set_uniform(bestz)
-    
-    fit = pyadvantg.eval_fitness(indiv)
-    
-    yfits.append(fit)
-    yindivs.append(indiv)
-    
-    if sum(fit.fom) > bestfit:
-        bestfit = sum(fit.fom)
-        bestind = indiv
-        
-besty = bestind.y.node_count()-1
-print("Best y: " + str(besty))
 
 for x in xsteps:
     indiv = phasetree.SingletonPhaseSpace()
     indiv.x.set_uniform(x)
-    indiv.y.set_uniform(besty)
-    indiv.z.set_uniform(bestz)
+    indiv.y.set_uniform(5)
+    indiv.z.set_uniform(5)
     
     fit = pyadvantg.eval_fitness(indiv)
     
@@ -88,6 +51,45 @@ for x in xsteps:
         bestind = indiv
         
 bestx = bestind.x.node_count()-1
+    
+bestfit = -numpy.inf
+for y in ysteps:
+    indiv = phasetree.SingletonPhaseSpace()
+    indiv.x.set_uniform(bestx)
+    indiv.y.set_uniform(y)
+    indiv.z.set_uniform(5)
+    
+    fit = pyadvantg.eval_fitness(indiv)
+    
+    yfits.append(fit)
+    yindivs.append(indiv)
+    
+    if sum(fit.fom) > bestfit:
+        bestfit = sum(fit.fom)
+        bestind = indiv
+        
+besty = bestind.y.node_count()-1
+print("Best y: " + str(besty))
+
+for z in zsteps:
+    indiv = phasetree.SingletonPhaseSpace()
+    indiv.x.set_uniform(bestx)
+    indiv.y.set_uniform(besty)
+    indiv.z.set_uniform(z)
+    
+    fit = pyadvantg.eval_fitness(indiv)
+    
+    zfits.append(fit)
+    zindivs.append(indiv)
+    
+    if sum(fit.fom) > bestfit:
+        bestfit = sum(fit.fom)
+        bestind = indiv
+        
+bestz = bestind.z.node_count()-1
+print("Best z: " + str(bestz))
+
+
 
 print("Best x: " + str(bestx))
 print("Best y: " + str(besty))
@@ -98,23 +100,27 @@ stop = time.time()
 elapsed = stop - start
 print("Total time: " + str(elapsed) + " [sec]")
 
-#pyplot.plot(numpy.linspace(1,len(xsteps), len(xsteps)), [sum(fit.fom) for fit in xfits], 'b',
-#            numpy.linspace(1+len(xsteps), 1+len(xsteps)+len(ysteps), len(ysteps)), [sum(fit.fom) for fit in yfits], 'r', 
-#            numpy.linspace(2+len(xsteps)+len(ysteps), 2+len(xsteps)+len(ysteps)+len(zsteps), len(zsteps)), [sum(fit.fom) for fit in zfits], 'g')
-#pyplot.title('Fitness')
-#pyplot.xlabel('Evaluation')
-#pyplot.ylabel('FOM [min^{-1}]')
-#pyplot.legend(('x', 'y', 'z'))
-#pyplot.show()
-
 pyplot.figure()
-pyplot.plot(numpy.linspace(1,len(zsteps), len(zsteps)), [sum(fit.fom) for fit in zfits], 'g',
-            numpy.linspace(1+len(zsteps), 1+len(zsteps)+len(ysteps), len(ysteps)), [sum(fit.fom) for fit in yfits], 'r', 
-            numpy.linspace(2+len(zsteps)+len(ysteps), 2+len(zsteps)+len(ysteps)+len(xsteps), len(xsteps)), [sum(fit.fom) for fit in xfits], 'b')
+xbins = numpy.linspace(1,len(xsteps), len(xsteps))
+ybins = numpy.linspace(1+len(xsteps), 1+len(xsteps)+len(ysteps), len(ysteps))
+zbins = numpy.linspace(2+len(xsteps)+len(ysteps), 2+len(xsteps)+len(ysteps)+len(zsteps), len(zsteps))
+pyplot.plot(xbins, [sum(fit.fom) for fit in xfits], 'b',
+            ybins, [sum(fit.fom) for fit in yfits], 'r', 
+            zbins, [sum(fit.fom) for fit in zfits], 'g')
 pyplot.title('Fitness')
 pyplot.xlabel('Evaluation')
 pyplot.ylabel('FOM [min^{-1}]')
-pyplot.legend(('z', 'y', 'x'))
+pyplot.legend(('x', 'y', 'z'))
+pyplot.show()
+
+
+#pyplot.plot(numpy.linspace(1,len(zsteps), len(zsteps)), [sum(fit.fom) for fit in zfits], 'g',
+#            numpy.linspace(1+len(zsteps), 1+len(zsteps)+len(ysteps), len(ysteps)), [sum(fit.fom) for fit in yfits], 'r', 
+#            numpy.linspace(2+len(zsteps)+len(ysteps), 2+len(zsteps)+len(ysteps)+len(xsteps), len(xsteps)), [sum(fit.fom) for fit in xfits], 'b')
+#pyplot.title('Fitness')
+#pyplot.xlabel('Evaluation')
+#pyplot.ylabel('FOM [min^{-1}]')
+#pyplot.legend(('z', 'y', 'x'))
 
 
 

@@ -7,7 +7,7 @@ import meshtaldata
 import numpy
 import shutil
 
-LOC = 'data/'
+LOC = 'Storage/'
 FOLDER_ROOT = '/media/' + LOC + 'school/CS6401/code'
 FOLDER_WORKING = FOLDER_ROOT + "/ex2.gitdnt"
 ADV_SRC = FOLDER_ROOT + '/ex2_adv.adv'
@@ -18,8 +18,8 @@ TMP_MCNP = FOLDER_WORKING + '/ex2_mcnp.inp'
 MCNP5 = '/media/' + LOC + 'mcnp/MCNP_CODE/bin/mcnp5 '
 
 # Changes on different systems
-ADVANTG = '/media/' + LOC + 'advantge/advantge/bin/advantg '
-#ADVANTG = '/media/' + LOC + 'advantage/bin/advantg '
+#ADVANTG = '/media/' + LOC + 'advantge/advantge/bin/advantg '
+ADVANTG = '/media/' + LOC + 'advantage/bin/advantg '
 
 os.environ["DATAPATH"] = "/media/" + LOC + "mcnp/MCNP_DATA"
 

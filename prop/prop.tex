@@ -91,10 +91,10 @@ The primary drawback of utilization of an EA in practical application is that ea
 
 
 \subsection{Intellectual Merit}\label{sec:a4}
-The current state-of-the-art in spatial discretization selection (specifically adaptive mesh refinement) utilizes octrees or other recursive trees to represent 3D space. However, an octree mesh refinement is not applicable to the type of deterministic simulation used to accelerate the Monte Carlo code of interest. Tree-like representations in general are destructive in the phenotype space, which effects the individual's fitness. This necessitates development of a new representation of the spatial domain. Instead of a single octree population, three ??? populations will be cooperatively co-evolved. Novel mutation and recombination operators in the phenotype space are proposed in order to preserve ???.
+The current state-of-the-art in spatial discretization selection (specifically adaptive mesh refinement) utilizes octrees or other recursive trees to represent 3D space. However, an octree mesh refinement is not applicable to the type of deterministic simulation used to accelerate the Monte Carlo code of interest. Tree-like representations in general are destructive in the phenotype space, which effects the individual's fitness. This necessitates development of a new representation of the spatial domain. Instead of a single octree population, three 1D space partitions populations will be cooperatively co-evolved. Novel mutation and recombination operators in the phenotype space are proposed in order to preserve the phenotypic traits of the parents.
 
 \subsection{Societal Benefit}\label{sec:a5}
-Implementation of an EA to automate generation of biasing parameters produced by a deterministic code for Monte Carlo acceleration will greatly enhance engineers' abilities to rapidly verify the safety of nuclear systems. Accurate simulations enable the dose to individual members of the public to be estimated so that systems can be optimized in order to reduce the health impact radiation imposes. Such acceleration techniques are needed immediately to expedite analysis of ongoing projects such as ???\textbf{concrete example.}.
+Implementation of an EA to automate generation of biasing parameters produced by a deterministic code for Monte Carlo acceleration will greatly enhance engineers' abilities to rapidly verify the safety of nuclear systems. Accurate simulations enable the dose to individual members of the public to be estimated so that systems can be optimized in order to reduce the health impact radiation imposes. Such acceleration techniques are needed immediately to expedite analysis of ongoing projects such as the ITER fusion project~\cite{ref:Santoro2008}.
 
 Further, benefits can be extended to any field that couples a non-stochastic simulation technique to generate biasing parameters for a Monte Carlo code. Such simulation systems are very prevalent in fluid dynamics, physics, heat transfer, and many other engineering fields.
 
@@ -120,9 +120,6 @@ However, currently available general-purpose radiation transport hybrid systems 
 \subsection{Related Work}\label{sec:b2}
 In modern deterministic algorithms, spatial refinement is performed with a quadtree in 2D or an octree in 3D. However, quadtree/octree geometries cannot be utilized in the ADVANTG framework, instead, a structured Cartesian grid is required. A comparison of a 2D quadtree geometry and a 2D structured grid is shown in Fig.~\ref{fig:treecomp}. 
 
-\textbf{Segment trees?}
-
-%Solutions have been shown to increase as the refinement increases, however, it has also been shown that, in increasing the discretization may only decrease the relative error by a marginal amount while increasing the computational time immensely [cite?]. Adaptive discretizations, for example, in the angular domain have little performance gain over their standard counterparts, except when large discontinuities are present in the problem~\cite{ref:jarrell2010}.
 \begin{figure}
     \centering
     \begin{subfigure}[b]{.3\textwidth}
@@ -136,8 +133,6 @@ In modern deterministic algorithms, spatial refinement is performed with a quadt
     	    \caption{Cartesian grid decomposition}
     	    \label{fig:treecomp_grid}
     	\end{subfigure}
-    %\includegraphics[width=3.0in]{treecomp}
-    %\caption{(Left) A 2D quadtree spatial representation. (Right) A structured Cartesian grid spatial representation.}
     \caption{Comparison of a 2D quadtree spatial representation to a Cartesian grid spatial representation.}
     \label{fig:treecomp}
 \end{figure}
@@ -150,34 +145,36 @@ Though the physical representation of space is different between octree methodol
 
 Many EAs have been used in the past that involve octrees but do not directly evolve them. They are often used as a medium to partition some space into a structure more suited for evolutionary computing ~\cite{ref:Zhu2015301, ref:Schwertfeger200853}. While these applications do not directly evolve the spatial discretization itself, some insight into applicable operators can still be gleaned from them. For example, Laszlo and Mukherjee developed an algorithm to assist in $k$-means clustering by building a quadtree and using selected nodes as an initial guess for the $k$-means clustering algorithm~\cite{ref:Laszlo2006}. Though the octree itself was not evolved, Laszlo and Mukherjee highlighted that the refinement density in space can be leveraged to produce more effective crossover operators.
 
-Majeed and Ryan proposed a special version of the one point crossover operator for GP that takes advantage of the structure of the parent trees to produce more optimized offspring~\cite{ref:Majeed2007}. Seo and Goodman extended this work by adding a similar mutation operator that maintains a structural metric in order to explore the search space in a more complete fashion~\cite{ref:seo2009}.
+Majeed and Ryan proposed a special version of the one point crossover operator for GP that takes advantage of the structure (context) of the parent trees to produce more optimized offspring~\cite{ref:Majeed2007}. Seo and Goodman extended this work by adding a similar mutation operator that maintains a structural metric in order to explore the search space in a more complete fashion~\cite{ref:seo2009}. However, these operators are only for trees and are very expensive to evaluate, requiring many evaluations for each individual generated to explore contexts.
 
-In evolutionary algorithms, the fitness function can be noisy~\cite{ref:Jin2005}.
+%Chu and Rowe \cite{ref:Chu2008} explored different crossover operators and their impact on bloat for GP. They concluded that limiting the difference in the number of genes exchanged during crossover can reduce bloat
 
-In \cite{ref:Liapis2015} a constrained novelty search is performed.
+%In evolutionary algorithms, the fitness function can be noisy~\cite{ref:Jin2005}.
 
-In \cite{ref:smith2015} it is shown that novelty alone is often insufficient.
+%In \cite{ref:Liapis2015} a constrained novelty search is performed.
 
-Often they evolve Pareto fronts~\cite{ref:Bucci2005}. However, in long eval time fitness functions of more than two populations this becomes infeasible.
+%In \cite{ref:smith2015} it is shown that novelty alone is often insufficient.
 
-must avoid relative overgeneralization which finds \textit{robust} solutions over optimal solutions.
+%Often they evolve Pareto fronts~\cite{ref:Bucci2005}. However, in long eval time fitness functions of more than two populations this becomes infeasible.
 
-Therefore, novelty selection is proposed. This is similar to~\cite{ref:Lehman2011}.
+%must avoid relative overgeneralization which finds \textit{robust} solutions over optimal solutions.
 
-Majeed and Ryan \cite{ref:Majeed2006} constructed a context aware GP crossover operator. However, this was for trees only and is very expensive to evaluate, requiring many evaluations for each individual generated to explore contexts.
+%Therefore, novelty selection is proposed. This is similar to~\cite{ref:Lehman2011}.
 
-Chu and Rowe \cite{ref:Chu2008} explored different crossover operators and their impact on bloat for GP. They concluded that limiting the difference in the number of genes exchanged during crossover can reduce bloat
+%Majeed and Ryan constructed a context aware GP crossover operator \cite{ref:Majeed2006, ref:Majeed2007}. However, this was for trees only and is very expensive to evaluate, requiring many evaluations for each individual generated to explore contexts.
 
-\textbf{Add segment trees and co-evolution}
 
+
+% Proposed Research
 \subsection{Proposed Research}\label{sec:b3}
-Some words should go here maybe?
+A very hill climbing algorithm was implemented and used to generate biasing parameters for a very simple problem in which the FOMs of two detectors placed around a shielding structure were to be optimized. A more detailed problem setup and results are given in Appendix~\ref{sec:apdx}. The hill climber optimized the discretization in the $x$ dimension, followed by the $y$ and $z$ dimensions; the optimal FOM reached was 1990 min$^{-1}$. The experiment was repeated under idential conditions except the order of dimensions optimized was reversed. The optimal FOM readed in the second run was 2110 min$^{-1}$ which is an increase of 6\% from changing \textit{only} the ording of dimensions during the ascent. This illustrates the multimodality of the problem even for simple cases where the geometry is nearly symmetric. This further illustrates that the coupling between the $x$, $y$, and $z$ dimensions is non-trivial because only changing the order in which they are evaluated changs the outcome.
 
-\subsubsection{Representation}
-Each of the $x$, $y$, and $z$ axes will be represented as a segment tree. In a segment tree, a single dimension of space is recursively divided into sub-segment trees until the leaf nodes are reached. The leaf nodes consist of discrete points along that dimension. An example segment tree along an axis from 0 to 1 is shown in Fig.~\ref{fig:treefail}.
+%\subsubsection{Representation}
+The most intuitive way to represent a 3D Cartesian grid is to utilize some kind of binary space partition tree such as an interval tree~\cite{ref:Franco1985}. However, tree based representations often suffer from destructive crossover operators that supress fitness~\cite{ref:Sheneman2006}. This is particularly prevalent when the phenotype is subject to hard constraints. An example of the destructive beahvior of tree based crossover is shown in Fig.~\ref{fig:treefail}. When standard tree-GP crossover is used to swap two branches both resulting children are nonsensical. Repair operations can be constructed that fix the trees, but such repair operations necessarily have to alter significant portions of the tree, leaving little genetic information from the parent.
 
-\textbf{This is a more intuitive way to control mesh refinement}
+The PI believes that crossover in phenotype space will enable production of correct offspring as well as maintain information form the parents in an inutitive way. Such a recombination is illustrated in Fig.~\ref{fig:linearxover}. Identical regions of the phentoype are selected and swapped. However, this necessitates a one-to-one mapping from genotype to phenotype and back, since many trees can represent the same phenotype, they are unsuitable for a phenotypic crossover. Therefore, a linear chromosome is used. The linear chromosome still provides the intuitive mesh refinement perperties of the tree representation but also provides the necessary mapping constraint.
 
+The proposed phenotype crossover will be compared to a standard two-point crossover operator in genotype space with a repair operator. The repair operator will simply reorder the segment boundaries into increasing order. The PI believes that by performing a phenotype-based recombination, more useful information from the parents will be preserved, resulting in improved progeny.
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{treefail}
@@ -188,28 +185,27 @@ Each of the $x$, $y$, and $z$ axes will be represented as a segment tree. In a s
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{linearxover}
-    \caption{PLACEHOLDER}
+    \caption{Recombination in linear representations. When the outlined segments in (a) and (b) are swapped, the resulting children, (c) and (d) are still properly ordered.}
     \label{fig:linearxover}
 \end{figure}
 
-It makes sense to keep regions together \textit{spatially} regardless of their proximity in the tree. The tree structure fails to represent the spatial proximity well.
+%It makes sense to keep regions together \textit{spatially} regardless of their proximity in the tree. The tree structure fails to represent the spatial proximity well.
 
-As shown in Fig.~\ref{fig:treefail}, branch swapping recombination operators produce nonsensical results.
+%As shown in Fig.~\ref{fig:treefail}, branch swapping recombination operators produce nonsensical results.
 
-In tree based genotypes there is a many-to-one mapping of genotype to phenotype; a series of cuts (phenotype) can be represented by any one of many different trees (genotype).
+%In tree based genotypes there is a many-to-one mapping of genotype to phenotype; a series of cuts (phenotype) can be represented by any one of many different trees (genotype).
 
-While it may be possible to use repair functions to produce children that obey all of the constraints imposed on the phenotype, such a repair operation would likely have to drastically alter the structure of the tree. Such an operation would then fail to carry meaningful genetic information from parents to offspring.
+%While it may be possible to use repair functions to produce children that obey all of the constraints imposed on the phenotype, such a repair operation would likely have to drastically alter the structure of the tree. Such an operation would then fail to carry meaningful genetic information from parents to offspring.
 
-This representation and fitness operator gives auto bloat control
+%This representation and fitness operator gives auto bloat control
 
 % Crossover
-\subsubsection{Crossover}
+%\subsubsection{Crossover}
 Since neighbors in the segment tree are also neighbors in physical space, it is expected that unique evolutionary operators can be devised to leverage these aspects. In the proposed segment tree, there is a unique constraint in that every leaf node must be strictly greater than the node to its left and strictly less than the node to its right. Standard crossover operators cannot be applied since they will almost certainly violate this monotonicity constraint. There are a number of ways to alleviate this: first, the standard crossover could be applied followed by a repair algorithm applied which rearranges the tree into a valid structure. Alternatively, branches from one tree could be selectively chosen to replace specific other branches, though some kind of repair function would again be necessary. Both of these options will be implemented and compared.
 
 % Mutation
-\subsubsection{Mutation}
-Two kinds of mutation are considered in this work; the first operates on all segments on the tree, the second only on a subset of leaf nodes. The first mutation operator will shift all points either to the left or right by some amount, this will allow regions of high point density to travel and explore the search space. The second mutation operator will \textit{only} be applied to nodes in the segment tree that are direct parents of leaf nodes. They will either have more leaf nodes added, increasing point density, or have them pruned, reducing their density. The combination of these two mutation operators is expected to allow regions of high density to travel while simultaneously allowing new exploration.
-
+%\subsubsection{Mutation}
+Three mutation operators are considered in this work; all three operate in phenotype space and map back to genotype. The first mutation operator, called the shift operator, moves all segments toward one end of the spatial domain. This allows clusters of small segments to explore local space. The second mutation operator, called the densify operator, selects a region of space and adds a specified number of segments in that region. The final operator, sparcify, does the opposite of densify; it removes a specified number of segments. The impact of all three operators are shown in Fig.~\ref{fig:mutations}. The combination of these operators will allow regions of high and low segment density to move around their local space as well as increase or decrease the segment density along the spatial domain.
 \begin{figure}
     \centering
     \begin{subfigure}[b]{\textwidth}
@@ -233,14 +229,12 @@ Two kinds of mutation are considered in this work; the first operates on all seg
     \label{fig:mutations}
 \end{figure}
 
-\textbf{what does high density to travel mean?}
-
 % Initialization
-\subsubsection{Initialization}
-Individuals will be generated at random. \textbf{FINISH THIS SECTION}
+%\subsubsection{Initialization}
+
 
 % Fitness eval
-\subsubsection{Fitness Evaluation}
+%\subsubsection{Fitness Evaluation}
 While swapping out the biasing parameters of MCNP during runtime would be advantageous in some respects, it would complicate the comparison of the fitness of individuals. Therefore, an artificial online algorithm is proposed. Two separate runs of $N_1$ and $N_2$ particles produce dose values $D_1$ and $D_2$ with uncertainty $R_1$ and $R_2$ respectively. The combined dose, $D$, and uncertainty, $R$, can be computed with Eq.~\ref{eq:mean_combine} and Eq.~\ref{eq:stddev_combine} respectively~\cite{ref:knoll2000}. Utilizing Eq.~\ref{eq:mean_combine} and Eq.~\ref{eq:stddev_combine}, results of any number of MCNP runs can be combined to produce a result statistically indistinguishable from a true online solution.
 \begin{equation}\label{eq:mean_combine}
 D = \frac{N_1}{N_1 + N_2} D_1 + \frac{N_2}{N_1 + N_2} D_2 \\
@@ -249,36 +243,43 @@ D = \frac{N_1}{N_1 + N_2} D_1 + \frac{N_2}{N_1 + N_2} D_2 \\
 R = \sqrt{\left( \frac{N_1}{N_1 + N_2}\right)^2 R_1 + \left( \frac{N_2}{N_1 + N_2}\right)^2 R_2}
 \end{equation}
 
-The EA will be run on a series of toy problems created only to demonstrate its effectiveness as well as benchmark problems given in~\cite{ref:Mosher2015}. The benchmark results will be compared to results obtained from expert generated biasing parameters provided with the associated benchmark problems in~\cite{ref:Mosher2015}.
+In many GAs with dynamically sized chromosomes, bloat becomes a problem~\cite{ref:Tanev2012}. Bloat is a phenomena that gives rise to larger chromosomes since they will often have a higher fitness. The problem with bloat is that the computational time to evaluate larger individuals is increased. One unique property of the fitness function for this problem is that since the fitness function inherently involves the wall-time to compute the solution, the fitness function itself provides bloat control. Large solutions will take longer to run, reducing their fitness.
 
 %Co-Evolution
-\subsubsection{Co-Evolution}
-Three populations of segment trees will be cooperatively co-evolved. What necessiates this? 
+%\subsubsection{Co-Evolution}
+Three populations of 1D space partitions will be cooperatively co-evolved which greatly reduces the dimensionality of the problem. If each of the three spatial dimensions ($x$, $y$, and $z$) has 20 segments, a non-coevolutionary gp will have to optimize a 60-dimensional space. Instead, a cooperative co-evolutionary EA only has to solve three 20-dimensional problems. The difficulty is moved to pairing individuals together into teams to be evaluated.
 
-One of the key challenges will be pairing individuals in a meaningful manner. Since there are three populations, random 20 way selection is difficult. However, the selections could be made at random for each pool.
+Initially, pairings will be made at random since it has been shown to be robust, though non-optimal in many cases. If time permits, the archive method proposed by~\cite{ref:Panait2006} and the novelty team pairing proposed by~\cite{ref:Gomes2014} will be explored.
 
-In previous studies, the selection was performed using a standard archive search and teams were scored based on their novelty. In this approach, teams will be \textit{formed} based on their novelty. A comparison to the novelty approach used by \textbf{CITE} will be performed.
+%One of the key challenges will be pairing individuals in a meaningful manner. Since there are three populations, random 20 way selection is difficult. However, the selections could be made at random for each pool.
+
+%In previous studies, the selection was performed using a standard archive search and teams were scored based on their novelty. In this approach, teams will be \textit{formed} based on their novelty. A comparison to the novelty approach used by \textbf{CITE} will be performed.
 
 % Termination
-\subsubsection{Termination}
-The evolution is guaranteed to be stopped prematurely. The global figure of merit is defined by
+%\subsubsection{Termination}
+Individuals will be generated with between 5 and 15 randomly distributed segments. From there, the EA will be able to increase the number of segments as necessary. It is expected that at some point, the EA will degenerate to producing non-optimal global optima due to the diminishing returns of the EA. As the solution approaches the optimal value, the cost of evaluating the fitness of an individual remains effectively constant, but the increase in performance per generation decreases. This can result in a slowly increasing local FOM and a decreasing global FOM. The fitness is based on the local FOM, but the termination criteria will be based on the global FOM. Once it fails to increase for a set number of generations, the EA will terminate.
 
-\begin{equation}
-FOM_{global} = \frac{1}{\sum \left( T_{ADV} + T_{MC} \right) R^2}
-\end{equation}
 
-\begin{equation}\label{eq:stddev_combine}
-R = \sqrt{\sum_i \left( \frac{N_i}{N_{TOTAL}} \right)^2 R_i}
-\end{equation}
+%The evolution is guaranteed to be stopped prematurely. The global figure of merit is defined by
 
-The evolution stops when the expected probability that further improvment in the population will no longer more than pay for the time cost of executing the EA drops below 50\%. Of course, this probability can only be estimated based on historical data the previous generations.
+%\begin{equation}
+%FOM_{global} = \frac{1}{\sum \left( T_{ADV} + T_{MC} \right) R^2}
+%\end{equation}
 
+%\begin{equation}\label{eq:stddev_combine}
+%R = \sqrt{\sum_i \left( \frac{N_i}{N_{TOTAL}} \right)^2 R_i}
+%\end{equation}
+
+%The evolution stops when the expected probability that further improvment in the population will no longer more than pay for the time cost of executing the EA drops below 50\%. Of course, this probability can only be estimated based on historical data the previous generations.
+
+%\subsubsection{Validation}
+The EA will be run on a series of toy problems created only to demonstrate its effectiveness as well as benchmark problems given in~\cite{ref:Mosher2015}. The benchmark results will be compared to results obtained from expert generated biasing parameters provided with the associated benchmark problems in~\cite{ref:Mosher2015}.
 
 
 \subsection{Qualifications and Resources}\label{sec:b4}
 The PI is a PhD student in nuclear engineering with over five years of experience with MCNP and whose research work involves usage of both MCNP and ADVANTG on a daily basis. The PI is concurrently pursuing a MS in computer science and has working knowledge of EAs from previous coursework.
 
-The PI has access to an i7-5960x desktop computer representative of the target platform for this algorithm. While running the optimization algorithm on a cluster or similar high performance system would be preferable, there are stringent export control issues that prevent running MCNP on general computing clusters. Development of a hill climber has shown that the runtime for simple problems range from three to ten seconds per fitness evaluation. Therefore, the PI believes that a desktop will be sufficient to illustrate the effectiveness of the proposed algorithm; larger problems (outside the scope of this work), though, will likely need additional computer resources.
+The PI has access to a desktop computer with an i7-5960x processor representative of the target platform for this algorithm. While running the optimization algorithm on a cluster or similar high performance system would be preferable, there are stringent export control issues that prevent running MCNP on general computing clusters. Development of a hill climber has shown that the runtime for simple problems range from three to ten seconds per fitness evaluation. Therefore, the PI believes that a desktop will be sufficient to illustrate the effectiveness of the proposed algorithm; larger problems (outside the scope of this work), though, will likely need additional computer resources.
 
 \subsection{Tentative Work Plan}\label{sec:b5}
 During the remaining ten weeks before the final deadline, the tentative work plan is as follows:
@@ -288,11 +289,11 @@ During the remaining ten weeks before the final deadline, the tentative work pla
 
 \item[Week 2-3] Write the full proposal and develop the framework that will evolve the spatial discretization including the post-processing necessary to read the MCNP output format.
 
-\item [Week 4-6] Develop and test evolutionary operators.
+\item [Week 4-5] Develop and test evolutionary operators.
 
-\item [Week 7] Tune evolutionary parameters (population size, mutation rate, etc.).
+\item [Week 6] Tune evolutionary parameters (population size, mutation rate, etc.).
 
-\item [Week 8] Run evolutionary algorithm on simple benchmark cases.
+\item [Week 7-8] Run evolutionary algorithm on simple benchmark cases.
 
 \item [Week 9] Write final report.
 
@@ -369,8 +370,9 @@ $N_x$ & $N_y$ & $N_z$ & $T_{ADV}$ & $T_{MC}$ & \textbf{Flux} & $R$ & $FOM$ \\ \h
 \pagebreak
 
 % New Work
-\section{Appendix - Previous Experiments}
-To illustrate the complexity of the problem, a simple use case was constucted. A 50 cm thick borated polyethylene (BPE) shield was modeled to sheield a beam of parallel 2.45 MeV neutrons emitted toward a sodium iodide (NaI) detector. Another detector was placed 45 cm perpindicular to the beam from the edge of the shield to measure scattering effects. The FOM of both detectors is to be maximized simulataneously. To do this, a simple hill climber algorithm was implemented. The hill climber started by subdividing the spatial domain into a $5 \times 5 \times 5$ grid and running ADVANTG/MCNP. The segments in the $x$ direction was then increased by 5 and the simulation was re-run. The segments in the $x$ direction was increased by 5 again the simulation was re-run again. This was repeated until the $x$ subdivisions was equal to 100. The best (determined by the sum of the FOM of both detectors) was then selected as the optimal and then the same was repeated in the $y$ direction while holding the number of segments in $x$ and $z$ constant. Finally, the number of segments in the $z$ direction was optimized in a similar fashion. The fitness over this process is plotted in Fig.~\ref{fig:fitness_xyz}. The entire hillclimber was run a second time in the same manner, except the ordering was reversed: $z$ was optimized first, followed by $y$ and then $x$ last. These results are plotted in Fig.~\ref{fig:fitness_zyx}. The optimal result in the $x \rightarrow y \rightarrow z$ was $30 \times 5 \times 50$ which resulted in a FOM of 520.5 min$^{-1}$. The second run, was $10 \times 5 \times 105$ which resulted in a FOM of 1726.5 min$^{-1}$.
+\appendix
+\section{Appendix - Previous Experiments}\label{sec:apdx}
+To illustrate the complexity of the problem, a simple use case was constucted. A 50 cm thick borated polyethylene (BPE) shield was modeled to sheield a beam of parallel 2.45 MeV neutrons emitted toward a sodium iodide (NaI) detector. Another detector was placed 45 cm perpindicular to the beam from the edge of the shield to measure scattering effects. The FOM of both detectors is to be maximized simulataneously. To do this, a simple hill climber algorithm was implemented. The hill climber started by subdividing the spatial domain into a $5 \times 5 \times 5$ grid and running ADVANTG/MCNP. The segments in the $x$ direction was then increased by 5 and the simulation was re-run. The segments in the $x$ direction was increased by 5 again the simulation was re-run again. This was repeated until the $x$ subdivisions equaled to 100. The best (determined by the sum of the FOM of both detectors) was then selected as the optimal and then the same was repeated in the $y$ direction while holding the number of segments in $x$ and $z$ constant. Finally, the number of segments in the $z$ direction was optimized in a similar fashion. The fitness over this process is plotted in Fig.~\ref{fig:fitness_xyz}. The entire hillclimber was run a second time in the same manner, except the ordering was reversed: $z$ was optimized first, followed by $y$ and then $x$ last. These results are plotted in Fig.~\ref{fig:fitness_zyx}. The optimal result in the $x \rightarrow y \rightarrow z$ direction was $30 \times 5 \times 50$ which resulted in a FOM of 1993.4 min$^{-1}$. The second run, produced an optimal result of $20 \times 5 \times 35$ which resulted in a FOM of 2112.1 min$^{-1}$.
 
 \begin{figure}
     \centering
@@ -385,14 +387,14 @@ To illustrate the complexity of the problem, a simple use case was constucted. A
 \begin{figure}
     \centering
     \includegraphics[width=3.0in]{fitness_xyz}
-    \caption{XYZ Fitness}
+    \caption{Fitness when the hill climber explores dimensions in the $x$, $y$, $z$ order.}
     \label{fig:fitness_xyz}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=3.0in]{fitness_zyx}
-    \caption{ZYX Fitness}
+    \caption{Fitness when the hill climber explores dimensions in the $z$, $y$, $x$ order.}
     \label{fig:fitness_zyx}
 \end{figure}
 
