@@ -11,7 +11,7 @@ __author__ = 'etnc6d'
 class EvolAlg(object):
 
     def __init__(self):
-        self.max_evals = 10
+        self.max_evals = 1E5
         self.timeout = 5  # Seconds
         self.pop_size = 5
         self.children = 5
@@ -24,7 +24,7 @@ class EvolAlg(object):
         generation = 0
         generationHist = []
         bestSolutionHist = []
-        popSize = []
+        popSizeHist = []
 
         #xpop = PopInitializer.PopInitializer.initialize(5)
         #ypop = PopInitializer.PopInitializer.initialize(5)
@@ -34,13 +34,13 @@ class EvolAlg(object):
         ypop = EvolAlg.initialize(self.pop_size, 10)
         zpop = EvolAlg.initialize(self.pop_size, 10)
 
-        allpairs = EvolAlg.pair_indivs(xpop, ypop, zpop, 5)
+        teams = EvolAlg.make_teams(xpop, ypop, zpop, 5)
         solutions = []
-        for pair in allpairs:
+        for team in teams:
             sol = SpacePartition3D.SpacePartition3D()
-            sol.x = pair[0]
-            sol.y = pair[1]
-            sol.z = pair[2]
+            sol.x = team[0]
+            sol.y = team[1]
+            sol.z = team[2]
             sol.fit = EvolAlg.evaluate_team(sol.x, sol.y, sol.z)
             solutions.append(sol)
 
@@ -48,43 +48,44 @@ class EvolAlg(object):
         for sol in solutions:
             if sol.fit > maxfit:
                 bestSolution = sol
-        #xfit, yfit, zfit = EvolAlg.evaluate_indivs(xpop, ypop, zpop)
 
         generationHist.append(0)
         bestSolutionHist.append(bestSolution)
-        popSize.append(self.pop_size)
+        popSizeHist.append(self.pop_size)
         evalHist.append(len(solutions))
 
         while not terminated:
             generation += 1
-            #print('Next generation...')
-            #xparents, yparents, zparents = ParentSelector.ParentSelector.select(xpop, ypop, zpop)
+
             xparents, yparents, zparents = EvolAlg.select_parents(xpop, ypop, zpop)
-            #xoff, yoff, zoff = SpacePartitionXOver.SpacePartitionXOver.xover3(xparents, yparents, zparents)
-            #xoff, yoff, zoff = SpacePartitionMutator.SpacePartitionMutator.mutate3(xoff, yoff, zoff)
             xoff, yoff, zoff = EvolAlg.xover_coev(xparents, yparents, zparents, self.children)
 
             xoff = [EvolAlg.mutate(x) for x in xoff]
             yoff = [EvolAlg.mutate(y) for y in yoff]
             zoff = [EvolAlg.mutate(z) for z in zoff]
-            #xoff, yoff, zoff = EvolAlg.mutate(xoff, yoff, zoff)
 
             xpop.extend(xoff)
             ypop.extend(yoff)
             zpop.extend(zoff)
 
-            #xpop, ypop, zpop = Tournament.Tournament.do_tournament(xpop, ypop, zpop)
-            xpop, ypop, zpop = EvolAlg.tournament(xpop, ypop, zpop, solutions)
+            # xpop, ypop, zpop = EvolAlg.tournament(xpop, ypop, zpop, self.pop_size, solutions)
+            teams = EvolAlg.make_teams(xpop, ypop, zpop, 5)
+            # solutions = []
+            for team in teams:
+                sol = SpacePartition3D.SpacePartition3D()
+                sol.x = team[0]
+                sol.y = team[1]
+                sol.z = team[2]
+                sol.fit = EvolAlg.evaluate_team(sol.x, sol.y, sol.z)
+                solutions.append(sol)
 
-            #print('The best:')
-            #print(bestSolution)
             for sol in solutions:
                 if sol.fit > bestSolution.fit:
                     bestSolution = sol
 
             generationHist.append(generation)
             bestSolutionHist.append(bestSolution)
-            popSize.append(len(xpop))
+            popSizeHist.append(len(xpop))
             evalHist.append(len(solutions))
 
             if len(solutions) > self.max_evals:
@@ -99,10 +100,24 @@ class EvolAlg(object):
         print("Evaluations: " + str(len(solutions)))
         print(bestSolution)
 
+        pyplot.figure()
         pyplot.plot(generationHist, [s.fit for s in bestSolutionHist])
         pyplot.title('Best Fitness')
         pyplot.xlabel('Generation')
         pyplot.ylabel('Fitness')
+
+        pyplot.figure()
+        pyplot.loglog(generationHist, [s.fit for s in bestSolutionHist])
+        pyplot.title('Best Fitness (Log Log)')
+        pyplot.xlabel('Generation')
+        pyplot.ylabel('Fitness')
+
+        pyplot.figure()
+        pyplot.plot(generationHist, popSizeHist)
+        pyplot.title('Population Size')
+        pyplot.xlabel('Generation')
+        pyplot.ylabel('# Of Individuals per dimension')
+
         pyplot.show()
 
     @staticmethod
@@ -112,7 +127,7 @@ class EvolAlg(object):
         return random.random()
 
     @staticmethod
-    def pair_indivs(xpop, ypop, zpop, pair_count):
+    def make_teams(xpop, ypop, zpop, pair_count):
         """Pairs members of the coev pops together
         xpop - A list of x SpacePartition1D individuals
         ypop - A list of y SpacePartition1D individuals
@@ -193,8 +208,24 @@ class EvolAlg(object):
         return indiv
 
     @staticmethod
-    def tournament(x, y, z, solutions):
-        return x, y, z
+    def tournament(x, y, z, survivor_count, solutions):
+        teams = EvolAlg.make_teams(x, y, z, 5)
+        # solutions = []
+        for team in teams:
+            sol = SpacePartition3D.SpacePartition3D()
+            sol.x = team[0]
+            sol.y = team[1]
+            sol.z = team[2]
+            sol.fit = EvolAlg.evaluate_team(sol.x, sol.y, sol.z)
+            solutions.append(sol)
+
+        newx = []
+        newy = []
+        newz = []
+        for i in range(survivor_count):
+            pass
+
+        return newx, newy, newz
 
     @staticmethod
     def initialize(indivCount, max_genes):
