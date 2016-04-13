@@ -2,7 +2,7 @@
 class SpacePartition1D(object):
 
     def __init__(self):
-        self.bounds = []
+        self.bounds = [0, 1]
         self.relBins = []
 
     def abs_bins(self):
@@ -11,20 +11,31 @@ class SpacePartition1D(object):
         mult = self.bounds[1] - self.bounds[0]
         addr = self.bounds[0]
 
-        return [mult * bbin + addr for bbin in self.relBins]
+        absBins = [self.bounds[0]]
+        absBins.extend([mult * bbin + addr for bbin in self.relBins])
+        absBins.append(self.bounds[1])
+
+        return absBins
 
     def validate(self):
         if len(self.bounds) != 2:
             raise Exception('The bounds is still empty')
 
-        if not len(self.relBins) >= 2:
-            raise Exception('There is no data in self.bins')
-
-        if self.relBins[0] != 0:
-            raise Exception('The first element is corrupt, it should be 0')
-
-        if self.relBins[-1] != 1:
-            raise Exception('The last element is corrupt, it should be 1')
-
         if self.bounds[1] - self.bounds[0] <= 0:
             raise Exception('The bin boundaries are identical or backwards')
+
+        if len(self.relBins) > 0:
+            if self.relBins[0] <= 0:
+                raise Exception('The lowest bin is < 0')
+            if(self.relBins[-1] >= 1):
+                raise Exception('The highest bin is > 1')
+
+        for i in range(len(self.relBins)-1):
+            if self.relBins[i+1] <= self.relBins[i]:
+                raise Exception('Bin ' + str(i+1) + ' is less than or equal to bin ' + str(i))
+
+    def __len__(self):
+        return len(self.bounds) + len(self.relBins) - 1
+
+    def __repr__(self):
+        return str(self.abs_bins())
