@@ -22,9 +22,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.5"
-     inkscape:cx="664.60803"
-     inkscape:cy="486.84522"
+     inkscape:zoom="0.25"
+     inkscape:cx="34.41046"
+     inkscape:cy="358.34116"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -115,6 +115,84 @@
          style="stroke:#0b17e0;stroke-width:1.0pt;fill:#0b17e0;fill-rule:evenodd"
          d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
          id="path9602" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow1Lend6"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend6">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="stroke:#ff1818;stroke-width:1.0pt;fill:#ff1818;fill-rule:evenodd"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path5287" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow1Lendv"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lendv">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="stroke:#ff1818;stroke-width:1.0pt;fill:#ff1818;fill-rule:evenodd"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path5290" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow1LendG"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1LendG">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="stroke:#0000ff;stroke-width:1.0pt;fill:#0000ff;fill-rule:evenodd"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path6155" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow1Lend5"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend5">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="stroke:#0000ff;stroke-width:1.0pt;fill:#0000ff;fill-rule:evenodd"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path6158" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow1LendK"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1LendK">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="stroke:#0000ff;stroke-width:1.0pt;fill:#0000ff;fill-rule:evenodd"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path6161" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow1Lend5d"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend5d">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="stroke:#0000ff;stroke-width:1.0pt;fill:#0000ff;fill-rule:evenodd"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path6164" />
     </marker>
   </defs>
   <metadata
@@ -703,7 +781,7 @@
     <rect
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        style="fill:none;stroke:#000000;stroke-width:3.75;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect7679"
        width="219.20311"
@@ -715,7 +793,7 @@
     <text
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="-606.91943"
@@ -729,7 +807,7 @@
     <text
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="-745.53271"
@@ -743,7 +821,7 @@
     <rect
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        transform="scale(-1,1)"
        ry="0"
        y="2435.4326"
@@ -751,16 +829,16 @@
        height="70.710678"
        width="219.20311"
        id="rect7693"
-       style="fill:none;stroke:#000000;stroke-width:3.75;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+       style="fill:none;stroke:#0000ff;stroke-width:3.75000000000000000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
     <text
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        sodipodi:linespacing="125%"
        id="text7695"
        y="2485.3484"
        x="-643.33545"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          y="2485.3484"
          x="-643.33545"
@@ -769,9 +847,9 @@
     <text
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
        x="-684.60498"
        y="2390.9858"
        id="text7699"
@@ -783,8 +861,8 @@
     <rect
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
-       style="fill:none;stroke:#000000;stroke-width:3.75;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
+       style="fill:none;stroke:#ff0000;stroke-width:3.75000000000000000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect7707"
        width="471.65021"
        height="52.436947"
@@ -793,9 +871,9 @@
     <text
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;font-family:Sans"
        x="-777.5835"
        y="2313.2246"
        id="text7709"
@@ -807,7 +885,7 @@
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
        d="m -547.36867,2707.6686 0,45.4568"
        id="path7721"
@@ -815,24 +893,24 @@
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
+       style="stroke-linejoin:miter;marker-end:url(#Arrow1Lendv);stroke-opacity:1;stroke:#ff1818;stroke-linecap:butt;stroke-width:1px;fill:none"
        d="m -547.36867,2331.3462 0,28.2843"
        id="path7723"
        inkscape:connector-curvature="0" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
+       style="stroke-linejoin:miter;marker-end:url(#Arrow1Lend5);stroke-opacity:1;stroke:#0000ff;stroke-linecap:butt;stroke-width:1px;fill:none"
        d="m -547.36867,2396.0366 0,31.3147"
        id="path7725"
        inkscape:connector-curvature="0" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
+       style="stroke-linejoin:miter;marker-end:url(#Arrow1Lend6);stroke-opacity:1;stroke:#ff1818;stroke-linecap:butt;stroke-width:1px;fill:none"
        d="m -344.99551,2763.7321 c 72.73098,-28.2842 149.09402,-88.4101 161.62439,-194.9594 12.53037,-106.5493 3.43862,-249.367 -116.16753,-262.6397"
        id="path7727"
        inkscape:connector-curvature="0"
@@ -840,7 +918,7 @@
     <text
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="-731.96521"
@@ -855,21 +933,21 @@
     <text
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        sodipodi:linespacing="125%"
        id="text7733"
        y="2574.0952"
        x="-542.05652"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          y="2574.0952"
          x="-542.05652"
          id="tspan7735"
-         sodipodi:role="line">Weight Windows</tspan></text>
+         sodipodi:role="line">Bias Parameters</tspan></text>
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        inkscape:connector-curvature="0"
        id="path7737"
        d="m -677.41692,2582.9757 14.14214,37.3757"
@@ -878,29 +956,29 @@
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        inkscape:connector-curvature="0"
        id="path7739"
        d="m -685.47782,2539.5189 25.25381,-31.3147"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       style="stroke-linejoin:miter;marker-end:url(#Arrow1Lend5d);stroke-opacity:1;stroke:#0000ff;stroke-linecap:butt;stroke-width:1px;fill:none"
        sodipodi:nodetypes="cc" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        inkscape:connector-curvature="0"
        id="path7741"
        d="m -435.35817,2511.7642 35.1009,25.2048"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       style="stroke-linejoin:miter;marker-end:url(#Arrow1LendK);stroke-opacity:1;stroke:#0000ff;stroke-linecap:butt;stroke-width:1px;fill:none"
        sodipodi:nodetypes="cc" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/cs6401/seq_new.png"
+       inkscape:export-filename="/media/Storage/school/CS6401/prop/overall.png"
        inkscape:connector-curvature="0"
        id="path7743"
        d="m -395.80777,2579.8437 -36.36544,38.3859"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       style="stroke-linejoin:miter;marker-end:url(#Arrow1LendG);stroke-opacity:1;stroke:#0000ff;stroke-linecap:butt;stroke-width:1px;fill:none"
        sodipodi:nodetypes="cc" />
     <rect
        y="-1.408686"

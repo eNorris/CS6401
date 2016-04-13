@@ -18,6 +18,126 @@
   <defs
      id="defs4">
     <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10975"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10973"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10971"
+       is_visible="true" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10969"
+       effect="spiro" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10967"
+       is_visible="true" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10965"
+       effect="spiro" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10963"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10961"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10959"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10957"
+       is_visible="true" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10955"
+       effect="spiro" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10953"
+       effect="spiro" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10951"
+       is_visible="true" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10949"
+       effect="spiro" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10947"
+       effect="spiro" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10945"
+       effect="spiro" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10943"
+       effect="spiro" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10941"
+       effect="spiro" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10939"
+       is_visible="true" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10937"
+       effect="spiro" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10935"
+       is_visible="true" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10933"
+       effect="spiro" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10931"
+       effect="spiro" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10929"
+       effect="spiro" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10927"
+       effect="spiro" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10925"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10923"
+       is_visible="true" />
+    <inkscape:path-effect
+       is_visible="true"
+       id="path-effect10921"
+       effect="spiro" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10919"
+       is_visible="true" />
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect10917"
+       is_visible="true" />
+    <inkscape:path-effect
        is_visible="true"
        id="path-effect6694"
        effect="spiro" />
@@ -802,9 +922,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="-551.53939"
-     inkscape:cy="622.59832"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="43.297042"
+     inkscape:cy="-503.14641"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -823,7 +943,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -4270,5 +4390,780 @@
          x="809.79114"
          id="tspan6746"
          sodipodi:role="line">(c)</tspan></text>
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       style="fill:none;stroke:#000000;stroke-width:0.8629055px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -536.61296,1373.7068 482.398246,0"
+       id="path10741"
+       inkscape:path-effect="#path-effect10917"
+       inkscape:original-d="m -536.61296,1373.7068 482.398246,0"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -535.77098,1357.9925 0,31.4285"
+       id="path10743"
+       inkscape:path-effect="#path-effect10919"
+       inkscape:original-d="m -535.77098,1357.9925 0,31.4285"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m -54.342414,1357.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10921"
+       id="path10745"
+       d="m -54.342414,1357.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -199.3424,1357.9925 0,31.4285"
+       id="path10747"
+       inkscape:path-effect="#path-effect10923"
+       inkscape:original-d="m -199.3424,1357.9925 0,31.4285"
+       inkscape:connector-curvature="0" />
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       sodipodi:linespacing="125%"
+       id="text10749"
+       y="1348.1365"
+       x="-546.60956"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1348.1365"
+         x="-546.60956"
+         id="tspan10751"
+         sodipodi:role="line">0</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       sodipodi:linespacing="125%"
+       id="text10753"
+       y="1349.0861"
+       x="-63.990898"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1349.0861"
+         x="-63.990898"
+         id="tspan10755"
+         sodipodi:role="line">10</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -439.3424,1357.9925 0,31.4285"
+       id="path10757"
+       inkscape:path-effect="#path-effect10925"
+       inkscape:original-d="m -439.3424,1357.9925 0,31.4285"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m -345.34239,1357.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10927"
+       id="path10759"
+       d="m -345.34239,1357.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m -295.34239,1357.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10929"
+       id="path10761"
+       d="m -295.34239,1357.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       style="fill:none;stroke:#ff0000;stroke-width:2.54199195;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2.54199204, 2.54199204;stroke-dashoffset:0"
+       id="rect10763"
+       width="170.74226"
+       height="50.605206"
+       x="-486.18518"
+       y="1347.8007" />
+    <path
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m -536.61296,1535.7068 482.398246,0"
+       inkscape:path-effect="#path-effect10931"
+       id="path10765"
+       d="m -536.61296,1535.7068 482.398246,0"
+       style="fill:none;stroke:#000000;stroke-width:0.8629055px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m -535.77098,1519.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10933"
+       id="path10767"
+       d="m -535.77098,1519.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -54.342414,1519.9925 0,31.4285"
+       id="path10769"
+       inkscape:path-effect="#path-effect10935"
+       inkscape:original-d="m -54.342414,1519.9925 0,31.4285"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m -153.3424,1519.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10937"
+       id="path10771"
+       d="m -153.3424,1519.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -439.34239,1519.9925 0,31.4285"
+       id="path10773"
+       inkscape:path-effect="#path-effect10939"
+       inkscape:original-d="m -439.34239,1519.9925 0,31.4285"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-546.60956"
+       y="1510.1365"
+       id="text10775"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan10777"
+         x="-546.60956"
+         y="1510.1365"
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman">0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-63.990898"
+       y="1511.0861"
+       id="text10779"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan10781"
+         x="-63.990898"
+         y="1511.0861"
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman">10</tspan></text>
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m -249.3424,1519.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10941"
+       id="path10783"
+       d="m -249.3424,1519.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m -201.3424,1519.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10943"
+       id="path10785"
+       d="m -201.3424,1519.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m -295.34239,1519.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10945"
+       id="path10787"
+       d="m -295.34239,1519.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       y="1509.382"
+       x="-267.37399"
+       height="51.389"
+       width="91.724007"
+       id="rect10789"
+       style="fill:none;stroke:#ff0000;stroke-width:2.07707143;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2.0770716, 2.0770716;stroke-dashoffset:0" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-17.332819"
+       y="1452.4574"
+       id="text10791"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan10793"
+         x="-17.332819"
+         y="1452.4574"
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Recombination</tspan></text>
+    <path
+       sodipodi:nodetypes="cc"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m -68.76139,1397.6003 44.28571,30"
+       id="path10795"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path10797"
+       d="m -68.76139,1477.6003 44.28571,-32"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path10799"
+       d="m 283.52432,1407.6003 -44.28571,30"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:none"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cc"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:none"
+       d="m 283.52432,1475.6003 -44.28571,-32"
+       id="path10801"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       sodipodi:linespacing="125%"
+       id="text10803"
+       y="1448.9757"
+       x="-416.64697"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1448.9757"
+         x="-416.64697"
+         id="tspan10805"
+         sodipodi:role="line">0, 2, 4, 5, 7, 10</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-437.44467"
+       y="1609.8743"
+       id="text10807"
+       sodipodi:linespacing="125%"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         sodipodi:role="line"
+         id="tspan10809"
+         x="-437.44467"
+         y="1609.8743">0, 2, 5, 6, 7, 8, 10</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m 273.38704,1373.7068 482.39825,0"
+       inkscape:path-effect="#path-effect10947"
+       id="path10811"
+       d="m 273.38704,1373.7068 482.39825,0"
+       style="fill:none;stroke:#000000;stroke-width:0.8629055px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m 274.22902,1357.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10949"
+       id="path10813"
+       d="m 274.22902,1357.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 755.65759,1357.9925 0,31.4285"
+       id="path10815"
+       inkscape:path-effect="#path-effect10951"
+       inkscape:original-d="m 755.65759,1357.9925 0,31.4285"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m 610.6576,1519.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10953"
+       id="path10817"
+       d="m 610.6576,1519.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="263.39041"
+       y="1348.1365"
+       id="text10819"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan10821"
+         x="263.39041"
+         y="1348.1365"
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman">0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="746.00909"
+       y="1349.0861"
+       id="text10823"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan10825"
+         x="746.00909"
+         y="1349.0861"
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman">10</tspan></text>
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m 370.6576,1357.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10955"
+       id="path10827"
+       d="m 370.6576,1357.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 464.65761,1357.9925 0,31.4285"
+       id="path10829"
+       inkscape:path-effect="#path-effect10957"
+       inkscape:original-d="m 464.65761,1357.9925 0,31.4285"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 514.65761,1519.9925 0,31.4285"
+       id="path10831"
+       inkscape:path-effect="#path-effect10959"
+       inkscape:original-d="m 514.65761,1519.9925 0,31.4285"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       y="1347.8702"
+       x="485.50882"
+       height="50.466072"
+       width="194.84679"
+       id="rect10833"
+       style="fill:none;stroke:#ff0000;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       style="fill:none;stroke:#000000;stroke-width:0.8629055px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 273.38704,1535.7068 482.39825,0"
+       id="path10835"
+       inkscape:path-effect="#path-effect10961"
+       inkscape:original-d="m 273.38704,1535.7068 482.39825,0"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 274.22902,1519.9925 0,31.4285"
+       id="path10837"
+       inkscape:path-effect="#path-effect10963"
+       inkscape:original-d="m 274.22902,1519.9925 0,31.4285"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m 755.65759,1519.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10965"
+       id="path10839"
+       d="m 755.65759,1519.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 656.6576,1357.9925 0,31.4285"
+       id="path10841"
+       inkscape:path-effect="#path-effect10967"
+       inkscape:original-d="m 656.6576,1357.9925 0,31.4285"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:connector-curvature="0"
+       inkscape:original-d="m 370.65761,1519.9925 0,31.4285"
+       inkscape:path-effect="#path-effect10969"
+       id="path10843"
+       d="m 370.65761,1519.9925 0,31.4285"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       sodipodi:linespacing="125%"
+       id="text10845"
+       y="1510.1365"
+       x="263.39041"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1510.1365"
+         x="263.39041"
+         id="tspan10847"
+         sodipodi:role="line">0</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       sodipodi:linespacing="125%"
+       id="text10849"
+       y="1511.0861"
+       x="746.00909"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1511.0861"
+         x="746.00909"
+         id="tspan10851"
+         sodipodi:role="line">10</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 560.6576,1357.9925 0,31.4285"
+       id="path10853"
+       inkscape:path-effect="#path-effect10971"
+       inkscape:original-d="m 560.6576,1357.9925 0,31.4285"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 608.6576,1357.9925 0,31.4285"
+       id="path10855"
+       inkscape:path-effect="#path-effect10973"
+       inkscape:original-d="m 608.6576,1357.9925 0,31.4285"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 514.65761,1357.9925 0,31.4285"
+       id="path10857"
+       inkscape:path-effect="#path-effect10975"
+       inkscape:original-d="m 514.65761,1357.9925 0,31.4285"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       style="fill:none;stroke:#ff0000;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0"
+       id="rect10859"
+       width="194.84679"
+       height="50.466072"
+       x="485.50882"
+       y="1509.8434" />
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="355.35303"
+       y="1446.1187"
+       id="text10861"
+       sodipodi:linespacing="125%"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         sodipodi:role="line"
+         id="tspan10863"
+         x="355.35303"
+         y="1446.1187">0, 6, 7, 5, 7, 10</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       sodipodi:linespacing="125%"
+       id="text10865"
+       y="1604.6313"
+       x="414.42142"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1604.6313"
+         x="414.42142"
+         id="tspan10867"
+         sodipodi:role="line">0, 2, 5, 2, 4, 8, 10</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-759.79987"
+       y="1437.8182"
+       id="text10869"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan10871"
+         x="-759.79987"
+         y="1437.8182"
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Genotype</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-780.94269"
+       y="1374.9612"
+       id="text10873"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan10875"
+         x="-780.94269"
+         y="1374.9612"
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Phenotype</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40.38839722px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-600.01276"
+       y="1396.9663"
+       id="text10877"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0097099,0.99038347)"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan10879"
+         x="-600.01276"
+         y="1396.9663"
+         style="font-size:72.69911194px;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">{</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text10881"
+       y="1468.5128"
+       x="-598.841"
+       style="font-size:20.1121769px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       transform="scale(1.0138278,0.98636081)"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-size:72.40383911px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1468.5128"
+         x="-598.841"
+         id="tspan10883"
+         sodipodi:role="line">{</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       sodipodi:linespacing="125%"
+       id="text10885"
+       y="1607.9611"
+       x="-746.94275"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1607.9611"
+         x="-746.94275"
+         id="tspan10887"
+         sodipodi:role="line">Genotype</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       sodipodi:linespacing="125%"
+       id="text10889"
+       y="1543.104"
+       x="-768.08557"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1543.104"
+         x="-768.08557"
+         id="tspan10891"
+         sodipodi:role="line">Phenotype</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       transform="scale(1.0097099,0.99038347)"
+       sodipodi:linespacing="125%"
+       id="text10893"
+       y="1566.7419"
+       x="-587.27924"
+       style="font-size:40.38839722px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-size:72.69911194px;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1566.7419"
+         x="-587.27924"
+         id="tspan10895"
+         sodipodi:role="line">{</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       transform="scale(1.0138278,0.98636081)"
+       xml:space="preserve"
+       style="font-size:20.1121769px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-586.15924"
+       y="1641.0082"
+       id="text10897"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan10899"
+         x="-586.15924"
+         y="1641.0082"
+         style="font-size:72.40383911px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">{</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text10901"
+       y="1377.9813"
+       x="-13.514145"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-size:64px;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1377.9813"
+         x="-13.514145"
+         id="tspan10903"
+         sodipodi:role="line">(a)</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-14.942717"
+       y="1542.2671"
+       id="text10905"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan10907"
+         x="-14.942717"
+         y="1542.2671"
+         style="font-size:64px;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">(b)</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text10909"
+       y="1546.5527"
+       x="793.62872"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-size:64px;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="1546.5527"
+         x="793.62872"
+         id="tspan10911"
+         sodipodi:role="line">(d)</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="793.62872"
+       y="1376.5527"
+       id="text10913"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan10915"
+         x="793.62872"
+         y="1376.5527"
+         style="font-size:64px;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">(c)</tspan></text>
+    <rect
+       y="1408.9335"
+       x="-383.63614"
+       height="51.578251"
+       width="83.832024"
+       id="rect11497"
+       style="fill:none;stroke:#ff0000;stroke-width:2.51189876;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2.51189866, 2.51189866;stroke-dashoffset:0"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:none;stroke:#ff0000;stroke-width:1.97463655;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:1.97463658, 1.97463658;stroke-dashoffset:0"
+       id="rect11499"
+       width="82.735054"
+       height="51.491436"
+       x="-323.99374"
+       y="1569.9398"
+       inkscape:export-filename="/media/data/school/CS6401/prop/linearxover.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>
