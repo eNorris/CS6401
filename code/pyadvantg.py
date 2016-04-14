@@ -6,39 +6,48 @@ import time
 import meshtaldata
 import numpy
 import shutil
+import SpacePartition1D
 
 LOC = 'Storage/'
 FOLDER_ROOT = '/media/' + LOC + 'school/CS6401/code'
 FOLDER_WORKING = FOLDER_ROOT + "/ex2.gitdnt"
 ADV_SRC = FOLDER_ROOT + '/ex2_adv.adv'
 TMP_ADV = FOLDER_WORKING + "/ex2_tmp_adv.adv"
-#MCNP_ADV_SRC = FOLDER_ROOT + '/ex2_mcnp_adv.inp'
+# MCNP_ADV_SRC = FOLDER_ROOT + '/ex2_mcnp_adv.inp'
 MCNP_SRC = FOLDER_ROOT + '/ex2_mcnp.inp'
 TMP_MCNP = FOLDER_WORKING + '/ex2_mcnp.inp'
 MCNP5 = '/media/' + LOC + 'mcnp/MCNP_CODE/bin/mcnp5 '
 
+x_range_min = 0
+x_range_max = 150
+y_range_min = 0
+y_range_max = 100
+z_range_min = 0
+z_range_max = 100
+
 # Changes on different systems
-#ADVANTG = '/media/' + LOC + 'advantge/advantge/bin/advantg '
+# ADVANTG = '/media/' + LOC + 'advantge/advantge/bin/advantg '
 ADVANTG = '/media/' + LOC + 'advantage/bin/advantg '
 
 os.environ["DATAPATH"] = "/media/" + LOC + "mcnp/MCNP_DATA"
+
 
 def eval_fitness(indiv):
     if not type(indiv) == phasetree.SingletonPhaseSpace:
         raise Exception('eval_fitness requires a singleton population, did you mean to use the _co version?')
     
-    #xlen = indiv.x.node_count()
-    #ylen = indiv.y.node_count()
-    #zlen = indiv.z.node_count()
+    # xlen = indiv.x.node_count()
+    # ylen = indiv.y.node_count()
+    # zlen = indiv.z.node_count()
     
-    rightnow = datetime.datetime.now()
+    right_now = datetime.datetime.now()
     nowstring = ""
-    nowstring += str(rightnow.year) + "_"
-    nowstring += str(rightnow.month) + "_"
-    nowstring += str(rightnow.day) + "___"
-    nowstring += str(rightnow.hour) + "_"
-    nowstring += str(rightnow.minute) + "_"
-    nowstring += str(rightnow.second)
+    nowstring += str(right_now.year) + "_"
+    nowstring += str(right_now.month) + "_"
+    nowstring += str(right_now.day) + "___"
+    nowstring += str(right_now.hour) + "_"
+    nowstring += str(right_now.minute) + "_"
+    nowstring += str(right_now.second)
     
     # Move to the working folder
     if not os.path.exists(FOLDER_WORKING):
@@ -101,17 +110,86 @@ def eval_fitness(indiv):
     
     
 def eval_co_fitness(indiv_x, indiv_y, indiv_z):
+    # f not type(indiv) == phasetree.SingletonPhaseSpace:
+    #    raise Exception('eval_fitness requires a singleton population, did you mean to use the _co version?')
+
+    if not type(indiv_x) == SpacePartition1D.SpacePartition1D:
+        raise Exception('fitness eval found an incorrectly typed x element')
+    if not type(indiv_y) == SpacePartition1D.SpacePartition1D:
+        raise Exception('fitness eval found an incorrectly typed y element')
+    if not type(indiv_z) == SpacePartition1D.SpacePartition1D:
+        raise Exception('fitness eval found an incorrectly typed z element')
+
+    right_now = datetime.datetime.now()
+    nowstring = ""
+    nowstring += str(right_now.year) + "_"
+    nowstring += str(right_now.month) + "_"
+    nowstring += str(right_now.day) + "___"
+    nowstring += str(right_now.hour) + "_"
+    nowstring += str(right_now.minute) + "_"
+    nowstring += str(right_now.second)
+
+    # Move to the working folder
+    if not os.path.exists(FOLDER_WORKING):
+        os.makedirs(FOLDER_WORKING)
+    os.chdir(FOLDER_WORKING)
+
+    shutil.copyfile(MCNP_SRC, TMP_MCNP)
+
     #p# Create folder
-    folder_base = FOLDER_WORKING #+ "xyz_" + str(x) + "_" + str(y) + "_" + str(z) + "/"
-    filename = folder_base + "adv_ea.adv"
-    
+    #folder_base = FOLDER_ROOT + "/adv_" + nowstring
+    advfilename = TMP_ADV
+
     # Create file
-    rewrite_advtg(filename, 1,2,3)
-    
+    indiv_x.set_range(x_range_min, x_range_max)
+    indiv_y.set_range(y_range_min, y_range_max)
+    indiv_z.set_range(z_range_min, z_range_max)
+    rewrite_advtg(ADV_SRC, advfilename, indiv_x, indiv_y, indiv_z)
+
+    # Run ADVANTG
+    #cmd = "../advrun.sh " + TMP_ADV  # ex1_tmp_adv.adv"
+    cmd = ADVANTG + TMP_ADV
+    adv_start = time.time()
+    subprocess.call(cmd.split())
+    adv_stop = time.time()
+    adv_elapsed = (adv_stop - adv_start)/60.0
+    print("ADVANTG time elapsed: " + str(adv_elapsed))
+
+    # Move to the output folder, run MCNP, and move back to current folder
+    os.chdir("output")
+
+    # Remove Tally 4
+    remove_tally4("inp", "inp_purged")
+
+
+    mcnp_start = time.time()
+    #cmd = "../../mcnprun.sh inp_purged"
+    cmd = MCNP5 + "inp=inp_purged out=oua.out run=runtpa.rtpe mesh=mesa.msh mctal=mctaa.mctal tasks 14"
+    subprocess.call(cmd.split())
+    mcnp_stop = time.time()
+    mcnp_elapsed = (mcnp_stop - mcnp_start)/60.0
+    print("MCNP time elapsed: " + str(mcnp_elapsed))
+
+    fit_funct = parse_mcnp_out(FOLDER_WORKING + "/output/oua.out")
+    v = numpy.array([f[0] for f in fit_funct])
+    u = numpy.array([f[1] for f in fit_funct])
+
+    #fom = 1.0/((adv_elapsed + mcnp_elapsed) * u**2)
+    #print("FOM array [min^-1]: " + str(fom))
+
+    fitness = phasetree.PhaseFitness()
+    fitness.v = v
+    fitness.u = u
+    fitness.mcnp_t = mcnp_elapsed
+    fitness.adv_t = adv_elapsed
+    fitness.calc_fom()
+
+    os.chdir("..")
+
     # Copy MCNP
-    
+
     # cd into the folder
-    return 1.0
+    return fitness
 
 
 def rewrite_advtg(adv_in_filename, adv_out_filename, x, y, z):
