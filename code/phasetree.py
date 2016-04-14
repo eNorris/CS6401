@@ -161,6 +161,7 @@ class PhaseFitness(object):
         self.v = []
         self.u = []
         self.fom = []
+        self.fomavg = None
         self.adv_t = -1
         self.mcnp_t = -1
         
@@ -170,12 +171,12 @@ class PhaseFitness(object):
     def calc_fom(self):
         if self.adv_t <= 0 or self.mcnp_t <= 0 or len(self.u) == 0:
             raise Exception('Either an illegal time or u length was encountered')
-            
-        
+
         t = numpy.copy(self.u)
-        t[t==0.0] = numpy.inf
+        t[t == 0.0] = numpy.inf
         self.fom = 1.0/((self.adv_t + self.mcnp_t) * t**2)
-        
+
+        self.fomavg = numpy.mean(self.fom)
         
         
         
