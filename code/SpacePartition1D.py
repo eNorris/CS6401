@@ -29,6 +29,9 @@ class SpacePartition1D(object):
             msh += "1 "
         return msh
 
+    def get_bin_count(self):
+        return len(self.relBins) + 1
+
     def set_range(self, range_min, range_max):
         self.bounds = [range_min, range_max]
 

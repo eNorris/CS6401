@@ -166,7 +166,10 @@ class PhaseFitness(object):
         self.mcnp_t = -1
         
     def __repr__(self):
-        return str(self.v) + str(self.u) + str(self.fom)
+        return str(self.fom) + " = 1/(" + str(self.mcnp_t) + "+" + str(self.adv_t) + ")(" + str(self.u) + ")^2"
+
+    def avg_unc(self):
+        return sum(self.u)/float(len(self.u))
         
     def calc_fom(self):
         if self.adv_t <= 0 or self.mcnp_t <= 0 or len(self.u) == 0:

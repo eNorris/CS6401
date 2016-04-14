@@ -14,19 +14,19 @@ class EvolAlg(object):
 
     def __init__(self):
         self.max_evals = 1E5
-        self.timeout = 5  # Seconds
-        self.pop_size = 5
+        self.timeout = 30*60  # Seconds
+        self.pop_size = 15
         self.children = 5
 
     def begin(self):
-        evalHist = []
+        eval_hist = []
         terminated = False
         start_time = time.time()
-        bestSolution = None
+        best_solution = None
         generation = 0
-        generationHist = []
-        bestSolutionHist = []
-        popSizeHist = []
+        generation_hist = []
+        best_solution_hist = []
+        pop_size_hist = []
         gen_best_solution = []
 
         #xpop = PopInitializer.PopInitializer.initialize(5)
@@ -50,13 +50,14 @@ class EvolAlg(object):
         maxfit = -1
         for sol in solutions:
             if sol.fit.fomavg > maxfit:
-                bestSolution = sol
+                maxfit = sol.fit.fomavg
+                best_solution = sol
 
-        generationHist.append(0)
-        bestSolutionHist.append(bestSolution)
-        gen_best_solution.append(bestSolution)
-        popSizeHist.append(self.pop_size)
-        evalHist.append(len(solutions))
+        generation_hist.append(0)
+        best_solution_hist.append(best_solution)
+        gen_best_solution.append(best_solution)
+        pop_size_hist.append(self.pop_size)
+        eval_hist.append(len(solutions))
 
         while not terminated:
             generation += 1
@@ -86,13 +87,13 @@ class EvolAlg(object):
             xpop, ypop, zpop = EvolAlg.tournament(xpop, ypop, zpop, self.pop_size, solutions)
 
             for sol in solutions:
-                if sol.fit > bestSolution.fit:
-                    bestSolution = sol
+                if sol.fit.fomavg > best_solution.fit.fomavg:
+                    best_solution = sol
 
-            generationHist.append(generation)
-            bestSolutionHist.append(bestSolution)
-            popSizeHist.append(len(xpop))
-            evalHist.append(len(solutions))
+            generation_hist.append(generation)
+            best_solution_hist.append(best_solution)
+            pop_size_hist.append(len(xpop))
+            eval_hist.append(len(solutions))
 
             if len(solutions) > self.max_evals:
                 terminated = True
@@ -104,22 +105,64 @@ class EvolAlg(object):
 
         print("Generations: " + str(generation))
         print("Evaluations: " + str(len(solutions)))
-        print(bestSolution)
+        print(best_solution)
 
         pyplot.figure()
-        pyplot.plot(generationHist, [s.fit.fomavg for s in bestSolutionHist])
+        pyplot.plot(generation_hist, [s.fit.fomavg for s in best_solution_hist])
         pyplot.title('Best Fitness')
         pyplot.xlabel('Generation')
         pyplot.ylabel('Fitness')
 
         pyplot.figure()
-        pyplot.loglog(generationHist, [s.fit.fomavg for s in bestSolutionHist])
+        pyplot.loglog(generation_hist, [s.fit.fomavg for s in best_solution_hist])
         pyplot.title('Best Fitness (Log Log)')
         pyplot.xlabel('Generation')
         pyplot.ylabel('Fitness')
 
         pyplot.figure()
-        pyplot.plot(generationHist, popSizeHist)
+        pyplot.plot([s.fit.fomavg for s in solutions])
+        pyplot.title('Fitness with Evaluations')
+        pyplot.xlabel('Evaluation')
+        pyplot.ylabel('Fitness')
+
+        pyplot.figure()
+        pyplot.plot([s.x.get_bin_count() for s in solutions])
+        pyplot.title('X Bin Size')
+        pyplot.xlabel('Evaluation')
+        pyplot.ylabel('X Bins')
+
+        pyplot.figure()
+        pyplot.plot([s.y.get_bin_count() for s in solutions])
+        pyplot.title('Y Bin Size')
+        pyplot.xlabel('Evaluation')
+        pyplot.ylabel('Y Bins')
+
+        pyplot.figure()
+        pyplot.plot([s.z.get_bin_count() for s in solutions])
+        pyplot.title('Z Bin Size')
+        pyplot.xlabel('Evaluation')
+        pyplot.ylabel('Z Bins')
+
+        pyplot.figure()
+        pyplot.plot([s.fit.mcnp_t for s in solutions])
+        pyplot.title('MCNP Runtime')
+        pyplot.xlabel('Evaluation')
+        pyplot.ylabel('Runtime')
+
+        pyplot.figure()
+        pyplot.plot([s.fit.adv_t for s in solutions])
+        pyplot.title('ADVANTG Runtime')
+        pyplot.xlabel('Evaluation')
+        pyplot.ylabel('Runtime')
+
+        pyplot.figure()
+        pyplot.plot([s.fit.avg_unc() for s in solutions])
+        pyplot.title('Average Uncertainty')
+        pyplot.xlabel('Evaluation')
+        pyplot.ylabel('Uncertainty')
+
+        pyplot.figure()
+        pyplot.plot(generation_hist, pop_size_hist)
         pyplot.title('Population Size')
         pyplot.xlabel('Generation')
         pyplot.ylabel('# Of Individuals per dimension')
@@ -225,6 +268,9 @@ class EvolAlg(object):
     @staticmethod
     def tournament_single(x, survivor_count, solutions):
 
+        if survivor_count >= len(x):
+            return x
+
         xfit = []
         for indiv in x:
             ifit = 0
@@ -237,7 +283,14 @@ class EvolAlg(object):
                 ifit /= icnt
             xfit.append(ifit)
 
+        mostfit = max(xfit)
+        pressure = 2.0
+
+        xfit = [q+(mostfit/pressure) for q in xfit]
+
         xfitsum = sum(xfit)
+
+
 
         if xfitsum == 0:
             return numpy.random.choice(x, survivor_count, False).tolist()
