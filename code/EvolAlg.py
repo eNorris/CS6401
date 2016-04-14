@@ -1,6 +1,8 @@
 import time
 import random
+import numpy
 
+import pyadvantg
 import SpacePartition1D
 import SpacePartition3D
 import matplotlib.pyplot as pyplot
@@ -25,6 +27,7 @@ class EvolAlg(object):
         generationHist = []
         bestSolutionHist = []
         popSizeHist = []
+        gen_best_solution = []
 
         #xpop = PopInitializer.PopInitializer.initialize(5)
         #ypop = PopInitializer.PopInitializer.initialize(5)
@@ -46,11 +49,12 @@ class EvolAlg(object):
 
         maxfit = -1
         for sol in solutions:
-            if sol.fit > maxfit:
+            if sol.fit.fomavg > maxfit:
                 bestSolution = sol
 
         generationHist.append(0)
         bestSolutionHist.append(bestSolution)
+        gen_best_solution.append(bestSolution)
         popSizeHist.append(self.pop_size)
         evalHist.append(len(solutions))
 
@@ -79,6 +83,8 @@ class EvolAlg(object):
                 sol.fit = EvolAlg.evaluate_team(sol.x, sol.y, sol.z)
                 solutions.append(sol)
 
+            xpop, ypop, zpop = EvolAlg.tournament(xpop, ypop, zpop, self.pop_size, solutions)
+
             for sol in solutions:
                 if sol.fit > bestSolution.fit:
                     bestSolution = sol
@@ -101,13 +107,13 @@ class EvolAlg(object):
         print(bestSolution)
 
         pyplot.figure()
-        pyplot.plot(generationHist, [s.fit for s in bestSolutionHist])
+        pyplot.plot(generationHist, [s.fit.fomavg for s in bestSolutionHist])
         pyplot.title('Best Fitness')
         pyplot.xlabel('Generation')
         pyplot.ylabel('Fitness')
 
         pyplot.figure()
-        pyplot.loglog(generationHist, [s.fit for s in bestSolutionHist])
+        pyplot.loglog(generationHist, [s.fit.fomavg for s in bestSolutionHist])
         pyplot.title('Best Fitness (Log Log)')
         pyplot.xlabel('Generation')
         pyplot.ylabel('Fitness')
@@ -124,7 +130,7 @@ class EvolAlg(object):
     def evaluate_team(xindiv, yindiv, zindiv):
         """Takes an individual from each coev pop and evaluates the 
         """
-        return random.random()
+        return pyadvantg.eval_co_fitness(xindiv, yindiv, zindiv)  # random.random()
 
     @staticmethod
     def make_teams(xpop, ypop, zpop, pair_count):
@@ -209,23 +215,36 @@ class EvolAlg(object):
 
     @staticmethod
     def tournament(x, y, z, survivor_count, solutions):
-        teams = EvolAlg.make_teams(x, y, z, 5)
-        # solutions = []
-        for team in teams:
-            sol = SpacePartition3D.SpacePartition3D()
-            sol.x = team[0]
-            sol.y = team[1]
-            sol.z = team[2]
-            sol.fit = EvolAlg.evaluate_team(sol.x, sol.y, sol.z)
-            solutions.append(sol)
 
-        newx = []
-        newy = []
-        newz = []
-        for i in range(survivor_count):
-            pass
+        newx = EvolAlg.tournament_single(x, survivor_count, solutions)
+        newy = EvolAlg.tournament_single(y, survivor_count, solutions)
+        newz = EvolAlg.tournament_single(z, survivor_count, solutions)
 
         return newx, newy, newz
+
+    @staticmethod
+    def tournament_single(x, survivor_count, solutions):
+
+        xfit = []
+        for indiv in x:
+            ifit = 0
+            icnt = 0
+            for sol in solutions:
+                if sol.x == indiv:
+                    ifit += sol.fit.fomavg
+                    icnt += 1
+            if icnt > 0:
+                ifit /= icnt
+            xfit.append(ifit)
+
+        xfitsum = sum(xfit)
+
+        if xfitsum == 0:
+            return numpy.random.choice(x, survivor_count, False).tolist()
+
+        xfit = [q/xfitsum for q in xfit]
+
+        return numpy.random.choice(x, survivor_count, False, xfit).tolist()
 
     @staticmethod
     def initialize(indivCount, max_genes):
