@@ -17,6 +17,21 @@ class SpacePartition1D(object):
 
         return absBins
 
+    def get_mesh(self):
+        msh = ""
+        for mbin in self.abs_bins():
+            msh += str(mbin) + " "
+        return msh
+
+    def get_mesh_ints(self):
+        msh = ""
+        for i in range(len(self.relBins)+1):
+            msh += "1 "
+        return msh
+
+    def set_range(self, range_min, range_max):
+        self.bounds = [range_min, range_max]
+
     def validate(self):
         if len(self.bounds) != 2:
             raise Exception('The bounds is still empty')
