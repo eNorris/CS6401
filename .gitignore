@@ -72,3 +72,5 @@ target/
 *~
 *.dne
 *.dnt
+/refs/
+/refsForOthers/
