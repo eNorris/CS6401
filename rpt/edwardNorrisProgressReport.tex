@@ -421,9 +421,9 @@ It is represented.
 Each population is initialized with the same number of individuals as any other population. Each individual is partitioned into $k$ equally spaced bins, where $k$ is a randomly chosen integer in the range $[5,10]$. The evaluation time each individual is proportional to the number of voxels into which the problem is partitioned [\textbf{CITE}], therefore, initially starting with small chromosomes accelerates the evolution.
 
 \subsection{Team Selection and Evaluation}
-Before the fitness of an individual can be calculated, teams must be formed. Each team consists of a single individual from each poplulation. Currently, teams are formed at random, in the future an archive method will be implemented. The fitness of a team is then equal to the figure of merit (FOM) of that solution, given in Eq. \ref{eq:fom}, where $T$ is the wall time to evaluate the solution and $\bar{R}$ is the average of the reported estimated relative uncertainty for all regions of interest by MCNP.
+Before the fitness of an individual can be calculated, teams must be formed. Each team consists of a single individual from each poplulation. Currently, teams are formed at random, in the future an archive method will be implemented. The fitness of a team ($FOM_t$) is then equal to the figure of merit (FOM) of that solution, given in Eq. \ref{eq:fom}, where $T$ is the wall time to evaluate the solution and $\bar{R}$ is the average of the reported estimated relative uncertainty for all regions of interest by MCNP.
 \begin{equation} \label{eq:fom}
-FOM_{s,i} = \frac{1}{T_i\bar{R_i}^2}
+FOM_{t} = \frac{1}{T_t\bar{R_i}^2}
 \end{equation}
 The simple fitness of any individual ($FOM_s$) is equal to the average fitness of all teams in which it has participated. However, this will attribute a score of zero to any individual that has never participaed in a team. Good chromosomes may be eliminated due to poor team selection. Therefore, the simple fitness is modified by Eq. \ref{eq:fommod} to give the modified fitness ($FOM_{m,i}$).
 \begin{equation}\label{eq:fommod}
@@ -447,6 +447,8 @@ Due to a limitation of the ADVANTG code, no individual with less than three segm
 \subsection{Mutation Operator}
 The mutation operator will randomly select one of two operations to perform: either add a gene or delete a gene. Addition of a gene will generate a gene randomly whithin the bounds of the phenotype and insert that gene into its proper position in the genotype. Deletion will select a gene at random and remove it from the genotype. Due to a limitation of the ADVANTG code, no individual with less than three segments in any dimension can be evalutated. Therefore, in the event that such an individual would be generated, no mutation is applied.
 
+\subsection{Termination}
+It stops eventually.
 
 \section{Tentative Experimental Setup}
 Text.
