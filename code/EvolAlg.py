@@ -14,7 +14,7 @@ class EvolAlg(object):
 
     def __init__(self):
         self.max_evals = 1E5
-        self.timeout = 30*60  # Seconds
+        self.timeout = 1*60  # Seconds
         self.pop_size = 15
         self.children = 5
 
@@ -28,10 +28,6 @@ class EvolAlg(object):
         best_solution_hist = []
         pop_size_hist = []
         gen_best_solution = []
-
-        #xpop = PopInitializer.PopInitializer.initialize(5)
-        #ypop = PopInitializer.PopInitializer.initialize(5)
-        #zpop = PopInitializer.PopInitializer.initialize(5)
 
         xpop = EvolAlg.initialize(self.pop_size, 10)
         ypop = EvolAlg.initialize(self.pop_size, 10)
@@ -68,6 +64,18 @@ class EvolAlg(object):
             xoff = [EvolAlg.mutate(x) for x in xoff]
             yoff = [EvolAlg.mutate(y) for y in yoff]
             zoff = [EvolAlg.mutate(z) for z in zoff]
+
+            for xx in xoff:
+                if xx.get_bin_count() < 4:
+                    print("Problem!")
+
+            for xx in yoff:
+                if xx.get_bin_count() < 4:
+                    print("Problem!")
+
+            for xx in zoff:
+                if xx.get_bin_count() < 4:
+                    print("Problem!")
 
             xpop.extend(xoff)
             ypop.extend(yoff)
@@ -156,10 +164,41 @@ class EvolAlg(object):
         pyplot.ylabel('Runtime')
 
         pyplot.figure()
+        totaltime = [s.fit.adv_t + s.fit.mcnp_t for s in solutions]
+        cumsumtime = numpy.cumsum(totaltime).tolist()
+        globalfit = [s.fit.fomavg / ct for s, ct in zip(solutions, cumsumtime)]
+        pyplot.plot(globalfit)
+        pyplot.title('Global Fitness')
+        pyplot.xlabel('Evaluation')
+        pyplot.ylabel('Fitness')
+
+        pyplot.figure()
+        totaltime = [s.fit.adv_t + s.fit.mcnp_t for s in solutions]
+        cumsumtime = numpy.cumsum(totaltime).tolist()
+        globalfit = [s.fit.fomavg / ct for s, ct in zip(best_solution_hist, cumsumtime)]
+        pyplot.plot(globalfit)
+        pyplot.title('Global Best Fitness')
+        pyplot.xlabel('Evaluation')
+        pyplot.ylabel('Fitness')
+
+        pyplot.figure()
         pyplot.plot([s.fit.avg_unc() for s in solutions])
         pyplot.title('Average Uncertainty')
         pyplot.xlabel('Evaluation')
         pyplot.ylabel('Uncertainty')
+
+        fig = pyplot.figure()
+        fig.set_alpha(0.5)
+
+        voxel_count = [s.x.get_bin_count()*s.y.get_bin_count()*s.z.get_bin_count() for s in solutions]
+        time_per_voxel = [t/v for t, v in zip(totaltime, voxel_count)]
+        #pyplot.scatter(voxel_count, time_per_voxel, c='k', alpha=.2)
+        pyplot.scatter(voxel_count, totaltime, c='k', alpha=.2)
+        #pyplot.ylim(0, 1.01*max(time_per_voxel))
+        pyplot.ylim(0, 1.01*max(totaltime))
+        pyplot.title('Time per voxel')
+        pyplot.xlabel('Voxel Count')
+        pyplot.ylabel('Evaluation Time / Voxel [min]')
 
         pyplot.figure()
         pyplot.plot(generation_hist, pop_size_hist)
@@ -213,6 +252,8 @@ class EvolAlg(object):
         for gene in parent2.relBins:
             if gene >= xpt:
                 child1.relBins.append(gene)
+        while child1.get_bin_count() < 4:
+            EvolAlg.mutate_add(child1)
 
         # Construct child 2 form parent2 and parent1
         for gene in parent2.relBins:
@@ -221,6 +262,8 @@ class EvolAlg(object):
         for gene in parent1.relBins:
             if gene >= xpt:
                 child2.relBins.append(gene)
+        while child2.get_bin_count() < 4:
+            EvolAlg.mutate_add(child2)
 
         children.append(child1)
         children.append(child2)
@@ -252,9 +295,22 @@ class EvolAlg(object):
 
     @staticmethod
     def mutate(indiv):
+        if random.random() < 0.5:
+            EvolAlg.mutate_add(indiv)
+        else:
+            EvolAlg.mutate_delete(indiv)
+        return indiv
+
+    @staticmethod
+    def mutate_add(indiv):
         indiv.relBins.append(random.random())
         indiv.relBins = sorted(indiv.relBins)
-        return indiv
+
+    @staticmethod
+    def mutate_delete(indiv):
+        if indiv.get_bin_count() > 4:
+            remove_gene = random.randint(0, len(indiv.relBins)-1)
+            del indiv.relBins[remove_gene]
 
     @staticmethod
     def tournament(x, y, z, survivor_count, solutions):
@@ -289,8 +345,6 @@ class EvolAlg(object):
         xfit = [q+(mostfit/pressure) for q in xfit]
 
         xfitsum = sum(xfit)
-
-
 
         if xfitsum == 0:
             return numpy.random.choice(x, survivor_count, False).tolist()

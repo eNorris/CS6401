@@ -120,6 +120,8 @@ def eval_co_fitness(indiv_x, indiv_y, indiv_z):
     if not type(indiv_z) == SpacePartition1D.SpacePartition1D:
         raise Exception('fitness eval found an incorrectly typed z element')
 
+    print("Individual dimensions: " + str(indiv_x.get_bin_count()) + " x " + str(indiv_y.get_bin_count()) + " x " + str(indiv_z.get_bin_count()))
+
     right_now = datetime.datetime.now()
     nowstring = ""
     nowstring += str(right_now.year) + "_"
@@ -222,7 +224,8 @@ def rewrite_advtg(adv_in_filename, adv_out_filename, x, y, z):
             
     fin.close()
     fout.close()
-    
+
+
 def remove_tally4(input_file, output_file):
     fin = open(input_file, 'r')
     fout = open(output_file, 'w')
