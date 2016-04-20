@@ -8,7 +8,8 @@ import numpy
 import shutil
 import SpacePartition1D
 
-LOC = 'Storage/'
+# LOC = 'Storage/'
+LOC = 'data/'
 FOLDER_ROOT = '/media/' + LOC + 'school/CS6401/code'
 FOLDER_WORKING = FOLDER_ROOT + "/ex2.gitdnt"
 ADV_SRC = FOLDER_ROOT + '/ex2_adv.adv'
@@ -18,16 +19,16 @@ MCNP_SRC = FOLDER_ROOT + '/ex2_mcnp.inp'
 TMP_MCNP = FOLDER_WORKING + '/ex2_mcnp.inp'
 MCNP5 = '/media/' + LOC + 'mcnp/MCNP_CODE/bin/mcnp5 '
 
+# Changes on different systems
+ADVANTG = '/media/' + LOC + 'advantge/advantge/bin/advantg '
+# ADVANTG = '/media/' + LOC + 'advantage/bin/advantg '
+
 x_range_min = 0
 x_range_max = 150
 y_range_min = 0
 y_range_max = 100
 z_range_min = 0
 z_range_max = 100
-
-# Changes on different systems
-# ADVANTG = '/media/' + LOC + 'advantge/advantge/bin/advantg '
-ADVANTG = '/media/' + LOC + 'advantage/bin/advantg '
 
 os.environ["DATAPATH"] = "/media/" + LOC + "mcnp/MCNP_DATA"
 

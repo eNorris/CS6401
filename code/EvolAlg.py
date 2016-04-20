@@ -5,6 +5,7 @@ import numpy
 import pyadvantg
 import SpacePartition1D
 import SpacePartition3D
+import matplotlib
 import matplotlib.pyplot as pyplot
 
 __author__ = 'etnc6d'
@@ -14,7 +15,7 @@ class EvolAlg(object):
 
     def __init__(self):
         self.max_evals = 1E5
-        self.timeout = 15*60  # Seconds
+        self.timeout = 1*60  # Seconds
         self.pop_size = 15
         self.children = 5
 
@@ -115,11 +116,17 @@ class EvolAlg(object):
         print("Evaluations: " + str(len(solutions)))
         print(best_solution)
 
+        matplotlib.rcParams.update({'font.size': 22})
+        matplotlib.rcParams.update({'figure.autolayout': True})
+
         pyplot.figure()
         pyplot.plot(generation_hist, [s.fit.fomavg for s in best_solution_hist])
         pyplot.title('Best Fitness')
         pyplot.xlabel('Generation')
         pyplot.ylabel('Fitness')
+        # pyplot.title('Best Fitness', fontname="Times New Roman")
+        # pyplot.xlabel('Generation', fontname="Times New Roman")
+        # pyplot.ylabel('Fitness', fontname="Times New Roman")
 
         pyplot.figure()
         pyplot.loglog(generation_hist, [s.fit.fomavg for s in best_solution_hist])

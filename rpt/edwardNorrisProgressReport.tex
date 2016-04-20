@@ -217,11 +217,11 @@
 
 
 % *** SUBFIGURE PACKAGES ***
-%\ifCLASSOPTIONcompsoc
-%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
-%\else
-%  \usepackage[caption=false,font=footnotesize]{subfig}
-%\fi
+\ifCLASSOPTIONcompsoc
+  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\else
+  \usepackage[caption=false,font=footnotesize]{subfig}
+\fi
 % subfig.sty, written by Steven Douglas Cochran, is the modern replacement
 % for subfigure.sty, the latter of which is no longer maintained and is
 % incompatible with some LaTeX packages including fixltx2e. However,
@@ -387,9 +387,6 @@ The abstract goes here.
 help
 \end{IEEEkeywords}
 
-
-
-
 % For peer review papers, you can put extra information on the cover
 % page as needed:
 % \ifCLASSOPTIONpeerreview
@@ -403,10 +400,43 @@ help
 
 
 \section{Introduction}
-Introductions are for the weak!
+Monte Carlo simulations require detailed knowledge of the geometry of a system as well as type and location of radiation. With this information, a Monte Carlo simulation can calculate the dose to a person at a particular location due to the radioactive source(s). Radiation penetration through a shield is described as a Poisson process, meaning that the accuracy of a Monte Carlo simulation within some volume is inversely proportional to the square root of the number of particles in that volume. Therefore, with deep shielding problems, in which a strong source is attenuated greatly (reduced in strength), the statistical uncertainty increases dramatically. 
+
+In order to alleviate the high uncertainty in the analog Monte Carlo (so called due to it being directly analogous to the physical transport process), biasing parameters are added to Monte Carlo simulations. Biasing parameters split important particles and kill unimportant ones to maximize the number of particles that reach the area of interest and reduce the computational overhead of tracking those that do not.
+
+However, the production of accurate biasing parameters remains difficult. To remedy this, an adjoint transport calculation is made using a deterministic code. Rather than tracking particles forward through time as they traverse space and building a mesh of dose values, the adjoint solution tracks particles backward from an object of interest and builds a mesh of \textit{importance} to the region of interest.
+
+Quantification of the effectiveness of a set of biasing parameters is done by calculating the figure of merit (FOM). The FOM is a metric used to compare the overall performance of two simulations and gives a directly comparable measure of performance for any two simulations provided that the physical problem being solved does not change and the computation hardware the two simulations were run on are identical. The FOM is defined in Eq.~\ref{eq:fom} where $T$ is the wall clock runtime of the simulation and $R$ is the estimated relative uncertainty of the output.
+\begin{equation} \label{eq:fom}
+FOM = \frac{1}{T R^2}
+\end{equation}
+Systems that use a deterministic solver to calculate the adjoint solution in order to produce biasing parameters for the primary Monte Carlo simulation are known as hybrid systems. One such system is AutomateD VAriaNce reducTion Generator (ADVANTG)~\cite{ref:Mosher2015} which is a framework developed at Oak Ridge National Laboratory specifically to produce biasing parameters for Monte Carlo N-Particle version~5 (MCNP)~\cite{ref:X5}, a Monte Carlo code developed by Los Alamos National Laboratory for radiation transport. 
+
+However, currently available general-purpose radiation transport hybrid systems require a user defined spatial discretization in the form of a Cartesian grid~\cite{ref:Wagner2014, ref:Mosher2015}. This work will develop an evolutionary algorithm (EA) to optimize the spatial discretization grid for ADVANTG which will accelerate MCNP; these two codes have been coupled together very successfully~\cite{ref:Blakeman2007, ref:Risner2013, ref:Ibrahim2011, ref:Wagner2011}.
 
 \section{Background}
-Background text. What other methods have been used to solve this problem?
+In modern deterministic algorithms, spatial refinement is performed with a quadtree in 2D or an octree in 3D. However, quadtree/octree geometries cannot be utilized in the ADVANTG framework, instead, a structured Cartesian grid is required. A comparison of a 2D quadtree geometry and a 2D structured grid is shown in Fig.~\ref{fig:treecomp}. 
+
+\begin{figure*}[!t]
+\centering
+\subfloat[Case I]{\includegraphics[width=2.5in]{treecomp_quad}
+\label{fig:treecompa}}
+\hfil
+\subfloat[Case II]{\includegraphics[width=2.5in]{treecomp_grid}
+\label{fig:treecompb}}
+\caption{Simulation results for the network.}
+\label{fig:treecomp}
+\end{figure*}
+
+Octrees have been in use since 1980~\cite{ref:jackins1980249} to represent 3D space and have since been extended to K-trees to represent higher dimensional problems~\cite{ref:jackins1983533}. They have been shown to be highly successful representing Cartesian geometry for computational engineering problems, particularly for adaptive mesh refinement~\cite{ref:Linden201558}. Octtrees have also been used successfully to decompose image space, including 2D images~\cite{ref:Lange2004592} and 3D images~\cite{ref:udomchaiporn2013229, ref:Lee2010359}; they have even been used directly in Monte Carlo simulations for radiative transfer of dust~\cite{ref:Saftly2013} that track voxels rather than individual particles.
+
+Octree structures remain inefficient in particle tracking Monte Carlo simulations due to the additional computational overhead. At every step in the path of every particle, its intersection with all bounding surfaces of the voxel containing it must be calculated. Such calculations are extremely fast in structured Cartesian grids, but much slower in unstructured meshes. Therefore, MCNP only supports structured Cartesian grids as input for biasing parameters.
+
+Though the physical representation of space is different between octree methodology and the proposed segment-tree methodology, both share a similar tree-like structure that represents a physical space. Therefore, a survey of EAs that evolve octrees and similarly structured trees could prove beneficial in the development of evolutionary operators.
+
+Many EAs have been used in the past that involve octrees but do not directly evolve them. They are often used as a medium to partition some space into a structure more suited for evolutionary computing ~\cite{ref:Zhu2015301, ref:Schwertfeger200853}. While these applications do not directly evolve the spatial discretization itself, some insight into applicable operators can still be gleaned from them. For example, Laszlo and Mukherjee developed an algorithm to assist in $k$-means clustering by building a quadtree and using selected nodes as an initial guess for the $k$-means clustering algorithm~\cite{ref:Laszlo2006}. Though the octree itself was not evolved, Laszlo and Mukherjee highlighted that the refinement density in space can be leveraged to produce more effective crossover operators.
+
+Majeed and Ryan proposed a special version of the one point crossover operator for GP that takes advantage of the structure (context) of the parent trees to produce more optimized offspring~\cite{ref:Majeed2007}. Seo and Goodman extended this work by adding a similar mutation operator that maintains a structural metric in order to explore the search space in a more complete fashion~\cite{ref:seo2009}. However, these operators are only for trees and are very expensive to evaluate, requiring many evaluations for each individual generated to explore contexts.
 
 \section{Related Work}
 Related work text. This methodology has been used to solve what other problems?
