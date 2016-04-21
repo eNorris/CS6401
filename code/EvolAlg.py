@@ -314,6 +314,44 @@ class EvolAlg(object):
         indiv.relBins = sorted(indiv.relBins)
 
     @staticmethod
+    def mutate_densify(indiv):
+        p = 0.3
+
+        t1 = random.random()
+        t2 = random.random()
+        pt1 = min(t1, t2)
+        pt2 = max(t1, t2)
+
+        tlist = []
+        for i in range(0, indiv.get_bin_count()):
+            if random.random() < p and (pt1 < indiv.relBins[i] < pt2 or pt1 < indiv.relBins[i+1] < pt2):
+                r = random.random()
+                r = (indiv.relBins[i] - indiv.relBins[i+1])*r + indiv.relBins[i]
+                tlist.append(r)
+
+        indiv.relBins.extend(tlist)
+        indiv.relBins = sorted(indiv.relBins)
+
+
+    @staticmethod
+    def mutate_sparcify(indiv):
+        p = 0.3
+
+        t1 = random.random()
+        t2 = random.random()
+        pt1 = min(t1, t2)
+        pt2 = max(t1, t2)
+
+        #tlist = []
+        for i in range(indiv.get_bin_count(), -1, -1):
+            if random.random() < p and pt1 < indiv.relBins[i] < pt2:
+                #tlist.append(i)
+                del self.relBins[i]
+
+        #indiv.relBins.extend(tlist)
+
+
+    @staticmethod
     def mutate_delete(indiv):
         if indiv.get_bin_count() > 4:
             remove_gene = random.randint(0, len(indiv.relBins)-1)

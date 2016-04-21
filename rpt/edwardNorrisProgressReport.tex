@@ -445,7 +445,7 @@ Related work text. This methodology has been used to solve what other problems?
 Text.
 
 \subsection{Representation}
-It is represented.
+The most intuitive way to represent a 3D Cartesian grid is to utilize some kind of binary space partition tree such as an interval tree~\cite{ref:Franco1985}. However, tree based representations often suffer from destructive crossover operators that suppress fitness~\cite{ref:Sheneman2006}. This is particularly prevalent when the phenotype is subject to hard constraints. An example of the destructive behavior of tree based crossover is shown in Fig.~\ref{fig:treefail}. When standard tree-GP crossover is used to swap two branches both resulting children are nonsensical. Repair operations can be constructed that fix the trees, but such repair operations necessarily have to alter significant portions of the tree, leaving little genetic information from the parent.
 
 \subsection{Initialization}
 Each population is initialized with the same number of individuals as any other population. Each individual is partitioned into $k$ equally spaced bins, where $k$ is a randomly chosen integer in the range $[5,10]$. The evaluation time each individual is proportional to the number of voxels into which the problem is partitioned [\textbf{CITE}], therefore, initially starting with small chromosomes accelerates the evolution.
@@ -464,6 +464,8 @@ M = max_i FOM_{q,i}
 \end{equation}
 
 \subsection{Parent Selection and Crossover}
+The PI believes that crossover in phenotype space will enable production of correct offspring as well as maintain information from the parents in an intuitive way. Such a recombination is illustrated in Fig.~\ref{fig:linearxover}. Identical regions of the phenotype are selected and swapped. However, this necessitates a one-to-one mapping from genotype to phenotype and back, since many trees can represent the same phenotype, they are unsuitable for a phenotypic crossover. Therefore, a linear chromosome is used. The linear chromosome still provides the intuitive mesh refinement properties of the tree representation but also provides the necessary mapping constraint.
+
 The mating pool of possible parents is the entire population for each population. Two parents are selected at random. Each co
 
 Due to a limitation of the ADVANTG code, no individual with less than three segments in any dimension can be evalutated. Any child that has less than three segments has genes added randomly until it has at least three genes.
@@ -477,11 +479,21 @@ Due to a limitation of the ADVANTG code, no individual with less than three segm
 \subsection{Mutation Operator}
 The mutation operator will randomly select one of two operations to perform: either add a gene or delete a gene. Addition of a gene will generate a gene randomly whithin the bounds of the phenotype and insert that gene into its proper position in the genotype. Deletion will select a gene at random and remove it from the genotype. Due to a limitation of the ADVANTG code, no individual with less than three segments in any dimension can be evalutated. Therefore, in the event that such an individual would be generated, no mutation is applied.
 
+First, the mutation operator selects a random region. The region is chosen by choosing two points in the domain. The region is defined by all segments partially (or fully) enclosed by the two selected points. The mutation operator will randomly (with equal liklihood) choose to either sparcify or densify that region.
+
+Sparcification and densification are each defined by a probability, $P_s$ and $P_d$ respectively. In practice, these probabilites are always set equal to one another to avoid issues of bloat.
+
 \subsection{Termination}
-It stops eventually.
+Currently, the EA terminates after a user-specified wall time.
 
 \section{Tentative Experimental Setup}
-Text.
+To illustrate the complexity of the problem, a simple use case was constructed. A 50 cm thick borated polyethylene (BPE) shield was modeled to shield a beam of parallel 2.45 MeV neutrons emitted toward a sodium iodide (NaI) detector. Another detector was placed 45 cm perpendicular to the beam from the edge of the shield to measure scattering effects. The FOM of both detectors is to be maximized simultaneously. To do this, a simple hill climber algorithm was implemented. The hill climber started by subdividing the spatial domain into a $5 \times 5 \times 5$ grid and running ADVANTG/MCNP. The segments in the $x$ direction were then increased by 5 and the simulation was re-run. The segments in the $x$ direction were increased by 5 again the simulation was re-run again. This was repeated until the $x$ subdivisions equaled to 100. The best (determined by the sum of the FOM of both detectors) was then selected as the optimal and then the same was repeated in the $y$ direction while holding the number of segments in $x$ and $z$ constant. Finally, the number of segments in the $z$ direction was optimized in a similar fashion. The fitness over this process is plotted in Fig.~\ref{fig:fitness_xyz}. The entire hill climber was run a second time in the same manner, except the ordering was reversed: $z$ was optimized first, followed by $y$ and then $x$ last. These results are plotted in Fig.~\ref{fig:fitness_zyx}. The optimal result in the $x \rightarrow y \rightarrow z$ direction was $30 \times 5 \times 50$ which resulted in a FOM of 1993.4 min$^{-1}$. The second run, produced an optimal result of $20 \times 5 \times 35$ which resulted in a FOM of 2112.1 min$^{-1}$.
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{probsetup}
+  \caption{Problem setup (all units in cm).}
+  \label{probsetup}
+\end{figure}
 
 \section{Tentative Results}
 Charts!
