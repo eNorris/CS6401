@@ -15,7 +15,7 @@ class EvolAlg(object):
 
     def __init__(self):
         self.max_evals = 1E5
-        self.timeout = 1*60  # Seconds
+        self.timeout = 10*60  # Seconds
         self.pop_size = 15
         self.children = 5
 
@@ -33,6 +33,21 @@ class EvolAlg(object):
         xpop = EvolAlg.initialize(self.pop_size, 10)
         ypop = EvolAlg.initialize(self.pop_size, 10)
         zpop = EvolAlg.initialize(self.pop_size, 10)
+
+        xpop[0].relBins = [0, .3, .7, 1]
+        xpop[1].relBins = [0, .6, .9, 1]
+
+        print(xpop[0])
+        print(xpop[1])
+        print(str(xpop[0].diff(xpop[1])) + "   " + str(xpop[0].diff(xpop[1], True)))
+
+        print(xpop[0])
+        print(xpop[2])
+        print(str(xpop[0].diff(xpop[2])) + "   " + str(xpop[0].diff(xpop[2], True)))
+
+        print(xpop[0])
+        print(xpop[3])
+        print(str(xpop[0].diff(xpop[3])) + "   " + str(xpop[0].diff(xpop[3], True)))
 
         teams = EvolAlg.make_teams(xpop, ypop, zpop, 5)
         solutions = []
@@ -342,13 +357,9 @@ class EvolAlg(object):
         pt1 = min(t1, t2)
         pt2 = max(t1, t2)
 
-        #tlist = []
         for i in range(indiv.get_bin_count(), -1, -1):
             if random.random() < p and pt1 < indiv.relBins[i] < pt2:
-                #tlist.append(i)
                 del self.relBins[i]
-
-        #indiv.relBins.extend(tlist)
 
 
     @staticmethod

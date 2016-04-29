@@ -45,7 +45,7 @@ class SpacePartition1D(object):
         if len(self.relBins) > 0:
             if self.relBins[0] <= 0:
                 raise Exception('The lowest bin is < 0')
-            if(self.relBins[-1] >= 1):
+            if self.relBins[-1] >= 1:
                 raise Exception('The highest bin is > 1')
 
         for i in range(len(self.relBins)-1):
@@ -57,3 +57,49 @@ class SpacePartition1D(object):
 
     def __repr__(self):
         return str(self.abs_bins())
+
+    def diff(self, other, normalizing=False):
+        my_index = 0
+        other_index = 0
+        last_val = 0
+        # current_index = 0
+        # current_bins = None
+        # who = 0
+        exhausted = False
+        total_diff = 0
+
+        while not exhausted:
+
+            if my_index >= len(self.relBins) or other_index >= len(other.relBins):
+                exhausted = True
+                continue
+
+            if self.relBins[my_index] < other.relBins[other_index]:
+                current_bins = self.relBins
+                current_index = my_index
+            else:
+                current_bins = other.relBins
+                current_index = other_index
+
+            dx = current_bins[current_index] - last_val
+            if normalizing:
+                myPMF = 1/((self.relBins[my_index] - self.relBins[my_index-1])*(len(self.relBins)+1))
+                otherPMF = 1/((other.relBins[other_index] - other.relBins[other_index-1])*(len(other.relBins)+1))
+            else:
+                myPMF = 1/(self.relBins[my_index] - self.relBins[my_index-1])
+                otherPMF = 1/(other.relBins[other_index] - other.relBins[other_index-1])
+            dPMF = abs(myPMF - otherPMF)
+
+            total_diff += dPMF * dx
+
+            # Update the appropriate pointer
+            if self.relBins[my_index] < other.relBins[other_index]:
+                my_index += 1
+            else:
+                other_index += 1
+
+            last_val = current_bins[current_index]
+
+        return total_diff
+
+
