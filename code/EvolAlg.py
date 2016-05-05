@@ -31,6 +31,8 @@ class EvolAlg(object):
         gen_best_solution = []
 
         xpop = EvolAlg.initialize(self.pop_size, 10)
+        # for i in range(len(xpop)):
+        #    EvolAlg.fixify_x(xpop[i])
         ypop = EvolAlg.initialize(self.pop_size, 10)
         zpop = EvolAlg.initialize(self.pop_size, 10)
 
@@ -80,6 +82,10 @@ class EvolAlg(object):
             xoff, yoff, zoff = EvolAlg.xover_coev(xparents, yparents, zparents, self.children)
 
             xoff = [EvolAlg.mutate(x) for x in xoff]
+
+            # for i in range(len(xoff)):
+            #    EvolAlg.fixify_x(xoff[i])
+
             yoff = [EvolAlg.mutate(y) for y in yoff]
             zoff = [EvolAlg.mutate(z) for z in zoff]
 
@@ -311,6 +317,9 @@ class EvolAlg(object):
             p1 = random.randint(0, len(xpop)-1)
             p2 = random.randint(0, len(xpop)-1)
             xc, yc, zc = EvolAlg.xover3D(xpop[p1], ypop[p1], zpop[p1], xpop[p2], ypop[p2], zpop[p2])
+
+            #for i in range(len(xc)):
+            #    EvolAlg.fixify_x(xc[i])
             xchildren.extend(xc)
             ychildren.extend(yc)
             zchildren.extend(zc)
@@ -323,7 +332,16 @@ class EvolAlg(object):
             EvolAlg.mutate_add(indiv)
         else:
             EvolAlg.mutate_delete(indiv)
+
+        # EvolAlg.fixify(indiv)
+
         return indiv
+
+    # @staticmethod
+    # def fixify_x(indiv):
+    #    if 107.5/112.5 not in indiv.relBins:
+    #        indiv.relBins.append(107.5/112.5)
+    #        indiv.relBins = sorted(indiv.relBins)
 
     @staticmethod
     def mutate_add(indiv):
