@@ -169,8 +169,9 @@ def eval_co_fitness(indiv_x, indiv_y, indiv_z):
     os.chdir("output")
 
     # Remove Tally 4
+    # if not remove_tally4("inp", "inp_purged"):
+    #    return None
     remove_tally4("inp", "inp_purged")
-
 
     mcnp_start = time.time()
     #cmd = "../../mcnprun.sh inp_purged"
@@ -235,7 +236,11 @@ def rewrite_advtg(adv_in_filename, adv_out_filename, x, y, z):
 
 
 def remove_tally4(input_file, output_file):
+    # try:
     fin = open(input_file, 'r')
+    # except FileNotFoundError:
+    #    print("Corrupted ADVANTG Input!")
+    #    return False
     fout = open(output_file, 'w')
     
     lines = fin.readlines()
@@ -250,6 +255,7 @@ def remove_tally4(input_file, output_file):
     
     fin.close()
     fout.close()
+    return True
     
     
 def run_advtg(filename):

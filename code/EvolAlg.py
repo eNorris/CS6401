@@ -15,7 +15,7 @@ class EvolAlg(object):
 
     def __init__(self):
         self.max_evals = 1E5
-        self.timeout = 1*60  # Seconds
+        self.timeout = 30*60  # Seconds
         self.pop_size = 15
         self.children = 5
 
@@ -216,9 +216,9 @@ class EvolAlg(object):
 
         voxel_count = [s.x.get_bin_count()*s.y.get_bin_count()*s.z.get_bin_count() for s in solutions]
         time_per_voxel = [t/v for t, v in zip(totaltime, voxel_count)]
-        #pyplot.scatter(voxel_count, time_per_voxel, c='k', alpha=.2)
+        # pyplot.scatter(voxel_count, time_per_voxel, c='k', alpha=.2)
         pyplot.scatter(voxel_count, totaltime, c='k', alpha=.2)
-        #pyplot.ylim(0, 1.01*max(time_per_voxel))
+        # pyplot.ylim(0, 1.01*max(time_per_voxel))
         pyplot.ylim(0, 1.01*max(totaltime))
         pyplot.title('Time per voxel')
         pyplot.xlabel('Voxel Count')

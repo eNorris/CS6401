@@ -1,4 +1,5 @@
-method                   cadis
+method                   fwcadis
+fwcadis_spatial_treatment    global
 
 mcnp_input               ueki35_mcnp.inp
 mcnp_tallies             4
@@ -7,10 +8,20 @@ mcnp_material_names      1  paraffin
 
 anisn_library            27n19g
 
+# ld sc tld twd wdd wdd_ff
+denovo_discretization sc
+
+# glproduct ldfe levelsym qr userdefined
+denovo_quadrature qr
+
 denovo_pn_order          1
 
 denovo_quad_num_polar    2
 denovo_quad_num_azi      2
+
+denovo_x_blocks              4
+denovo_y_blocks              4
+# denovo_z_blocks              3
 
 mesh_x                  -25 107.5 112.5
 mesh_x_ints                    53     3
