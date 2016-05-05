@@ -43,9 +43,9 @@ class SpacePartition1D(object):
             raise Exception('The bin boundaries are identical or backwards')
 
         if len(self.relBins) > 0:
-            if self.relBins[0] <= 0:
+            if self.relBins[0] < 0:
                 raise Exception('The lowest bin is < 0')
-            if self.relBins[-1] >= 1:
+            if self.relBins[-1] > 1:
                 raise Exception('The highest bin is > 1')
 
         for i in range(len(self.relBins)-1):

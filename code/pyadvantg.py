@@ -9,27 +9,33 @@ import shutil
 import SpacePartition1D
 
 # Changes on different systems
-LOC = 'Storage/'
-# LOC = 'data/'
-ADVANTG = '/media/' + LOC + 'advantage/bin/advantg '
-# ADVANTG = '/media/' + LOC + 'advantge/advantge/bin/advantg '
+# LOC = 'Storage/'
+# ADVANTG = '/media/' + LOC + 'advantage/bin/advantg '
+LOC = 'data/'
+ADVANTG = '/media/' + LOC + 'advantge/advantge/bin/advantg '
 
 
 FOLDER_ROOT = '/media/' + LOC + 'school/CS6401/code'
-FOLDER_WORKING = FOLDER_ROOT + "/ex2.gitdnt"
-ADV_SRC = FOLDER_ROOT + '/ex2_adv.adv'
-TMP_ADV = FOLDER_WORKING + "/ex2_tmp_adv.adv"
+FOLDER_WORKING = FOLDER_ROOT + "/ueki35.gitdnt"
+ADV_SRC = FOLDER_ROOT + '/ueki35_adv.adv'
+TMP_ADV = FOLDER_WORKING + "/ueki35_tmp_adv.adv"
 # MCNP_ADV_SRC = FOLDER_ROOT + '/ex2_mcnp_adv.inp'
-MCNP_SRC = FOLDER_ROOT + '/ex2_mcnp.inp'
-TMP_MCNP = FOLDER_WORKING + '/ex2_mcnp.inp'
+MCNP_SRC = FOLDER_ROOT + '/ueki35_mcnp.inp'
+TMP_MCNP = FOLDER_WORKING + '/ueki35_mcnp.inp'
 MCNP5 = '/media/' + LOC + 'mcnp/MCNP_CODE/bin/mcnp5 '
 
-x_range_min = 0
-x_range_max = 150
-y_range_min = 0
-y_range_max = 100
-z_range_min = 0
-z_range_max = 100
+# x_range_min = 0
+# x_range_max = 150
+# y_range_min = 0
+# y_range_max = 100
+# z_range_min = 0
+# z_range_max = 100
+x_range_min = -25
+x_range_max = 112.5
+y_range_min = -40
+y_range_max = 40
+z_range_min = -40
+z_range_max = 40
 
 os.environ["DATAPATH"] = "/media/" + LOC + "mcnp/MCNP_DATA"
 
@@ -271,7 +277,7 @@ def parse_mcnp_out(mcnp_out_filename):
         
         for i in range(len(lines)):
             if lines[i].startswith("1tally  "):
-                tokens = lines[i+9].split()
+                tokens = lines[i+13].split()
                 print("tokens = " + str(tokens))
                 v = float(tokens[0])
                 u = float(tokens[1])
