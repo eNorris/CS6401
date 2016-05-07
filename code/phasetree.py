@@ -170,6 +170,9 @@ class PhaseFitness(object):
 
     def avg_unc(self):
         return sum(self.u)/float(len(self.u))
+
+    def detail_string(self):
+        return str(self.fomavg) + " " + str(self.fom) + " = 1/(" + str(self.mcnp_t) + "+" + str(self.adv_t) + ")(" + str(self.u) + ")^2"
         
     def calc_fom(self):
         if self.adv_t <= 0 or self.mcnp_t <= 0 or len(self.u) == 0:

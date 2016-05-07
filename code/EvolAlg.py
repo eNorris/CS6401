@@ -3,6 +3,8 @@ import random
 import numpy
 
 import pyadvantg
+import Logger
+import datetime
 import SpacePartition1D
 import SpacePartition3D
 import matplotlib
@@ -15,9 +17,15 @@ class EvolAlg(object):
 
     def __init__(self):
         self.max_evals = 1E5
-        self.timeout = 30*60  # Seconds
+        self.timeout = 6*60*60  # Seconds
         self.pop_size = 15
         self.children = 5
+
+        today = datetime.datetime.now()
+        Logger.Logger.initialize("logfile_" + str(today.year) + "_" + str(today.month) + "_" + str(today.day) + "_" + str(today.hour) + "_" + str(today.minute) + ".log")
+
+    def finish(self):
+        Logger.Logger.finish()
 
     def begin(self):
         eval_hist = []
@@ -62,6 +70,7 @@ class EvolAlg(object):
             sol.z = team[2]
             sol.fit = EvolAlg.evaluate_team(sol.x, sol.y, sol.z)
             solutions.append(sol)
+            Logger.Logger.write_eval(team, sol.fit)
 
         maxfit = -1
         for sol in solutions:
@@ -115,6 +124,7 @@ class EvolAlg(object):
                 sol.z = team[2]
                 sol.fit = EvolAlg.evaluate_team(sol.x, sol.y, sol.z)
                 solutions.append(sol)
+                Logger.Logger.write_eval(team, sol.fit)
 
             xpop, ypop, zpop = EvolAlg.tournament(xpop, ypop, zpop, self.pop_size, solutions)
 
