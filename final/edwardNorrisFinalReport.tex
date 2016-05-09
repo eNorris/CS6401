@@ -1,56 +1,4 @@
 
-%% bare_conf.tex
-%% V1.4b
-%% 2015/08/26
-%% by Michael Shell
-%% See:
-%% http://www.michaelshell.org/
-%% for current contact information.
-%%
-%% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
-%% conference paper.
-%%
-%% Support sites:
-%% http://www.michaelshell.org/tex/ieeetran/
-%% http://www.ctan.org/pkg/ieeetran
-%% and
-%% http://www.ieee.org/
-
-%%*************************************************************************
-%% Legal Notice:
-%% This code is offered as-is without any warranty either expressed or
-%% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE! 
-%% User assumes all risk.
-%% In no event shall the IEEE or any contributor to this code be liable for
-%% any damages or losses, including, but not limited to, incidental,
-%% consequential, or any other damages, resulting from the use or misuse
-%% of any information contained here.
-%%
-%% All comments are the opinions of their respective authors and are not
-%% necessarily endorsed by the IEEE.
-%%
-%% This work is distributed under the LaTeX Project Public License (LPPL)
-%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
-%% distributed and modified. A copy of the LPPL, version 1.3, is included
-%% in the base LaTeX documentation of all distributions of LaTeX released
-%% 2003/12/01 or later.
-%% Retain all contribution notices and credits.
-%% ** Modified files should be clearly indicated as such, including  **
-%% ** renaming them and changing author support contact information. **
-%%*************************************************************************
-
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. The IEEE's font choices and paper sizes can   ***
-% *** trigger bugs that do not appear when using other class files.       ***                          ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
-
-
 \documentclass[conference]{IEEEtran}
 % Some Computer Society conferences also require the compsoc mode option,
 % but others use the standard conference format.
@@ -444,8 +392,24 @@ Related work text. This methodology has been used to solve what other problems?
 \section{Methodology}
 Text.
 
+\subsection{Initialization}
+Each population is initialized with the same number of individuals as all other populations. Each individual is partitioned by $k$ equally spaced nodes, where $k$ is a randomly chosen integer in the range $[5,10]$. The evaluation time each individual is proportional to the number of voxels into which the problem is partitioned [\textbf{CITE}], therefore, initially starting with small chromosomes ensures that time is not wasted running bloated individuals.
+
 \subsection{Representation}
 The most intuitive way to represent a 3D Cartesian grid is to utilize some kind of binary space partition tree such as an interval tree~\cite{ref:Franco1985}. However, tree based representations often suffer from destructive crossover operators that suppress fitness~\cite{ref:Sheneman2006}. This is particularly prevalent when the phenotype is subject to hard constraints. An example of the destructive behavior of tree based crossover is shown in Fig.~\ref{fig:treefail}. When standard tree-GP crossover is used to swap two branches both resulting children are nonsensical. Repair operations can be constructed that fix the trees, but such repair operations necessarily have to alter significant portions of the tree, leaving little genetic information from the parent.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{treefail}
+\caption{TODO}
+\label{fig:treefail}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{linearxover}
+\caption{TODO}
+\label{fig:linearxover}
+\end{figure}
 
 \subsection{Crossover}
 The PI believes that crossover in phenotype space will enable production of correct offspring as well as maintain information from the parents in an intuitive way. Such a recombination is illustrated in Fig.~\ref{fig:linearxover}. Identical regions of the phenotype are selected and swapped. However, this necessitates a one-to-one mapping from genotype to phenotype and back, since many trees can represent the same phenotype, they are unsuitable for a phenotypic crossover. Therefore, a linear chromosome is used. The linear chromosome still provides the intuitive mesh refinement properties of the tree representation but also provides the necessary mapping constraint.
@@ -467,49 +431,149 @@ First, the mutation operator selects a random region. The region is chosen by ch
 
 Sparcification and densification are each defined by a probability, $P_s$ and $P_d$ respectively. In practice, these probabilites are always set equal to one another to avoid issues of bloat.
 
-\subsection{Repair Operator}
-Due to a limitation in the current version of ADVANTG, ...
+It is important to note that the sparcify and densify operators occur with equal probability. If either was utilized more heavily than the other, it would add pressure to either artificially bloat or prune individuals.
 
-\subsection{Initialization}
-Each population is initialized with the same number of individuals as any other population. Each individual is partitioned into $k$ equally spaced bins, where $k$ is a randomly chosen integer in the range $[5,10]$. The evaluation time each individual is proportional to the number of voxels into which the problem is partitioned [\textbf{CITE}], therefore, initially starting with small chromosomes accelerates the evolution.
+\subsection{Repair Operator}
+Due to a limitation in the current version of ADVANTG, in order to guarantee that a solution is found, each of the three spatial dimensions must be meshed by at least 5 nodes. To ensure this, a repair operator is employed after each new individual is generated. If the individual has less than 5 nodes, new ones are added from a uniform distribution until it does.
 
 \subsection{Team Selection and Evaluation}
-Before the fitness of an individual can be calculated, teams must be formed. Each team consists of a single individual from each poplulation. Currently, teams are formed at random, in the future an archive method will be implemented. The fitness of a team ($FOM_t$) is then equal to the figure of merit (FOM) of that solution, given in Eq. \ref{eq:fom}, where $T$ is the wall time to evaluate the solution and $\bar{R}$ is the average of the reported estimated relative uncertainty for all regions of interest by MCNP.
-\begin{equation} \label{eq:fom}
-FOM_{t} = \frac{1}{T_t\bar{R_i}^2}
+Before the fitness of an individual can be calculated, teams must be formed. Each team consists of a single individual from each poplulation. Currently, teams are formed at random, <WHAT ELSE CAN BE DONE>. The fitness of a team ($FOM_t$) is then equal to the figure of merit (FOM) of that solution, given in Eq. \ref{eq:fomteam}, where $T_t$ is the wall time to evaluate the solution and $\bar{R_t}$ is the average of the reported estimated relative uncertainty for all regions of interest by MCNP.
+\begin{equation} \label{eq:fomteam}
+FOM_{t} = \frac{1}{T_t\bar{R_t}^2}
 \end{equation}
-The simple fitness of any individual ($FOM_s$) is equal to the average fitness of all teams in which it has participated. However, this will attribute a score of zero to any individual that has never participaed in a team. Good chromosomes may be eliminated due to poor team selection. Therefore, the simple fitness is modified by Eq. \ref{eq:fommod} to give the modified fitness ($FOM_{m,i}$).
+The simple fitness of the $i{th}$ individual, $FOM_{s,i}$, is equal to the average fitness of all teams in which it has participated. However, this will attribute a score of zero <NOT TRUE> to any individual that has never participaed in a team. Good chromosomes may be eliminated due to poor team selection. Therefore, the simple fitness is modified by Eq. \ref{eq:fommod} to give the modified fitness ($FOM_{m,i}$). The modified fitnes linearly scales the 
 \begin{equation}\label{eq:fommod}
-FOM_{m,i} = M(1-\rho)FOM_{q,i} + \rho M
+FOM_{m,i} = M(1-\rho)FOM_{s,i} + \rho M
 \end{equation}
 \begin{equation}\label{eq:fommodm}
-M = max_i FOM_{q,i}
+M = \max_i FOM_{s,i}
 \end{equation}
 
+\subsection{Population Parameters}
+The population size was chosen to be 15. In each generation, 10 individuals are selected without replacement to be members of the mating pool. Once in the mating pool, five pairs are chosen at random (self-mating is allowed). Each pair performs crossover and the children undergo subsequent mutation. The children are introduced into the population and a tournament without replacement is run to reduce the population to its original size.
 
 \subsection{Termination}
 Currently, the EA terminates after a user-specified wall time.
 
 \section{Experimental Setup}
-To illustrate the complexity of the problem, a simple use case was constructed. A 50 cm thick borated polyethylene (BPE) shield was modeled to shield a beam of parallel 2.45 MeV neutrons emitted toward a sodium iodide (NaI) detector. Another detector was placed 45 cm perpendicular to the beam from the edge of the shield to measure scattering effects. The FOM of both detectors is to be maximized simultaneously. To do this, a simple hill climber algorithm was implemented. The hill climber started by subdividing the spatial domain into a $5 \times 5 \times 5$ grid and running ADVANTG/MCNP. The segments in the $x$ direction were then increased by 5 and the simulation was re-run. The segments in the $x$ direction were increased by 5 again the simulation was re-run again. This was repeated until the $x$ subdivisions equaled to 100. The best (determined by the sum of the FOM of both detectors) was then selected as the optimal and then the same was repeated in the $y$ direction while holding the number of segments in $x$ and $z$ constant. Finally, the number of segments in the $z$ direction was optimized in a similar fashion. The fitness over this process is plotted in Fig.~\ref{fig:fitness_xyz}. The entire hill climber was run a second time in the same manner, except the ordering was reversed: $z$ was optimized first, followed by $y$ and then $x$ last. These results are plotted in Fig.~\ref{fig:fitness_zyx}. The optimal result in the $x \rightarrow y \rightarrow z$ direction was $30 \times 5 \times 50$ which resulted in a FOM of 1993.4 min$^{-1}$. The second run, produced an optimal result of $20 \times 5 \times 35$ which resulted in a FOM of 2112.1 min$^{-1}$.
+The Ueki-35 benchmark was experimentally validated in 1992 <[]>. In this benchmark, a $50 \times 50 \times 50$ centimeter paraffin wax block is used to collimate a Californium-252 source into a 45$\deg$ cone beam. A graphite shield block is placed 55 cm away from the point source and a detector region is defined 20 centimeters behind the shield. In MCNP, the detector is a $5 \times 5 \times 5$ air region with a dose response function defined in <FIG>. 
+
+The authors of ADVANTG include a number of benchmark example cases. One of those included is th Ueki-35 benchmark described here. The ADVANTG mesh provided is shown in <FIG>. While no clain to the optimality of this mesh is made, it is presented as a typical human generated solution that is acceptable by most expert standards. The goal of this work is to produce a mesh of comparable FOM.
+
+The current release of ADVANTG (<VERSION \#>) uses MCNP5 internally and only supports MCNP5 particle types. Therefore, to maintain consistency, MCNP5 is used in this project instead of MCNP6, though MCNP6 should be capable of producing identical results.
+
+All experiments were run on a desktop computer with a 8-core 5960X processor and 32 GB of RAM. MCNP was run with one minute of wall time which results in 3.75 seconds (.0625 minutes) expected per run (1 minute distributed evenly amonst 16 hyper-threads). The measured wall-clock time was 0.0811 minutes. The reported R value for the tally was 0.4777, resuting in a FOM of 54.03 min$^{-1}$.
+
+The mesh provided with ADVANTG was subsequently run. ADVANTG ran to completion in 0.1979 minutes, the MCNP took .10045 minutes resulting in a total runtime of .2983 minutes. The reported uncertainty was 0.0172 resulting in a FOM of 11331. ADVANTG results represents a speedup of 209$\times$. The goal of this project is to produce a mesh that produces a higher FOM than this one. The results of the MCNP run with and without the ADVANTG acceleration are summarized in Table~\ref{tab:results}.
+
 \begin{figure}[!t]
-  \centering
-  \includegraphics[width=2.5in]{probsetup}
-  \caption{Problem setup (all units in cm).}
-  \label{probsetup}
+\centering
+\includegraphics[width=2.5in]{uekifig2}
+\caption{Ueki-35 benchmark geometry (T=35 cm). Reproduced from Fig 2 of <CITE>.}
+\label{fig:bestfitness}
 \end{figure}
+
+\begin{figure*}[!t]
+\centering
+\subfloat[Case I]{\includegraphics[width=2.5in]{uekigeom}
+\label{fig:uekimcnpa}}
+\hfil
+\subfloat[Case II]{\includegraphics[width=2.5in]{uekiadjoint}
+\label{fig:uekimcnpb}}
+\caption{The geometry.}
+\label{fig:uekimcnp}
+\end{figure*}
+
+\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+\caption{An Example of a Table}
+\label{tab:results}
+\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+\begin{tabular}{|c|c|c|c|} \hline
+Run & Total Time [min] & R & FOM \\ \hline
+MCNP & 0 & 0 & 0 \\ \hline
+ADVANTG & 0 & 0 & 0 \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+To illustrate the complexity of the problem, a simple hillclimber was used to demonstrate the multimodality of the problem. Details of the experiment are given in the Appendix.
+
 
 \section{Results}
 Charts!
 
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{fitnessplot}
+\caption{TODO.}
+\label{fig:fitness}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{bestfitever}
+\caption{TODO.}
+\label{fig:bestfitness}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{xbinsize}
+\caption{TODO.}
+\label{fig:xbinsize}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{ybinsize}
+\caption{TODO.}
+\label{fig:ybinsize}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{zbinsize}
+\caption{TODO.}
+\label{fig:zbinsize}
+\end{figure}
+
+\begin{figure*}[!t]
+\centering
+\subfloat[Case I]{\includegraphics[width=2.5in]{optimalgeom}
+\label{fig:optimala}}
+\hfil
+\subfloat[Case II]{\includegraphics[width=2.5in]{optimaladjoint}
+\label{fig:optimalb}}
+\caption{The best solution found.}
+\label{fig:optimal}
+\end{figure*}
+
 \section{Discussion}
-Wowzers!
+Was able to outperform
+Significant trend in number of nodes
+Analysis of distribution is needed
+MCNP runtime affect optimality?
+
+crappy teams - new ways to form them
 
 \section{Conclusion}
 They're hard!
+found an unexpected solution - focussed on paraffin collimator
+EA is viable
 
 \section{Future Work}
-Working on it!
+Sensitivity Analysis and param tuning
+additional statistics
+run ea for longer
+more problems - types
 
 
 % An example of a floating figure using the graphicx package.
@@ -614,10 +678,6 @@ Working on it!
 
 
 
-
-% conference papers do not normally have an appendix
-
-
 % use section* for acknowledgment
 \section*{Acknowledgment}
 
@@ -658,7 +718,47 @@ The authors would like to thank...
 %
 %\end{thebibliography}
 
+\pagebreak
+\appendix
+The geometry is shown in Fig.~\ref{fig:probsetup}. A 50 cm thick borated polyethylene (BPE) shield was modeled to shield a beam of parallel 2.45 MeV neutrons emitted toward a sodium iodide (NaI) detector. Another detector was placed 45 cm perpendicular to the beam from the edge of the shield to measure scattering effects. The FOM of both detectors is to be maximized simultaneously. To do this, a simple hill climber algorithm was implemented. The hill climber started by subdividing the spatial domain into a $5 \times 5 \times 5$ grid and running ADVANTG/MCNP. The segments in the $x$ direction were then increased by 5 and the simulation was re-run. The segments in the $x$ direction were increased by 5 again the simulation was re-run again. This was repeated until the $x$ subdivisions equaled to 100. The best (determined by the sum of the FOM of both detectors) was then selected as the optimal and then the same was repeated in the $y$ direction while holding the number of segments in $x$ and $z$ constant. Finally, the number of segments in the $z$ direction was optimized in a similar fashion. The fitness over this process is plotted in Fig.~\ref{fig:fitness_xyz}. The entire hill climber was run a second time in the same manner, except the ordering was reversed: $z$ was optimized first, followed by $y$ and then $x$ last. These results are plotted in Fig.~\ref{fig:fitness_zyx}. The optimal result in the $x \rightarrow y \rightarrow z$ direction was $30 \times 5 \times 50$ which resulted in a FOM of 1993.4 min$^{-1}$. The second run, produced an optimal result of $20 \times 5 \times 35$ which resulted in a FOM of 2112.1 min$^{-1}$.
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{probsetup}
+  \caption{Problem setup (all units in cm).}
+  \label{fig:probsetup}
+\end{figure}
 
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{fitness_xyz}
+  \caption{TODO.}
+  \label{fig:fitness_xyz}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{fitness_zyx}
+  \caption{TODO.}
+  \label{fig:fitness_zyx}
+\end{figure}
+
+\appendix
+\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+\caption{An Example of a Table}
+\label{tab:results}
+\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+\begin{tabular}{|c|c|} \hline
+Parameter & Value \\ \hline
+Cross Section Library & ANISN 27n19g \\ \hline
+Response Weighting & Energy Integrated  \\ \hline
+\end{tabular}
+\end{table}
 
 
 % that's all folks
