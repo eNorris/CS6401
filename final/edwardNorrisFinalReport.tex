@@ -7,8 +7,8 @@
 % manually specify the path to it like:
 % \documentclass[conference]{../sty/IEEEtran}
 
-
-
+% ADDED
+\usepackage{gensymb}
 
 
 % Some very useful LaTeX packages include:
@@ -327,12 +327,12 @@ Email: etnc6d@mst.edu}}
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-The abstract goes here.
+A novel evolutionary algorithm for spatial discretization meshing using a Cartesian grid for radiation transport simulations is proposed. The generated Cartesian grids are evaluated using ADVANTG and MCNP. New phenotypic crossover and mutation operators are presented and the algorithm is tested on the Ueki-35 benchmark. The evolutionary algorithm obtained a figure of merit 2.75 times higher than the reference mesh provided with ADVANTG for the benchmark.
 \end{abstract}
 
 % no keywords
 \begin{IEEEkeywords}
-help
+co-evolution, spatial discretization, mesh, MCNP, ADVANTG, bias parameters
 \end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
@@ -367,12 +367,12 @@ In modern deterministic algorithms, spatial refinement is performed with a quadt
 
 \begin{figure*}[!t]
 \centering
-\subfloat[Case I]{\includegraphics[width=2.5in]{treecomp_quad}
+\subfloat[Quadtree]{\includegraphics[width=2.5in]{treecomp_quad}
 \label{fig:treecompa}}
 \hfil
-\subfloat[Case II]{\includegraphics[width=2.5in]{treecomp_grid}
+\subfloat[Cartesian Grid]{\includegraphics[width=2.5in]{treecomp_grid}
 \label{fig:treecompb}}
-\caption{Simulation results for the network.}
+\caption{Comparison of a 2D quadtree spatial discretization to a Cartesian grid representation. In the Cartesian grid, any cut must go through the entire geometry.}
 \label{fig:treecomp}
 \end{figure*}
 
@@ -380,48 +380,45 @@ Octrees have been in use since 1980~\cite{ref:jackins1980249} to represent 3D sp
 
 Octree structures remain inefficient in particle tracking Monte Carlo simulations due to the additional computational overhead. At every step in the path of every particle, its intersection with all bounding surfaces of the voxel containing it must be calculated. Such calculations are extremely fast in structured Cartesian grids, but much slower in unstructured meshes. Therefore, MCNP only supports structured Cartesian grids as input for biasing parameters.
 
-Though the physical representation of space is different between octree methodology and the proposed segment-tree methodology, both share a similar tree-like structure that represents a physical space. Therefore, a survey of EAs that evolve octrees and similarly structured trees could prove beneficial in the development of evolutionary operators.
-
+\section{Related Work}
 Many EAs have been used in the past that involve octrees but do not directly evolve them. They are often used as a medium to partition some space into a structure more suited for evolutionary computing ~\cite{ref:Zhu2015301, ref:Schwertfeger200853}. While these applications do not directly evolve the spatial discretization itself, some insight into applicable operators can still be gleaned from them. For example, Laszlo and Mukherjee developed an algorithm to assist in $k$-means clustering by building a quadtree and using selected nodes as an initial guess for the $k$-means clustering algorithm~\cite{ref:Laszlo2006}. Though the octree itself was not evolved, Laszlo and Mukherjee highlighted that the refinement density in space can be leveraged to produce more effective crossover operators.
 
 Majeed and Ryan proposed a special version of the one point crossover operator for GP that takes advantage of the structure (context) of the parent trees to produce more optimized offspring~\cite{ref:Majeed2007}. Seo and Goodman extended this work by adding a similar mutation operator that maintains a structural metric in order to explore the search space in a more complete fashion~\cite{ref:seo2009}. However, these operators are only for trees and are very expensive to evaluate, requiring many evaluations for each individual generated to explore contexts.
 
-\section{Related Work}
-Related work text. This methodology has been used to solve what other problems?
+\section{Methodology}\label{sec:methodology}
+The evolutionary algorithm developed to perform the spatial discretization follows a typical flow of operations. An initial population is generated randomly and subsequent individuals are generated via crossover and mutation operators. The selection of individuals that pass on the subsequent generations is achieved by a fitness weighted tournament selection process. The details of the implementation of critical components are delineated in subsequent sections.
 
-\section{Methodology}
-Text.
-
-\subsection{Initialization}
-Each population is initialized with the same number of individuals as all other populations. Each individual is partitioned by $k$ equally spaced nodes, where $k$ is a randomly chosen integer in the range $[5,10]$. The evaluation time each individual is proportional to the number of voxels into which the problem is partitioned [\textbf{CITE}], therefore, initially starting with small chromosomes ensures that time is not wasted running bloated individuals.
-
-\subsection{Representation}
+\subsection{Representation}\label{sec:methodology.representation}
 The most intuitive way to represent a 3D Cartesian grid is to utilize some kind of binary space partition tree such as an interval tree~\cite{ref:Franco1985}. However, tree based representations often suffer from destructive crossover operators that suppress fitness~\cite{ref:Sheneman2006}. This is particularly prevalent when the phenotype is subject to hard constraints. An example of the destructive behavior of tree based crossover is shown in Fig.~\ref{fig:treefail}. When standard tree-GP crossover is used to swap two branches both resulting children are nonsensical. Repair operations can be constructed that fix the trees, but such repair operations necessarily have to alter significant portions of the tree, leaving little genetic information from the parent.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=2.5in]{treefail}
-\caption{TODO}
+\caption{Recombination in tree representations. When the outlined branches in (a) and (b) are swapped, the resulting children are (c) and (d). Both of the children represent nonsensical individuals that do not map to a phenotype (denoted by the dashed line in the phenotype space).}
 \label{fig:treefail}
 \end{figure}
 
+In order to alleviate the problems faced during recombination when using a tree based genotype, a linear genotype is used instead. However, even a linear genotype can result in nonsensical physical space. Therefore, a novel crossover is proposed for a linear genotype. The details of this crossover operator are detailed in Section~\ref{sec:xover}. Figure~\ref{fig:reprmap} shows how a physical mesh (in 2D) is mapped to the set of individuals from which it is composed. Mapping from the phenotype to the genotype and back is trivial.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{reprmap}
+\caption{A 2D mesh can be decomposed into two indviduals. Both the phenotype and genotype are shown for the $x$ individual, only the phenotype is shown for the $y$ individual. In 3D, three individuals are required to represent a mesh.}
+\label{fig:reprmap}
+\end{figure}
+
+Three populations are maintained, one for each dimension. The three populations are cooperatively co-evolved. 
+
+\subsection{Initialization}
+Each population is initialized with the same number of individuals as all other populations. Each individual is partitioned by $k$ equally spaced nodes, where $k$ is a randomly chosen integer in the range $[5,10]$. The evaluation time each individual is proportional to the number of voxels into which the problem is partitioned \cite{ref:Mosher2015}, therefore, initially starting with small chromosomes ensures that time is not wasted running bloated individuals. If individuals with a more finely meshed dimension exist, the EA is epxected to naturally arrive at them over time.
+
+\subsection{Crossover}\label{sec:xover}
+As shown in Section~\ref{sec:methodology.representation}, a linear representation alleviates many of the problems of recombination when strict ordering requirments on the genotype are present. However, crossover on a linear geneotype may still result in an invalid child. The proposed method to prevent this is a novel crossover operator in phenotype space. Such an operator enables production of correct offspring as well as maintains information from the parents in an intuitive way. Such a recombination is illustrated in Fig.~\ref{fig:linearxover}. Identical regions of the phenotype are selected and swapped.
+
+To implement the phenotypic crossover for an individual, two points are randomly selected along the discretized dimension. All nodes between these two points are swapped regardless of how many are within the bounds. This guarantees that the ordering is preserved. This can be implemented very efficiently if the genotype is stored as a linked list data structure since it only requires that the appropriate pointers be redirected to the other parent.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=2.5in]{linearxover}
-\caption{TODO}
+\caption{Recombination in phenotype space with a linear representation. When the outlined segments in (a) and (b) are swapped, the resulting children, (c) and (d) are still properly ordered.}
 \label{fig:linearxover}
-\end{figure}
-
-\subsection{Crossover}
-The PI believes that crossover in phenotype space will enable production of correct offspring as well as maintain information from the parents in an intuitive way. Such a recombination is illustrated in Fig.~\ref{fig:linearxover}. Identical regions of the phenotype are selected and swapped. However, this necessitates a one-to-one mapping from genotype to phenotype and back, since many trees can represent the same phenotype, they are unsuitable for a phenotypic crossover. Therefore, a linear chromosome is used. The linear chromosome still provides the intuitive mesh refinement properties of the tree representation but also provides the necessary mapping constraint.
-
-The mating pool of possible parents is the entire population for each population. Two parents are selected at random. Each co
-
-Due to a limitation of the ADVANTG code, no individual with less than three segments in any dimension can be evalutated. Any child that has less than three segments has genes added randomly until it has at least three genes.
-\begin{figure}[!t]
-\centering
-\includegraphics[width=2.5in]{emptyxover}
-\caption{An example of a case where crossover can generate a solution with a small genotype. In this example, parents shown in (a) and (b) generate children in (c) and (d), one of which only contains a single segment. This violates a limitation of ADVANTG and prevents evaluation of the individual in (d) in subsequent development.}
-\label{fig_sim}
 \end{figure}
 
 \subsection{Mutation Operator}
@@ -429,38 +426,48 @@ The mutation operator will randomly select one of two operations to perform: eit
 
 First, the mutation operator selects a random region. The region is chosen by choosing two points in the domain. The region is defined by all segments partially (or fully) enclosed by the two selected points. The mutation operator will randomly (with equal liklihood) choose to either sparcify or densify that region.
 
-Sparcification and densification are each defined by a probability, $P_s$ and $P_d$ respectively. In practice, these probabilites are always set equal to one another to avoid issues of bloat.
+Sparcification and densification are each defined by a probability, $P_s$ and $P_d$ respectively. In practice, these probabilites are always set equal to one another to avoid issues of bloat. When an individual is sparcified, two points along the individual are selected randomly. All elements between two nodes are split by adding a new node between the two existing ones. When an individual is densified, the opposite occurs, every node has a liklihood of being removed. If an individual were to have sparcify and densify operators applied to it repeatedly, the effect of the two operators should cancel out the increase/decrease in overall node number and degenerate to moving nodes around randomly.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{mutate_sparcify}
+\caption{The sparcify mutation operator selects a region of the individual at random and randomly removes nodes.}
+\label{fig:sparcify}
+\end{figure}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{mutate_densify}
+\caption{The densify mutation operator selects a region of the individual at random and subdivides each element into two sub-elements by generating an internal node.}
+\label{fig:densify}
+\end{figure}
 
-It is important to note that the sparcify and densify operators occur with equal probability. If either was utilized more heavily than the other, it would add pressure to either artificially bloat or prune individuals.
+It is important to note that the sparcify and densify operators occur with equal probability. If either was utilized more heavily than the other, it would add pressure to either artificially bloat or prune individuals. In all cases run for this work, $P_s = P_d = 0.5$.
 
 \subsection{Repair Operator}
-Due to a limitation in the current version of ADVANTG, in order to guarantee that a solution is found, each of the three spatial dimensions must be meshed by at least 5 nodes. To ensure this, a repair operator is employed after each new individual is generated. If the individual has less than 5 nodes, new ones are added from a uniform distribution until it does.
+A side effect of the novel phenotype operator developed is that very small individuals can be easily generated. When appropriate regions are chosen, all the genes from one parent can be moved to the other and replaced by none. This results in one parent becoming bloated and the other becoming very sparce or even completely empty, as illustrated in Figure~\ref{fig:emptyxover}. Fundamentally, this poses no problem since individuals that either have too coarse or too fine a mesh will be pruned out by the evolutionary process. However, due to a limitation in the current version of ADVANTG, in order to guarantee that a solution is found, each of the three spatial dimensions must be meshed by at least 5 nodes. To ensure this, a repair operator is employed after each new individual is generated. If the individual has less than 5 nodes, new ones are added from a uniform distribution until it does.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{emptyxover}
+\caption{An example of a case where crossover can generate a solution with a small genotype. In this example, parents shown in (a) and (b) generate children in (c) and (d), one of which only contains a single segment. This violates a limitation of ADVANTG and prevents evaluation of the individual in (d) in subsequent development.}
+\label{fig:emptyxover}
+\end{figure}
 
+% How else can teams be formed.
 \subsection{Team Selection and Evaluation}
-Before the fitness of an individual can be calculated, teams must be formed. Each team consists of a single individual from each poplulation. Currently, teams are formed at random, <WHAT ELSE CAN BE DONE>. The fitness of a team ($FOM_t$) is then equal to the figure of merit (FOM) of that solution, given in Eq. \ref{eq:fomteam}, where $T_t$ is the wall time to evaluate the solution and $\bar{R_t}$ is the average of the reported estimated relative uncertainty for all regions of interest by MCNP.
+Before the fitness of an individual can be calculated, teams must be formed. Each team consists of a single individual from each poplulation. Currently, teams are formed at random. The fitness of a team ($FOM_t$) is then equal to the figure of merit (FOM) of that solution, given in Eq. \ref{eq:fomteam}, where $T_t$ is the wall time to evaluate the solution and $\bar{R_t}$ is the average of the reported estimated relative uncertainty for all regions of interest by MCNP.
 \begin{equation} \label{eq:fomteam}
 FOM_{t} = \frac{1}{T_t\bar{R_t}^2}
 \end{equation}
-The simple fitness of the $i{th}$ individual, $FOM_{s,i}$, is equal to the average fitness of all teams in which it has participated. However, this will attribute a score of zero <NOT TRUE> to any individual that has never participaed in a team. Good chromosomes may be eliminated due to poor team selection. Therefore, the simple fitness is modified by Eq. \ref{eq:fommod} to give the modified fitness ($FOM_{m,i}$). The modified fitnes linearly scales the 
-\begin{equation}\label{eq:fommod}
-FOM_{m,i} = M(1-\rho)FOM_{s,i} + \rho M
-\end{equation}
-\begin{equation}\label{eq:fommodm}
-M = \max_i FOM_{s,i}
-\end{equation}
+The simple fitness of the $i^{th}$ individual, $FOM_{s,i}$, is equal to the average fitness of all teams in which it has participated. However, this will attribute either a score of zero to any individual that has never participaed in a team. Good chromosomes may be eliminated due to poor team selection. This is a limitation of the current implementation, though a number of solutions are available. A function could be used to map all fitness values to a non-zero regime or all individuals could be guaranteed to be evaluated at least once.
 
-\subsection{Population Parameters}
-The population size was chosen to be 15. In each generation, 10 individuals are selected without replacement to be members of the mating pool. Once in the mating pool, five pairs are chosen at random (self-mating is allowed). Each pair performs crossover and the children undergo subsequent mutation. The children are introduced into the population and a tournament without replacement is run to reduce the population to its original size.
-
-\subsection{Termination}
-Currently, the EA terminates after a user-specified wall time.
+\subsection{Evolutionary Algorithm Parameters}
+The population size was chosen to be 15. In each generation, 10 individuals are selected without replacement to be members of the mating pool. Once in the mating pool, five pairs are chosen at random (self-mating is allowed). Each pair performs crossover and the children undergo subsequent mutation. The children are introduced into the population and a tournament without replacement is run to reduce the population to its original size. Generations run until a user-specified wall time is exceeded. 
 
 \section{Experimental Setup}
-The Ueki-35 benchmark was experimentally validated in 1992 <[]>. In this benchmark, a $50 \times 50 \times 50$ centimeter paraffin wax block is used to collimate a Californium-252 source into a 45$\deg$ cone beam. A graphite shield block is placed 55 cm away from the point source and a detector region is defined 20 centimeters behind the shield. In MCNP, the detector is a $5 \times 5 \times 5$ air region with a dose response function defined in <FIG>. 
+The Ueki-35 benchmark was experimentally validated in 1992~\cite{ref:Ueki1992}. In this benchmark, a $50 \times 50 \times 50$ centimeter paraffin wax block is used to collimate a Californium-252 source into a 45$\degree$ cone beam. A graphite shield block is placed 55 cm away from the point source and a detector region is defined 20 centimeters behind the shield. In MCNP, the detector is a $5 \times 5 \times 5$ air region with a flux-to-dose response function defined by ICRP 26 \cite{ref:ICRP1977}.
 
-The authors of ADVANTG include a number of benchmark example cases. One of those included is th Ueki-35 benchmark described here. The ADVANTG mesh provided is shown in <FIG>. While no clain to the optimality of this mesh is made, it is presented as a typical human generated solution that is acceptable by most expert standards. The goal of this work is to produce a mesh of comparable FOM.
+The authors of ADVANTG include a number of benchmark example cases. One of those included is th Ueki-35 benchmark described here. A sketch of the geometry is reproduced from \cite{ref:Ueki1992} in Figure~\ref{fig:uekifig2}. The ADVANTG mesh provided is shown in~\ref{fig:uekimcnpa}. While no clain to the optimality of this mesh is made, it is presented as a typical human generated solution that is acceptable by most expert standards. The goal of this work is to produce a mesh of comparable FOM.
 
-The current release of ADVANTG (<VERSION \#>) uses MCNP5 internally and only supports MCNP5 particle types. Therefore, to maintain consistency, MCNP5 is used in this project instead of MCNP6, though MCNP6 should be capable of producing identical results.
+The current release of ADVANTG uses MCNP5 internally and only supports MCNP5 particle types. Therefore, to maintain consistency, MCNP5 is used in this project instead of MCNP6, though MCNP6 should be capable of producing identical results.
 
 All experiments were run on a desktop computer with a 8-core 5960X processor and 32 GB of RAM. MCNP was run with one minute of wall time which results in 3.75 seconds (.0625 minutes) expected per run (1 minute distributed evenly amonst 16 hyper-threads). The measured wall-clock time was 0.0811 minutes. The reported R value for the tally was 0.4777, resuting in a FOM of 54.03 min$^{-1}$.
 
@@ -469,111 +476,112 @@ The mesh provided with ADVANTG was subsequently run. ADVANTG ran to completion i
 \begin{figure}[!t]
 \centering
 \includegraphics[width=2.5in]{uekifig2}
-\caption{Ueki-35 benchmark geometry (T=35 cm). Reproduced from Fig 2 of <CITE>.}
-\label{fig:bestfitness}
+\caption{Ueki-35 benchmark geometry (T=35 cm). Reproduced from Fig 2 of \cite{ref:Ueki1992}.}
+\label{fig:uekifig2}
 \end{figure}
 
 \begin{figure*}[!t]
 \centering
-\subfloat[Case I]{\includegraphics[width=2.5in]{uekigeom}
+\subfloat[Geometric Characterization]{\includegraphics[width=2.5in]{uekigeom}
 \label{fig:uekimcnpa}}
 \hfil
-\subfloat[Case II]{\includegraphics[width=2.5in]{uekiadjoint}
+\subfloat[Adjoint Solution]{\includegraphics[width=2.5in]{uekiadjoint}
 \label{fig:uekimcnpb}}
-\caption{The geometry.}
+\caption{The mesh provided with the Ueki-35 benchmark that is accepted as the reference mesh and the corresponding geometric characterization of the problem once the problem is mapped onto the mesh (a) and the corresponding adjoint solution (b).}
 \label{fig:uekimcnp}
 \end{figure*}
 
 \begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
 \caption{An Example of a Table}
 \label{tab:results}
 \centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
 \begin{tabular}{|c|c|c|c|} \hline
-Run & Total Time [min] & R & FOM \\ \hline
-MCNP & 0 & 0 & 0 \\ \hline
-ADVANTG & 0 & 0 & 0 \\ \hline
+Run & Total Time [min] & R & FOM [min$^{-1}$] \\ \hline
+MCNP & 0.0811 & 0.4777 & 54.03 \\ \hline
+ADVANTG & 0.2983 & 0.0172 & 11331 \\ \hline
+EA & -- & -- & 31186 \\ \hline 
 \end{tabular}
 \end{table}
 
-
-
-
 To illustrate the complexity of the problem, a simple hillclimber was used to demonstrate the multimodality of the problem. Details of the experiment are given in the Appendix.
 
-
 \section{Results}
-Charts!
+The EA was run using the methodology described in Section \ref{sec:methodology}. Due to time constraints, the EA was only able to run for 30 minutes which greatly limited its performance. The fitness of each team evaluation is shown if Fig. \ref{fig:fitness}. There is a general, albeit weak, upward trend. 
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=2.5in]{fitnessplot}
-\caption{TODO.}
+\caption{Figure of Merit (FOM) of each team evaluation.}
 \label{fig:fitness}
 \end{figure}
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=2.5in]{bestfitever}
-\caption{TODO.}
-\label{fig:bestfitness}
-\end{figure}
+The number of nodes in each of the $x$, $y$, and $z$ dimensions is shown if Figures~\ref{fig:xbinsize},~\ref{fig:ybinsize}, and~\ref{fig:zbinsize} respectively.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=2.5in]{xbinsize}
-\caption{TODO.}
+\caption{The number of nodes in the $x$ direction. The upward trend indicates that this direction is of particular importance for refinement.}
 \label{fig:xbinsize}
 \end{figure}
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=2.5in]{ybinsize}
-\caption{TODO.}
+\caption{The number of nodes in the $y$ direction. The flat or even downward sloping trend indicates that this direction is not of particular importance for refinement.}
 \label{fig:ybinsize}
 \end{figure}
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=2.5in]{zbinsize}
-\caption{TODO.}
+\caption{The number of nodes in the $z$ direction. The weak upward trend indicates that this direction is of importance for refinement but not as important as the $x$ direction.}
 \label{fig:zbinsize}
+\end{figure}
+
+The fitness of the best individual discovered so far is recorded in Fig. \ref{fig:bestfitnessever}. The highest fitness encountered was 31186. The best team formed by the EA is compared to the reference MCNP-only and ADVANTG cases in Table~\ref{tab:results}. The best team evaluated is shown in Figure~\ref{fig:optimal} for comparison to the expert reference shown in Figure~\ref{fig:uekimcnp}. The geometry is much more coarse; the shape of the collimator is not even evident and the graphite shield is not characterized at all. The adjoint solution is analogously course. However, the coarse geometry produced a similar error reduction to the reference solution while evaluating much more quickly.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=2.5in]{bestfitever}
+\caption{The Figure of Merit (FOM) of the best team evaluated so far in the run of the EA.}
+\label{fig:bestfitnessever}
 \end{figure}
 
 \begin{figure*}[!t]
 \centering
-\subfloat[Case I]{\includegraphics[width=2.5in]{optimalgeom}
+\subfloat[Geometry Characterization]{\includegraphics[width=2.5in]{optimalgeom}
 \label{fig:optimala}}
 \hfil
-\subfloat[Case II]{\includegraphics[width=2.5in]{optimaladjoint}
+\subfloat[Adjoint Solution]{\includegraphics[width=2.5in]{optimaladjoint}
 \label{fig:optimalb}}
-\caption{The best solution found.}
+\caption{The mesh generated by the EA and the corresponding geometric characterization of the problem once the problem is mapped onto the mesh (a) and the corresponding adjoint solution (b).}
 \label{fig:optimal}
 \end{figure*}
 
 \section{Discussion}
-Was able to outperform
-Significant trend in number of nodes
-Analysis of distribution is needed
-MCNP runtime affect optimality?
+The EA developed was able to outperform the reference mesh by a factor of 2.75, indicating that it is able to achieve the same uncertainty in just over one third the time. However, due to time constraints, the EA was only able to be run for 30 minutes. A longer run may provide a significantly higher fitness. Alternatively, the EA may have already prematurely converged, which cannot be known without a longer run. Further, more statistics are needed to quantify the extent of the upward trend of the fitness shown in Figure~\ref{fig:fitness}.
 
-crappy teams - new ways to form them
+Since $x$ is the direction from the source to the detector, it is expected that many nodes will be needed along that direction to accurately characterize the shielding geometry; the expected trend is shown in Figure~\ref{fig:xbinsize}, however, upon examinging the best individual shown in Figure~\ref{fig:optimal}, it is clear that the upward trend is not due to nodes in the shielding region. The best solution found had no nodes in the shield region which was very unexpected. Instead, the nodes clustered around the paraffin wax collimator. This phenomena may be largely due to the nuclear properties of the materials in question. The Californium-252 source emits primarily high energy (greater than 1 MeV) neutrons which will have significant penetration power into the graphite shield. The greater influence is the paraffin collimator which can thermalize them. Since the thermalization of the neutrons into the graphite would greatly impact their behavior inside it, it is likely that accurate characterization of the collimator is more important to the overall problem than characterization of the shield itself. In the vast majority of sheilding exercises, such behavior is counterintuitive and would be very difficult for a human to accurately quantify.
+
+Another unexpected conclusion that arose out of analysis of the node count trend over time is the fact that the number of nodes along the $z$ axis showed an overall increasing trend while the node count along the $y$ direction did not. This is believed to be due to the relationship between runtime in ADVANTG and the corresponding decrease in certainty. It is generally favorable for a symmetric solution to be biased toward one of the two directions. The physical reasoning behind this is currently unknown.
+
+While the node count data shown in Figures~\ref{fig:xbinsize},~\ref{fig:ybinsize}, and~\ref{fig:zbinsize} is sufficient to draw some conclusions, a time resolved measure of the distribution of each dimension would provide additional insight into the behavior of the EA. A measure to show the distribution of the nodes in the phenotype would provide a way to monitor the EA for convergence and conclude whether the nodes migrate toward significant regions in a sensible manner. This may also help identify which operations of the EA are the most helpful in developing good individuals, leading to improved EA operators and parameters.
+
+Currently, this work does not consider the formation of teams beyond selecting them at random. Other works \cite{ref:Bucci2005} have shown that forming teams is a crucial component of cooperative co-evolutionary EAs. Due to time constrants, a more intelligent solution to this was not implemented, but it is likely that a better methodology to select teams could prove very useful.
+
+%The impact of over-generalization is not currently known for this particular EA.
 
 \section{Conclusion}
-They're hard!
-found an unexpected solution - focussed on paraffin collimator
-EA is viable
+Evolutionary algorithms (EAs) show significant promise in spatial discretization optimization for nuclear engineering problems. The developed EA outperformed the refernece mesh by a factor of 2.75 for the Ueki-35 benchmark case. The solution found by the EA was a very counterintuitive solution that would be very difficult for a human being to develop. Due to the complex nature of radiation transport, particularly in sheilding problems, where the influence of devices other than the shield can play a significant role, EAs are a very promising candidate to determine the best way to voxelize the problem. 
+
+Optimal discretization of the problem for a deterministic code to develop biasing parameters for a final dose calculation using a Monte Carlo code can decrease the runtime significantly. Since such computations are critical for many different fields to ensure the safety of patients, workers, and the general public, and they are very time and resource intensive, reduction of their runtime can yield significant societal benefits.
 
 \section{Future Work}
-Sensitivity Analysis and param tuning
-additional statistics
-run ea for longer
-more problems - types
+Further sensitivity analysis and parameter turning to determine the optimal settings for the EA are still needed. While the EA has shown promise with it current settings, it is almost certain that there exists some other permutation of settings that will produce significantly results.
+
+Additional statistical analysis of the genotype during the evolution of the EA would provide more insignt into the overall trends in the population. This may lead to the development of other algorihms able to more effectively exploit currently unknown trends in the problem geometry.
+
+Running the EA on more benchmark cases, particularly those with a reference mesh against which to compare will help to further validate the usefullness of an EA in regards to spatial decomposition. A very complex, time consuming benchmark would be particularly useful since the current Ueki-35 benchmark is of a simple enough geometry that acceptable uncertainty can be achieved in under a minute on a modern desktop computer. Running the EA on a very difficult problem that typically takes days to run would provide additional results and show its performance on large scale problems.
 
 
 % An example of a floating figure using the graphicx package.
@@ -679,10 +687,8 @@ more problems - types
 
 
 % use section* for acknowledgment
-\section*{Acknowledgment}
-
-
-The authors would like to thank...
+%\section*{Acknowledgment}
+%The authors would like to thank...
 
 
 
@@ -718,8 +724,10 @@ The authors would like to thank...
 %
 %\end{thebibliography}
 
-\pagebreak
+\newpage
+\clearpage
 \appendix
+\section{Hillclimber Exmaple}
 The geometry is shown in Fig.~\ref{fig:probsetup}. A 50 cm thick borated polyethylene (BPE) shield was modeled to shield a beam of parallel 2.45 MeV neutrons emitted toward a sodium iodide (NaI) detector. Another detector was placed 45 cm perpendicular to the beam from the edge of the shield to measure scattering effects. The FOM of both detectors is to be maximized simultaneously. To do this, a simple hill climber algorithm was implemented. The hill climber started by subdividing the spatial domain into a $5 \times 5 \times 5$ grid and running ADVANTG/MCNP. The segments in the $x$ direction were then increased by 5 and the simulation was re-run. The segments in the $x$ direction were increased by 5 again the simulation was re-run again. This was repeated until the $x$ subdivisions equaled to 100. The best (determined by the sum of the FOM of both detectors) was then selected as the optimal and then the same was repeated in the $y$ direction while holding the number of segments in $x$ and $z$ constant. Finally, the number of segments in the $z$ direction was optimized in a similar fashion. The fitness over this process is plotted in Fig.~\ref{fig:fitness_xyz}. The entire hill climber was run a second time in the same manner, except the ordering was reversed: $z$ was optimized first, followed by $y$ and then $x$ last. These results are plotted in Fig.~\ref{fig:fitness_zyx}. The optimal result in the $x \rightarrow y \rightarrow z$ direction was $30 \times 5 \times 50$ which resulted in a FOM of 1993.4 min$^{-1}$. The second run, produced an optimal result of $20 \times 5 \times 35$ which resulted in a FOM of 2112.1 min$^{-1}$.
 \begin{figure}[!t]
   \centering
@@ -731,25 +739,25 @@ The geometry is shown in Fig.~\ref{fig:probsetup}. A 50 cm thick borated polyeth
 \begin{figure}[!t]
   \centering
   \includegraphics[width=2.5in]{fitness_xyz}
-  \caption{TODO.}
+  \caption{Fitness when the hill climber explores dimensions in the $x$, $y$, $z$ order.}
   \label{fig:fitness_xyz}
 \end{figure}
 
 \begin{figure}[!t]
   \centering
   \includegraphics[width=2.5in]{fitness_zyx}
-  \caption{TODO.}
+  \caption{Fitness when the hill climber explores dimensions in the $z$, $y$, $x$ order.}
   \label{fig:fitness_zyx}
 \end{figure}
 
-\appendix
+\section{Additional Nuclear Parameters}
 \begin{table}[!t]
 %% increase table row spacing, adjust to taste
 %\renewcommand{\arraystretch}{1.3}
 % if using array.sty, it might be a good idea to tweak the value of
 % \extrarowheight as needed to properly center the text within the cells
-\caption{An Example of a Table}
-\label{tab:results}
+\caption{Additional ADVANTG Parameters Needed to Recreate Results}
+\label{tab:nuclearparams}
 \centering
 %% Some packages, such as MDW tools, offer better commands for making tables
 %% than the plain LaTeX2e tabular which is used here.
@@ -757,6 +765,16 @@ The geometry is shown in Fig.~\ref{fig:probsetup}. A 50 cm thick borated polyeth
 Parameter & Value \\ \hline
 Cross Section Library & ANISN 27n19g \\ \hline
 Response Weighting & Energy Integrated  \\ \hline
+Upscatter Treatment & Ignored  \\ \hline
+Anisotropy Expansion & P$_1$  \\ \hline
+Discretization Scheme & Step Characteristic  \\ \hline
+Quadrature Type & Quadruple Range  \\ \hline
+Polar Angles & 2  \\ \hline
+Azimuthal Angles & 2  \\ \hline
+Transport Correction & Diagonal Correction  \\ \hline
+First Collision & Disabled  \\ \hline
+Solver & GM-RES  \\ \hline
+Preconditioner & None  \\ \hline
 \end{tabular}
 \end{table}
 

@@ -22,9 +22,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.9899495"
-     inkscape:cx="2695.0394"
-     inkscape:cy="1037.3895"
+     inkscape:zoom="0.7"
+     inkscape:cx="1739.3909"
+     inkscape:cy="282.82089"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1821,7 +1821,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2311,118 +2311,73 @@
     <rect
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
        style="fill:none;stroke:#000000;stroke-opacity:1"
        id="rect3888"
        width="309.28571"
        height="292.14285"
-       x="1212.8572"
-       y="413.07645" />
+       x="1651.2634"
+       y="506.01047" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 1367.5,413.43361 0,291.42857"
-       id="path3890"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc" />
-    <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 1213.0357,559.14789 308.9286,0"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 1651.4419,652.08192 308.9286,0"
        id="path3892"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path3914"
-       d="m 1491.5,413.43361 0,291.42857"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+       d="m 1935.9062,506.36764 0,291.42857"
+       style="fill:none;stroke:#0000ff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 1467.5,413.43361 0,291.42857"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       style="fill:none;stroke:#0000ff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 1911.9062,506.36764 0,291.42857"
        id="path3916"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path3918"
-       d="m 1297.5,413.43361 0,291.42857"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+       d="m 1735.9062,506.36764 0,291.42857"
+       style="fill:none;stroke:#0000ff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 1269.5,413.43361 0,291.42857"
-       id="path3920"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc" />
-    <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
-       id="path3922"
-       d="m 1213.0357,475.14789 308.9286,0"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 1213.0357,463.14789 308.9286,0"
-       id="path3924"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc" />
-    <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
-       sodipodi:nodetypes="cc"
-       inkscape:connector-curvature="0"
-       id="path3926"
-       d="m 1213.0357,453.14789 308.9286,0"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    <path
-       inkscape:export-ydpi="90"
-       inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 1213.0357,433.14789 308.9286,0"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 1651.4419,526.08192 308.9286,0"
        id="path3928"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path3930"
-       d="m 1213.0357,627.14789 308.9286,0"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+       d="m 1651.4419,720.08192 308.9286,0"
+       style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <path
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-filename="/media/data/school/treecomp_grid.png"
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 1213.0357,665.14789 308.9286,0"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       style="fill:none;stroke:#ff0000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 1651.4419,758.08192 308.9286,0"
        id="path3932"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
@@ -8448,5 +8403,259 @@
        d="m 2694.618,251.71641 0,58.54782"
        id="path12237"
        inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="1649.5791"
+       y="834.16925"
+       id="text8452"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan8454"
+         x="1649.5791"
+         y="834.16925"
+         style="-inkscape-font-specification:Times New Roman;font-family:Times New Roman">0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="1947.5741"
+       y="839.21997"
+       id="text8456"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan8458"
+         x="1947.5741"
+         y="839.21997"
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman">1</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text8460"
+       y="516.10419"
+       x="1967.5934"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="516.10419"
+         x="1967.5934"
+         id="tspan8462"
+         sodipodi:role="line">1</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text8464"
+       y="803.86469"
+       x="1968.9092"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="803.86469"
+         x="1968.9092"
+         id="tspan8466"
+         sodipodi:role="line">0</tspan></text>
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path8468"
+       d="m 1649.299,862.06454 308.9286,0"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path8470"
+       d="m 2022.101,506.72479 0,291.42857"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#0000ff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 1934.0847,843.52885 0,37.07139"
+       id="path8474"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path8476"
+       d="m 1910.0152,843.52885 0,37.07139"
+       style="fill:none;stroke:#0000ff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#0000ff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 1733.523,843.52885 0,37.07139"
+       id="path8478"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 1649.4419,843.52885 0,37.07139"
+       id="path9274"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path9276"
+       d="m 1958.0847,843.52885 0,37.07139"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path9278"
+       d="m 2001.9603,652.46658 40.2813,0"
+       style="fill:none;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path9286"
+       d="m 2001.9603,526.11986 40.2813,0"
+       style="fill:none;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 2001.9603,720.6537 40.2813,0"
+       id="path9288"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path9290"
+       d="m 2001.9603,758.75828 40.2813,0"
+       style="fill:none;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 2001.9603,506.11986 40.2813,0"
+       id="path9292"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 2001.9603,797.32971 40.2813,0"
+       id="path9294"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="1428.1906"
+       y="936.78253"
+       id="text9296"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan9298"
+         x="1428.1906"
+         y="936.78253"
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Genotype</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="1407.0477"
+       y="873.92548"
+       id="text9300"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan9302"
+         x="1407.0477"
+         y="873.92548"
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman">Phenotype</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40.38839722px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="1566.9368"
+       y="891.06561"
+       id="text9304"
+       sodipodi:linespacing="125%"
+       transform="scale(1.0097099,0.99038347)"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         sodipodi:role="line"
+         id="tspan9306"
+         x="1566.9368"
+         y="891.06561"
+         style="font-size:72.69911194px;font-family:Times New Roman;-inkscape-font-specification:Times New Roman">{</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text9308"
+       y="960.54895"
+       x="1559.307"
+       style="font-size:20.1121769px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"
+       transform="scale(1.0138278,0.98636081)"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><tspan
+         style="font-size:72.40383911px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         y="960.54895"
+         x="1559.307"
+         id="tspan9310"
+         sodipodi:role="line">{</tspan></text>
+    <text
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/media/data/school/CS6401/final/reprmap.png"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="1641.0674"
+       y="937.54718"
+       id="text9312"
+       sodipodi:linespacing="125%"><tspan
+         style="font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         sodipodi:role="line"
+         id="tspan9314"
+         x="1641.0674"
+         y="937.54718">0, .25, .8, .9, 1</tspan></text>
   </g>
 </svg>
