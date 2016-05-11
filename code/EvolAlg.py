@@ -149,6 +149,7 @@ class EvolAlg(object):
         print("Evaluations: " + str(len(solutions)))
         print(best_solution)
 
+        '''
         matplotlib.rcParams.update({'font.size': 22})
         matplotlib.rcParams.update({'figure.autolayout': True})
 
@@ -247,6 +248,7 @@ class EvolAlg(object):
         pyplot.ylabel('# Of Individuals per dimension')
 
         pyplot.show()
+        '''
 
     @staticmethod
     def evaluate_team(xindiv, yindiv, zindiv):

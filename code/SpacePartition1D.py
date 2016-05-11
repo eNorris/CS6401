@@ -19,8 +19,10 @@ class SpacePartition1D(object):
 
     def get_mesh(self):
         msh = ""
-        for mbin in self.abs_bins():
-            msh += str(mbin) + " "
+        q = self.abs_bins()
+        for i, mbin in enumerate(q):
+            if i == 0 or float(q[i]) - float(q[i-1]) > 1E-6:
+                msh += str(mbin) + " "
         return msh
 
     def get_mesh_ints(self):

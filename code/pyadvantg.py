@@ -9,10 +9,10 @@ import shutil
 import SpacePartition1D
 
 # Changes on different systems
-# LOC = 'Storage/'
-# ADVANTG = '/media/' + LOC + 'advantage/bin/advantg '
-LOC = 'data/'
-ADVANTG = '/media/' + LOC + 'advantge/advantge/bin/advantg '
+LOC = 'Storage/'
+ADVANTG = '/media/' + LOC + 'advantage/bin/advantg '
+# LOC = 'data/'
+# ADVANTG = '/media/' + LOC + 'advantge/advantge/bin/advantg '
 
 
 FOLDER_ROOT = '/media/' + LOC + 'school/CS6401/code'
@@ -169,9 +169,18 @@ def eval_co_fitness(indiv_x, indiv_y, indiv_z):
     os.chdir("output")
 
     # Remove Tally 4
-    # if not remove_tally4("inp", "inp_purged"):
+    if not remove_tally4("inp", "inp_purged"):
+        fitness = phasetree.PhaseFitness()
+        fitness.v = 1
+        fitness.u = [1]
+        fitness.mcnp_t = 30
+        fitness.adv_t = 30
+        #fitness.calc_fom()
+        fitness.fom = [0]
+        fitness.fomavg = 0
+        return fitness
     #    return None
-    remove_tally4("inp", "inp_purged")
+    #remove_tally4("inp", "inp_purged")
 
     mcnp_start = time.time()
     #cmd = "../../mcnprun.sh inp_purged"
@@ -236,11 +245,11 @@ def rewrite_advtg(adv_in_filename, adv_out_filename, x, y, z):
 
 
 def remove_tally4(input_file, output_file):
-    # try:
-    fin = open(input_file, 'r')
-    # except FileNotFoundError:
-    #    print("Corrupted ADVANTG Input!")
-    #    return False
+    try:
+        fin = open(input_file, 'r')
+    except Exception:
+       print("Corrupted ADVANTG Input!")
+       return False
     fout = open(output_file, 'w')
     
     lines = fin.readlines()

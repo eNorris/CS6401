@@ -12,7 +12,7 @@ class SpacePartition3D(object):
         fit = -1
 
     def __repr__(self):
-        return "fit: " + str(self.fit) + "   Dims:(" + str(len(self.x)) + ',' +  str(len(self.y)) + ',' +str(len(self.z))+ ")\n" + \
+        return "fit: " + str(self.fit) + "   Dims:(" + str(len(self.x)) + ',' + str(len(self.y)) + ',' + str(len(self.z)) + ")\n" + \
         "x: " + str(self.x) + '\n' + \
         "y: " + str(self.y) + '\n' + \
         "z: " + str(self.z)
