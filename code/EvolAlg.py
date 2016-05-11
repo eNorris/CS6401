@@ -17,7 +17,7 @@ class EvolAlg(object):
 
     def __init__(self):
         self.max_evals = 1E5
-        self.timeout = 6*60*60  # Seconds
+        self.timeout = 30*60  # Seconds
         self.pop_size = 15
         self.children = 5
 
